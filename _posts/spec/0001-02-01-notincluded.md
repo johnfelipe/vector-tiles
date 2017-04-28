@@ -25,7 +25,7 @@ It would be converted into a string and stored in the protobuf like this:
 ```
 keys: "categories"
 values: {
-  string_value: "[\"one\",\"two\",3]"
+  string_value: "[\"one\",\"two\",\"three\"]"
 }
 ```
 
