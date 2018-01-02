@@ -3,7 +3,7 @@
 This is a home for all vector tile documentation at mapbox.com.
 
 * What are vector tiles?
-* `mapbox-streets` & `mapbox-terrain` documentation
+* `mapbox-streets`, `mapbox-terrain`, and `mapbox-traffic` documentation
 * Vector tile specification guide
 
 ### Contribute
