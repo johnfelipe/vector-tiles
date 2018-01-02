@@ -46,7 +46,7 @@ When you publicly use styles or software that use Mapbox Traffic vector tiles, y
 
 Mapbox Traffic can be used to display congestion for both directions on two way roads. When styling congestion, it's recommended that you add a positive `line-offset` to the layer to visually separate the directions of travel.
 
-In regions that use left-hand traffic, road directions are reversed to allow for consistent `line-offset` styling of all roads. 
+In regions that use left-hand traffic, road directions are reversed to allow for consistent `line-offset` styling of all roads.
 
 ### Data updates
 
@@ -70,7 +70,7 @@ Mapbox Traffic receives two different types of data updates:
 
 <h4>Classes</h4>
 
-The main field used for styling traffic layers is __`class`__. This contains a subset of Mapbox Streets' road classes.
+The main field used for styling traffic layers is __`class`__.
 
 <table class='small'>
 <tr><th>Value</th><th>Description</th></tr>
@@ -110,4 +110,12 @@ The __`congestion`__ field is a measure of the relative slowdown a road segment 
 <tr><td><code>'severe'</code></td></tr>
 </table>
 
+<h4>Road Closures</h4>
 
+The __`closed`__ field marks roads that are currently closed.
+
+<table class='small'>
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td><code>'yes'</code></td><td>Roads that are closed.</td></tr>
+<tr><td><em>no value</em></td><td>Roads that are open.</td></tr>
+</table>
