@@ -52,7 +52,7 @@ In regions that use left-hand traffic, road directions are reversed to allow for
 
 Mapbox Traffic receives two different types of data updates:
 
-- Traffic speeds and densities: used to derive congestion, updated approximately every 5 minutes
+- Traffic speeds and densities: used to derive congestion, updated approximately every 8 minutes
 - Road geometries: based on OpenStreetMap, periodically updated
 
 
