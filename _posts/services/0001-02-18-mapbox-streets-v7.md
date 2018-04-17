@@ -559,7 +559,7 @@ This layer contains points used for labeling countries. The points are placed fo
 
 <h4>Names</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>ISO 3166-1 Code</h4>
 
@@ -589,7 +589,7 @@ Points and lines for labeling major marine features such as oceans, seas, large 
 
 <h4>Names</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Labelrank & placement</h4>
 
@@ -613,7 +613,7 @@ Points for labeling states and provinces. Currently only a small number of count
 
 <h4>Names</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Abbreviations</h4>
 
@@ -639,7 +639,7 @@ This layer contains points for labeling human settlements.
 
 <h4>Names</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Types</h4>
 
@@ -692,7 +692,7 @@ This layer contains points for labeling bodies of water such as lakes and ponds.
 
 <h4>Names</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Area</h4>
 
@@ -714,7 +714,7 @@ This layer is used to place icons and labels for various points of interest (POI
 
 <h4>Names</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Maki icons</h4>
 
@@ -831,7 +831,7 @@ The __`localrank`__ field can be used to adjust the label density by showing few
 
 <h4>Names</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Route numbers</h4>
 
@@ -982,7 +982,7 @@ This layer contains line geometries that match those in the [#waterway](#waterwa
 
 <h4>Label text</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Classes & types</h4>
 
@@ -1014,7 +1014,7 @@ This layer contains point geometries that are one of: airport, airfield, helipor
 
 <h4>Label text</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Airport Codes</h4>
 
@@ -1051,7 +1051,7 @@ This layer contains point geometries with name fields for label rendering.
 
 <h4>Label text</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Maki</h4>
 
@@ -1143,7 +1143,7 @@ This layer contains point geometries that are contains mountain peaks. Include f
 
 <h4>Label text</h4>
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 <h4>Maki</h4>
 
