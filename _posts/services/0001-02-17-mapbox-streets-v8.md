@@ -195,7 +195,7 @@ You should design your styles to account for the possibility of new field values
 
 #### `name` _text_ & `name_<lang-code>` _text_
 
-Label names are available in a number of languages. The `name_*` value will be `null` if no translation data is available for a given feature - when styling label layers, you are responsible for determining an appropriate fallback approach.
+Label names are available in a number of languages. The `name_*` value will be `null` if no translation data is available for a given feature; when styling label layers, you are responsible for determining an appropriate fallback approach.
 
 If the `name` field is null for a particular feature, then all of the language-specific `name_*` fields will also be null. This means that `name` should always be the final fallback value if you want to include it in your set of label languages.
 
@@ -275,7 +275,7 @@ The value will never be _null_ and will always be within the range 0-16.
 
 #### `filterrank` _number_
 
-Filterrank is a value from 1-5 used to customize label density. It's intended to be used for in style layer filters (in the 'Select data' tab in Mapbox Studio). The value is relative to the current zoom level - eg the same POI might have a `filterrank` of 5 at z10 but 1 at z14, since zooming in changed the relative importance of the POI.
+Filterrank is a value from 0-5 used to customize label density. It's intended to be used in style layer filters (in the 'Select data' tab in Mapbox Studio). The value is relative to the current zoom level. For example the same POI might have `filterrank=5` at z10 while having `filterrank=1` at z14, since zooming in changed the relative importance of the POI.
 
 You could set `filterrank<=1` to only show the most prominent labels, `filterrank<=3` to produce moderate density, and `filterrank<=5` to see as many labels as possible.
 
@@ -379,6 +379,8 @@ This layer contains point geometries that are one of: airport, airfield, helipor
 
 See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
 
+See [sizerank](#sizerank) for information about that field.
+
 #### <!--airport_label--> `ref` _text_
 
 The `ref` field contains short identifier codes for many airports. These are pulled from the OpenStreetMap tags `iata`, `ref`, `icao`, or `faa` (in order of preference). The value may be _null_.
@@ -394,10 +396,6 @@ The `maki` field lets you assign different icons to different types of airports.
 <tr><td><code>heliport</code></td><td>For helicopters</td></tr>
 <tr><td><code>rocket</code></td><td>Spaceflight facilities</td></tr>
 </table>
-
-#### <!--airport_label--> `sizerank` _number_
-
-See New ranking fields fields for label layers table in the overview.
 
 
 <!-- BUILDING -------------------------------------------------------------- -->
@@ -471,7 +469,7 @@ The main field used for styling the landuse_overlay layer is `class`.
 
 <table class='small space-bottom2'>
 <tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>national_park</code></td><td>Relatively large area of land set aside by a government for human recreation and enjoyment, animal and environmental protection</td></tr>
+<tr><td><code>national_park</code></td><td>Relatively large area of land set aside by a government for human recreation and environmental protection</td></tr>
 <tr><td><code>wetland</code></td><td>Wetlands that may include vegetation (marsh, swamp, bog)</td></tr>
 <tr><td><code>wetland_noveg</code></td><td>Wetlands that probably dont contain vegetation (mud, tidal flat)</td></tr>
 </table>
@@ -506,6 +504,7 @@ The main field used for styling the landuse layer is `class`.
 <tr><td><code>grass</code></td><td>Grasslands, meadows, fields, lawns, etc</td></tr>
 <tr><td><code>hospital</code></td><td>Hospital grounds</td></tr>
 <tr><td><code>park</code></td><td>City parks, village greens, playgrounds, national parks, nature reserves, etc</td></tr>
+<tr><td><code>piste</code></td><td>Area used for skiing, snowboading, and other snow/mountain sports</td></tr>
 <tr><td><code>pitch</code></td><td>Sports fields & courts of all types</td></tr>
 <tr><td><code>rock</code></td><td>Bare rock, scree, quarries</td></tr>
 <tr><td><code>sand</code></td><td>Sand, beaches, dunes</td></tr>
@@ -560,18 +559,24 @@ The `natural_label` layer is organized into a number of different classes for st
 
 <table class='small space-bottom2'>
 <tr><th>class</th><th>maki values</th><th>feature types</th></tr>
+<tr><td><code>bay</code></td><td><code>marker</code></td><td>inlet in a large body of water</td></tr>
+<tr><td><code>canal</code></td><td><code>marker</code></td><td></td></tr>
+<tr><td><code>dock</code></td><td><code>marker</code></td><td>enclosed area of water for ships</td></tr>
 <tr><td><code>glacier</code></td><td><code>marker</code></td><td>glacier</td></tr>
 <tr><td><code>landform</code></td><td><code>mountain</code>, <code>volcano</code>, <code>marker</code></td><td>peaks, meadows, cave entrances, archipelago, island, islet, saddle, fell, desert, valley, etc.</td></tr>
 <tr><td><code>ocean</code></td><td><code>marker</code></td><td>oceans</td></tr>
+<tr><td><code>reservoir</code></td><td><code>marker</code></td><td>human water containment areas</td></tr>
+<tr><td><code>river</code></td><td><code>marker</code></td><td></td></tr>
 <tr><td><code>sea</code></td><td><code>marker</code></td><td>seas and other very large water features including some gulfs, straits, bays, etc.</td></tr>
-<tr><td><code>water</code></td><td><code>marker</code></td><td>lakes, reservoirs, ponds, etc.</td></tr>
+<tr><td><code>stream</code></td><td><code>marker</code></td><td></td></tr>
 <tr><td><code>water_feature</code></td><td><code>waterfall</code>, <code>marker</code></td><td>waterfalls</td></tr>
+<tr><td><code>water</code></td><td><code>marker</code></td><td>lakes, ponds, etc.</td></tr>
 <tr><td><code>wetland</code></td><td><code>marker</code></td><td>wetland, marsh</td></tr>
 </table>
 
 #### <!--natural_label--> `elevation_m` _number_ & `elevation_ft` _number_
 
-The `elevation_m` and `elevation_ft` fields hold the peak elevation in meters and feet, respectively. Values are rounded to the nearest whole number and do not include units. Use a text field such as `{elevation_ft} feet` or `{elevation_m}m` in Mapbox Studio to display the units. These fields may be _null_.
+The `elevation_m` and `elevation_ft` fields hold the feature elevation in meters and feet, respectively. Values are rounded to the nearest whole number and do not include units. Use a text field such as `{elevation_ft} feet` or `{elevation_m}m` in Mapbox Studio to display the units. These fields may be _null_.
 
 
 <!-- PLACE_LABEL ----------------------------------------------------------- -->
@@ -598,7 +603,10 @@ The main field for styling labels for different kinds of places is `type`.
 
 <table class='small space-bottom2'>
 <tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>country</code></td><td>Countries and other territories with ISO 3166-1 codes.</td></tr>
+<tr><td><code>country</code></td><td>Sovereign or partially-recognized states</td></tr>
+<tr><td><code>sar</code></td><td>Special Administrative Region</td></tr>
+<tr><td><code>territory</code></td><td>Semi-autonomous or other subnational entities with ISO 3166-1 codes</td></tr>
+<tr><td><code>disputed_territory</code></td><td>Disputed territories with ISO 3166-1 codes.</td></tr>
 <tr><td><code>state</code></td><td>First-level administrative divisions or similar. Only a small subset of these are included in order to reduce clutter and put focus on cities, towns, etc.</td></tr>
 <tr><td><code>city</code></td><td>Settlement of about 100,000 or more people.</td></tr>
 <tr><td><code>town</code></td><td>Urban or rural settlement of about 10,000-100,000 people</td></tr>
@@ -611,9 +619,9 @@ The main field for styling labels for different kinds of places is `type`.
 
 #### <!--place_label--> `symbolrank`
 
-The `symbolrank` value is intended to simplify styling of the label size and symbol prominence of place features. It ranges from 0 to 19 and is consistently assigned across zoom levels - ie a place with a `symbolrank` of 6 at z4 will have the same value as you zoom in to any other level.
+The `symbolrank` value is intended to simplify styling of the label size and symbol prominence of place features. It ranges from 1 to 19 and is consistently assigned across zoom levels - ie a place with a `symbolrank` of 6 at z4 will have the same value as you zoom in to any other level.
 
-The value will never be _null_ and will always be in the range of 0-19.
+The value will never be _null_ and will always be in the range of 1-19.
 
 #### <!--place_label--> `iso_3166_1` _text_
 
@@ -659,6 +667,35 @@ This layer is used to place icons and labels for various points of interest (POI
 See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
 
 See [sizerank](#sizerank) and [filterrank](#filterrank) for information on using those fields to style text size and label density.
+
+
+#### <!--poi_label--> `class` _text_
+
+The `class` field groups points of interest into broad categories for styling purposes. The values are useful for designing icon color schemes, for example.
+
+<div class='col12 clearfix space-bottom2'>
+<code class='col10 margin1 pad1 row3 scroll-styled'>arts_and_entertainment
+building
+commercial_services
+education
+food_and_drink
+food_and_drink_stores
+general
+historic
+industrial
+landmark
+lodging
+medical
+motorist
+park_like
+place_like
+public_facilities
+religion
+sport_and_leisure
+store_like
+visitor_amenities
+</code>
+</div>
 
 
 #### <!--poi_label--> `maki` _text_
@@ -816,7 +853,6 @@ The main field used for styling the road layers is `class`.
 <tr><td><code>secondary_link</code></td><td>Link roads/lanes connecting to secondary roads</td></tr>
 <tr><td><code>tertiary</code></td><td>A road linking small settlements, or the local centres of a large town or city.</td></tr>
 <tr><td><code>tertiary_link</code></td><td>Link roads/lanes connecting to tertiary roads</td></tr>
-<tr><td><code>link</code></td><td>Contains link roads</td></tr>
 <tr><td><code>street</code></td><td>Standard unclassified, residential, road, and living_street road types</td></tr>
 <tr><td><code>street_limited</code></td><td>Streets that may have limited or no access for motor vehicles.</td></tr>
 <tr><td><code>pedestrian</code></td><td>Includes pedestrian streets, plazas, and public transportation platforms.</td></tr>
@@ -830,6 +866,11 @@ The main field used for styling the road layers is `class`.
 <tr><td><code>service_rail</code></td><td>Yard and service railways.</td></tr>
 <tr><td><code>aerialway</code></td><td>Ski lifts, gondolas, and other types of aerialway.</td></tr>
 <tr><td><code>golf</code></td><td>The approximate centerline of a golf course hole</td></tr>
+<tr><td><code>roundabout</code></td><td>Circular continous-flow intersection</td></tr>
+<tr><td><code>mini_roundabout</code></td><td>Smaller variation of a roundabout with no center island or obstacle</td></tr>
+<tr><td><code>turning_circle</code></td><td>(point) Widened section at the end of a cull-de-sac for turning around a vehicle</td></tr>
+<tr><td><code>turning_loop</code></td><td>(point) Similar to a turning circle but with an island or other obstruction at the centerpoint</td></tr>
+<tr><td><code>traffic_signals</code></td><td>(point) Lights or other signal controlling traffic flow at an intersection</td></tr>
 </table>
 
 #### <!--road--> `oneway` _text_
@@ -838,11 +879,11 @@ The `oneway` field indicates whether the motor traffic on the road is one-way or
 
 #### <!--road--> `structure` _text_
 
-The `structure` field describes whether the road segment is a `bridge`, `tunnel`, `ford`, or `none`. No further values will be added in Mapbox Streets v8.
+The `structure` field describes whether the road segment is a `bridge`, `tunnel`, `ford`, or `none` of those. No further values will be added in Mapbox Streets v8.
 
 ##### <!--road--> `iso_3166_2` _text_
 
-FIXME
+The [ISO 3166-2 code](https://en.wikipedia.org/wiki/ISO_3166-2) of the state/province/region the road is in. Not all areas are covered by this standard and the value may be _null_.
 
 #### <!--road--> `ref` _text_ & `reflen` _number_
 
@@ -941,7 +982,7 @@ The `type` field is the value of the road's "primary" OpenStreetMap tag. For mos
 Possible `construction` class `type` values:
 
 <div class='col12 clearfix space-bottom2'>
-<code class=col10 margin1 pad1 row3 scroll-styled>construction:motorway
+<code class='col10 margin1 pad1 row3 scroll-styled'>construction:motorway
 construction:motorway_link
 construction:trunk
 construction:trunk_link
@@ -963,7 +1004,7 @@ construction
 Possible `track` class `type` values:
 
 <div class='col12 clearfix space-bottom2'>
-<code class=col10 margin1 pad1 row3 scroll-styled>track:grade1
+<code class='col10 margin1 pad1 row3 scroll-styled'>track:grade1
 track:grade2
 track:grade3
 track:grade4
@@ -975,7 +1016,7 @@ track
 Possible `service` class `type` values:
 
 <div class='col12 clearfix space-bottom2'>
-<code class=col10 margin1 pad1 row3 scroll-styled>service:alley
+<code class='col10 margin1 pad1 row3 scroll-styled'>service:alley
 service:emergency_access
 service:drive_through
 service:driveway
@@ -1047,6 +1088,8 @@ The `len` field stores the length of the road segment in projected meters, round
 
 This layer includes lines and polygons for structures which are not buildings. This includes both natural and human features - cliffs, walls, piers, gates.
 
+Cliff data is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom.
+
 #### <!--structure--> `class` _text_
 
 <table class='small space-bottom2'>
@@ -1058,7 +1101,9 @@ This layer includes lines and polygons for structures which are not buildings. T
 <tr><td><code>land</code></td><td>Includes breakwaters and piers</td></tr>
 </table>
 
-Cliff data from OSM is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom.
+#### <!--structure--> `type` _text_
+
+The `type` field contains the original value of the feature's primary tag from OSM.
 
 
 <!-- TRANSIT_STOP_LABEL ---------------------------------------------------- -->
@@ -1093,11 +1138,11 @@ See [names](#names) and [name_script](#name_script) in for information about nam
 <tr><td><code>metro_rail</code></td><td>Urban rapid transit systems with dedicated rights of way, sometimes partially or fully underground.</td></tr>
 <tr><td><code>light_rail</code></td><td>Less capacity than heavy/metro rail. Often on tracks separated from motor traffic but may share grade at intersections.</td></tr>
 <tr><td><code>tram</code></td><td>Lighter rail with 1 or 2 carriages, often on a tracks shared with motor vehicle traffic.</td></tr>
-<tr><td><code>monorail</code></td><td>Mono means one and rail means rail. Often medium-low capacity and with localized or private use such as in theme parks or airports.</td></tr>
+<tr><td><code>monorail</code></td><td>Often medium-low capacity and with localized or private use such as in theme parks or airports.</td></tr>
 <tr><td><code>funicular</code></td><td>Cable-driven inclined railways. Often touristic and low-capacity.</td></tr>
-<tr><td><code>bicycle</code></td><td>For bicycle rental services/networks</td></tr>
-<tr><td><code>bus</code></td><td></td></tr>
-<tr><td><code>ferry</code></td><td></td></tr>
+<tr><td><code>bicycle</code></td><td>For bicycle rental docks/stations</td></tr>
+<tr><td><code>bus</code></td><td>For bus stops or stations</td></tr>
+<tr><td><code>ferry</code></td><td>A boat that may take passengers on foot, in motor vehicles, or both</td></tr>
 </table>
 
 #### <!--transit_stop_label--> `maki` _text_
