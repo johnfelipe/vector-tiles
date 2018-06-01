@@ -32,7 +32,8 @@ head: |
     }
     h2 code,
     h3 code,
-    h4 code {
+    h4 code,
+    h5 code {
       text-size: 100%;
       font-weight: bold;
     }
@@ -265,6 +266,8 @@ Unknown
 
 The value will be _null_ if `name` is also null.
 
+<a id='sizerank'></a>
+
 #### `sizerank` _number_
 
 The `sizerank` field is included in label layers where points or lines have been derived from polygons, such as `poi_label`, `natural_label`, `airport_label`. It lets you style & filter based on the size of a feature relative to the current zoom level. The largest objects are given `sizerank=0`, and points are given `sizerank=16`. 
@@ -272,6 +275,8 @@ The `sizerank` field is included in label layers where points or lines have been
 A single feature will have a changing sizerank as you zoom in and the relative size of the feature increases. For example, a park might have a `sizerank` of 9 at z11, 6 at z12, and 2 at z13.
 
 The value will never be _null_ and will always be within the range 0-16.
+
+<a id='filterank'></a>
 
 #### `filterrank` _number_
 
@@ -281,6 +286,147 @@ You could set `filterrank<=1` to only show the most prominent labels, `filterran
 
 The value will never be _null_ and will always be in the range of 0-5.
 
+<a id='maki'></a>
+
+#### `maki` _text_
+
+Some layers have a `maki` field designed to make it easy to assign icons using the [Maki icon project](http://mapbox.com/maki), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can ensure your style has all the icons needed across different layers.
+
+Not all icons from the Maki project are used in Mapbox Streets, and different types of related features will sometimes have the same `maki` value (eg universities and colleges, or art supply shops and art galleries). Nameless POIs will have never have a maki value of marker (the generic default).
+
+The possible values for the `maki` field for all layers are listed below. Icon names that were not part of any layer in v7 are marked with 🆕. No further values will be added in Mapbox Streets v8.
+
+<code>airport_label:</code>
+
+<code class='col10 margin1 pad1 space-bottom2'>airport
+airfield
+heliport
+rocket
+</code>
+
+<code>natural_label:</code>
+
+<code class='col10 margin1 pad1 space-bottom2'>marker
+mountain
+volcano
+waterfall 🆕
+</code>
+
+<code>poi_label:</code>
+
+<code class='col10 margin1 pad1 space-bottom2 row3 scroll-styled'>alcohol-shop
+american-football 🆕
+amusement-park
+aquarium
+art-gallery
+attraction
+bakery
+bank
+bar
+basketball 🆕
+beach 🆕
+beer
+bicycle
+bowling-alley 🆕
+bridge 🆕
+cafe
+campsite
+car
+car-rental 🆕
+car-repair 🆕
+casino 🆕
+castle
+cemetery
+charging-station 🆕
+cinema
+clothing-store
+college
+communications-tower 🆕
+confectionery 🆕
+convenience 🆕
+dentist
+doctor
+dog-park
+drinking-water
+embassy
+farm 🆕
+fast-food
+fire-station
+fitness-centre 🆕
+fuel
+furniture 🆕
+garden
+globe 🆕
+golf
+grocery
+harbor
+hardware 🆕
+horse-riding 🆕
+hospital
+ice-cream
+information
+jewelry-store 🆕
+laundry
+library
+lodging
+marker
+mobile-phone 🆕
+monument
+museum
+music
+optician 🆕
+park
+parking 🆕
+parking-garage 🆕
+pharmacy
+picnic-site
+pitch 🆕
+place-of-worship
+playground
+police
+post
+prison
+ranger-station 🆕
+religious-buddhist 🆕
+religious-christian
+religious-jewish
+religious-muslim
+restaurant
+restaurant-noodle 🆕
+restaurant-pizza 🆕
+restaurant-seafood 🆕
+school
+shoe 🆕
+shop
+skateboard 🆕
+slipway 🆕
+stadium
+suitcase 🆕
+swimming
+table-tennis 🆕
+tennis 🆕
+theatre
+toilet
+town-hall
+veterinary
+viewpoint 🆕
+volleyball 🆕
+watch 🆕
+watermill 🆕
+windmill 🆕
+zoo
+</code>
+
+<code>transit_stop_label:</code>
+
+<code class='col10 margin1 pad1 space-bottom2 row3 scroll-styled'>bicycle-share
+bus
+ferry
+rail
+rail-metro
+rail-light
+entrance
+</code>
 
 ## Layer Reference
 
@@ -377,9 +523,9 @@ The `ref` field contains runway and taxiway identifiers. The value may be _null_
 
 This layer contains point geometries that are one of: airport, airfield, heliport, and rocket.
 
-See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
+See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
-See [sizerank](#sizerank) for information about that field.
+See [`sizerank`](#sizerank) for information about that field.
 
 #### <!--airport_label--> `ref` _text_
 
@@ -387,7 +533,7 @@ The `ref` field contains short identifier codes for many airports. These are pul
 
 #### <!--airport_label--> `maki` _text_
 
-The `maki` field lets you assign different icons to different types of airports.
+The `maki` field lets you assign different icons to different types of airports. See the [`maki](#maki) part of the Common Fields section for more details.
 
 <table class='small space-bottom2'>
 <tr><th>Value</th><th>Description</th></tr>
@@ -549,13 +695,13 @@ The `class` and `type` fields tell you what kind of road the junction is on. See
 
 The `natural_label` layer contains points and lines for styling natural features such as bodies of water, mountain peaks, valleys, deserts, and so on.
 
-See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
+See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
-See [sizerank](#sizerank) for information about that field.
+See [`sizerank`](#sizerank) for information about that field.
 
 #### <!--natural_label--> `class` _text_ & `maki` _text_
 
-The `natural_label` layer is organized into a number of different classes for styling & filtering. Within each class, serveral `maki` values are available for assigning icons to features.
+The `natural_label` layer is organized into a number of different classes for styling & filtering. Within each class, serveral `maki` values are available for assigning icons to features - see the [`maki`](#maki) part of the Common Fields section for more details about that field.
 
 <table class='small space-bottom2'>
 <tr><th>class</th><th>maki values</th><th>feature types</th></tr>
@@ -592,9 +738,9 @@ The `elevation_m` and `elevation_ft` fields hold the feature elevation in meters
 
 This layer contains points for labeling places including countries, states, cities, towns, and neighbourhoods.
 
-See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
+See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
-See [filterrank](#filterrank) for information on using that field.
+See [`filterrank`](#filterrank) for information on using that field.
 
 
 #### <!--place_label--> `type`
@@ -664,10 +810,11 @@ The `text_anchor` field can be used as a hint for label placement. Possible valu
 
 This layer is used to place icons and labels for various points of interest (POIs).
 
-See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
+See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
-See [sizerank](#sizerank) and [filterrank](#filterrank) for information on using those fields to style text size and label density.
+See [`sizerank`](#sizerank) and [`filterrank`](#filterrank) for information on using those fields to style text size and label density.
 
+See [`maki`](#maki) for more information about using this field for assigning icons.
 
 #### <!--poi_label--> `class` _text_
 
@@ -698,119 +845,6 @@ visitor_amenities
 </div>
 
 
-#### <!--poi_label--> `maki` _text_
-
-The `maki` field is designed to make it easy to add icons to POIs using the [Maki icon project](http://mapbox.com/maki), or with other icons that follow the same naming scheme.
-
-Not all Maki icons are used, and different types of related POIs will sometimes have the same `maki` value (eg universities and colleges, or art supply shops and art galleries). Nameless POIs will have never have a maki value of marker (the generic default).
-
-The possible values for the `maki` field are listed below. Icon names that were not part of the `poi_label` layer in v7 are marked with 🆕. No further values will be added in Mapbox Streets v8.
-
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>alcohol-shop
-american-football 🆕
-amusement-park
-aquarium
-art-gallery
-attraction
-bakery
-bank
-bar
-basketball 🆕
-beach 🆕
-beer
-bicycle
-bowling-alley 🆕
-bridge 🆕
-cafe
-campsite
-car
-car-rental 🆕
-car-repair 🆕
-casino 🆕
-castle
-cemetery
-charging-station 🆕
-cinema
-clothing-store
-college
-communications-tower 🆕
-confectionery 🆕
-convenience 🆕
-dentist
-doctor
-dog-park
-drinking-water
-embassy
-farm 🆕
-fast-food
-fire-station
-fitness-centre 🆕
-fuel
-furniture 🆕
-garden
-globe 🆕
-golf
-grocery
-harbor
-hardware 🆕
-horse-riding 🆕
-hospital
-ice-cream
-information
-jewelry-store 🆕
-laundry
-library
-lodging
-marker
-mobile-phone 🆕
-monument
-museum
-music
-optician 🆕
-park
-parking 🆕
-parking-garage 🆕
-pharmacy
-picnic-site
-pitch 🆕
-place-of-worship
-playground
-police
-post
-prison
-ranger-station 🆕
-religious-buddhist 🆕
-religious-christian
-religious-jewish
-religious-muslim
-restaurant
-restaurant-noodle 🆕
-restaurant-pizza 🆕
-restaurant-seafood 🆕
-school
-shoe 🆕
-shop
-skateboard 🆕
-slipway 🆕
-stadium
-suitcase 🆕
-swimming
-table-tennis 🆕
-tennis 🆕
-theatre
-toilet
-town-hall
-veterinary
-viewpoint 🆕
-volleyball 🆕
-watch 🆕
-watermill 🆕
-windmill 🆕
-zoo
-</code>
-</div>
-
 #### <!--poi_label--> `type` _text_
 
 The `type` field contains a more specific classification intended for display - eg 'Cafe', 'Hotel', 'Laundry'. These values come from the original OpenStreetMap tags and are not a limited set.
@@ -835,7 +869,7 @@ Language coverage may be expanded in a future v8 update.
 
 The roads layer contains lines, points, and polygons needed for drawing features such as roads, railways, paths and their labels.
 
-See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
+See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
 #### <!--road--> `class` _text_
 
@@ -1119,7 +1153,7 @@ The `type` field contains the original value of the feature's primary tag from O
 
 The `transit_stop_label` contains points for symbolizing transit stops, stations, and associated features such as entrances.
 
-See [names](#names) and [name_script](#name_script) in for information about names and translations available for label text.
+See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
 #### <!--transit_stop_label--> `stop_type` _text_
 
@@ -1147,7 +1181,7 @@ See [names](#names) and [name_script](#name_script) in for information about nam
 
 #### <!--transit_stop_label--> `maki` _text_
 
-The `maki` field lets you assign icons to the rail station based on a few basic station types:
+The `maki` field lets you assign icons to the rail station based on a few basic station types. See [`maki`](#maki) in the Common Fields section for more information.
 
 <table class='small space-bottom2'>
 <tr><th>Value</th><th>Description</th></tr>
@@ -1159,8 +1193,6 @@ The `maki` field lets you assign icons to the rail station based on a few basic 
 <tr><td><code>rail-light</code></td><td>Light rail station</td></tr>
 <tr><td><code>entrance</code></td><td>Specific station entrance points (eg stairs, escalators, elevators)</td></tr>
 </table>
-
-No further `maki` values will be added in Mapbox Streets v8.
 
 #### <!--transit_stop_label--> `network` _text_
 
