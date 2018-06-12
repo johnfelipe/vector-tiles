@@ -298,23 +298,28 @@ The possible values for the `maki` field for all layers are listed below. Icon n
 
 <code>airport_label:</code>
 
-<code class='col10 margin1 pad1 space-bottom2'>airport
+<div class='col12 clearfix space-bottom2'>
+<code class='col10 margin1 pad1'>airport
 airfield
 heliport
 rocket
 </code>
+</div>
 
 <code>natural_label:</code>
 
-<code class='col10 margin1 pad1 space-bottom2'>marker
+<div class='col12 clearfix space-bottom2'>
+<code class='col10 margin1 pad1'>marker
 mountain
 volcano
 waterfall 🆕
 </code>
+</div>
 
 <code>poi_label:</code>
 
-<code class='col10 margin1 pad1 space-bottom2 row3 scroll-styled'>alcohol-shop
+<div class='col12 clearfix space-bottom2'>
+<code class='col10 margin1 pad1 row3 scroll-styled'>alcohol-shop
 american-football 🆕
 amusement-park
 aquarium
@@ -416,10 +421,12 @@ watermill 🆕
 windmill 🆕
 zoo
 </code>
+</div>
 
 <code>transit_stop_label:</code>
 
-<code class='col10 margin1 pad1 space-bottom2 row3 scroll-styled'>bicycle-share
+<div class='col12 clearfix space-bottom2'>
+<code class='col10 margin1 pad1 row3 scroll-styled'>bicycle-share
 bus
 ferry
 rail
@@ -427,6 +434,7 @@ rail-metro
 rail-light
 entrance
 </code>
+</div>
 
 ## Layer Reference
 
