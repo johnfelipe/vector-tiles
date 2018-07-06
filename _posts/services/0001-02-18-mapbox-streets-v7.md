@@ -65,7 +65,7 @@ When you publicly use styles or software that use Mapbox Streets vector tiles, y
 
 <h3>Name fields</h3>
 
-There are 10 different name fields for each of the label layers:
+There are 12 different name fields for each of the label layers:
 
 <table class='small space-bottom2'>
 <tr><th>Field</th><th>Description</th></tr>
@@ -77,6 +77,8 @@ There are 10 different name fields for each of the label layers:
 <tr><td><code><strong>name_de</strong></code></td><td>German (if available, otherwise same as name_en)</td></tr>
 <tr><td><code><strong>name_pt</strong></code></td><td>Portuguese (if available, otherwise same as name_en)</td></tr>
 <tr><td><code><strong>name_ru</strong></code></td><td>Russian (if available, otherwise same as name)</td></tr>
+<tr><td><code><strong>name_ja</strong></code></td><td>Japanese (if available, otherwise same as name)</td></tr>
+<tr><td><code><strong>name_ko</strong></code></td><td>Korean (if available, otherwise same as name)</td></tr>
 <tr><td><code><strong>name_zh</strong></code></td><td>Chinese&#42; (if available, otherwise same as name)</td></tr>
 <tr><td><code><strong>name_zh-Hans</strong></code></td><td>Simplified Chinese&#42; (if available, otherwise same as name)</td></tr>
 </table>
