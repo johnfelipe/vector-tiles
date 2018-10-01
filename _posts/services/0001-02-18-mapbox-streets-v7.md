@@ -101,11 +101,7 @@ A geometry in the vector tile can be one of 3 types:
 2. <span class='small inline icon polyline'></span> Linestring / multilinestring
 3. <span class='small inline icon polygon'></span> Polygon / multipolygon
 
-
-In Mapbox Studio, you can select just one or two or all of the 3 types with the Geometry Type toggles:
-
-<img class='pady4' src='/img/developers/vector-tiles/filter-geomtype.png'>
-
+In Mapbox Studio, you can select one, two, or all three of these geometry types with the Geometry Type toggles in each layer's **Select data** tab.
 
 <h3>Data updates</h3>
 
