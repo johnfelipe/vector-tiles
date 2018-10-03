@@ -128,7 +128,7 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
   - `waterway_label` - data moved to new layer [`natural_label`](#natural_label)
 - New ranking fields fields for label layers:
   - [`sizerank`](#sizerank)
-  - [`filterrank`](#sizerank)
+  - [`filterrank`](#filterrank)
   - [`symbolrank`](#place_label---symbolrank) (`place_label` layer)
   - `scalerank` and `localrank` have been removed from all layers
 - Name fields:
@@ -136,7 +136,7 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
   - `name_zh` field removed and replaced by `name_zh-Hant` (traditional Chinese)
   - New field: `name_script` indicates the primary script used in the `name` field (`Latin`, `Cyrillic`, etc)
 - [`admin`](#admin) layer:
-  - Data source has changed to match Mapbox Enterprise Boundaries
+  - Data source has changed to match Mapbox Enterprise Boundaries v2.0.0
   - New field: `worldview` - provides the option to cater boundary lines to different locales. See boundaries section below for details.
   - The `admin_level` now has a range of `0`  through `2` with slightly different division definitions compared to v7 - see boundaries section below for details.
   - The `disputed` and `maritime` fields now have text values of `true` or `false` rather than numeric `1` and `0`
@@ -145,8 +145,10 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
 - [`place_label`](#place_label) layer:
   - New fields:
     - `iso_3166_1`: indicates the 2-letter country/territory code of the place or the country that the place is within.
+    - `class`: useful for grouping places. One of: country, state, settlement (includes type=city, town, village, hamlet), or settlement_subdivision (includes type=suburb, quarter, neighbourhood).
     - `symbolrank` and `filterrank`: see description in table
-    - `text_anchor` - replaces `ldir`
+    - `text_anchor`: replaces `ldir`
+    - `abbr`: provides the abbreviation for places with type `'state'`
   - Added support for OSM `place=quarter`
   - Several feature types have moved to either `poi_label` or `natural_label`
 - [`poi_label`](#poi_label) layer:
@@ -159,6 +161,8 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
 - [`road`](#road) layer:
   - New fields: 
     - Fields from former `road_label` layer: names, `ref`, `reflen`, `len`, `shield`, `iso_3166_2`
+    - `iso_3166_1`: indicates the ISO 3166-1 2-letter country code of the road.
+    - `shield-text-color`: indicates the color to use for the highway shield text.
     - `toll`: `true` for toll roads and not present / null for all other roads.
     - `surface`: indicates either `paved` or `unpaved` where this data is available from OSM.
     - `bike_lane`: indicates presence and location of a bike lane that is part of the road itself (as opposed to a separated bike lane).
@@ -276,7 +280,7 @@ A single feature will have a changing sizerank as you zoom in and the relative s
 
 The value will never be _null_ and will always be within the range 0-16.
 
-<a id='filterank'></a>
+<a id='filterrank'></a>
 
 #### `filterrank` _number_
 
@@ -705,7 +709,7 @@ The `natural_label` layer contains points and lines for styling natural features
 
 See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
-See [`sizerank`](#sizerank) for information about that field.
+See [`sizerank`](#sizerank) and [`filterrank`](#filterrank) for information on using those fields to style text size and label density.
 
 #### <!--natural_label--> `class` _text_ & `maki` _text_
 
@@ -771,7 +775,13 @@ The main field for styling labels for different kinds of places is `type`.
 <tr><td><code>neighbourhood</code></td><td>A smaller neighborhood or part of a larger settlement</td></tr>
 </table>
 
-#### <!--place_label--> `symbolrank`
+
+#### <!--place_label--> `class` _text_
+
+TODO: Class description needed
+
+
+#### <!--place_label--> `symbolrank` _number_
 
 The `symbolrank` value is intended to simplify styling of the label size and symbol prominence of place features. It ranges from 1 to 19 and is consistently assigned across zoom levels - ie a place with a `symbolrank` of 6 at z4 will have the same value as you zoom in to any other level.
 
@@ -786,6 +796,10 @@ The `iso_3166_1` field contains the [ISO 3166-1 alpha-2](https://en.wikipedia.or
 The `capital` field allows distinct styling of labels or icons for the capitals of countries, regions, or states & provinces. The value of this field may be `2`, `3`, `4`, `5`, or `6`. National capitals are `2`, and `3` through `6` represent capitals of various sub-national administrative entities. These levels come from OpenStreetMap and have different meanings in different countries - see [the OpenStreetMap wiki](http://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative#admin_level) for specific details.
 
 The value will be _null_ for any place that is not a capital.
+
+#### <!--place_label--> `abbr` _text_
+
+TODO: abbr description needed
 
 #### <!--place_label--> `text_anchor` _text_
 
@@ -923,6 +937,24 @@ The `oneway` field indicates whether the motor traffic on the road is one-way or
 
 The `structure` field describes whether the road segment is a `bridge`, `tunnel`, `ford`, or `none` of those. No further values will be added in Mapbox Streets v8.
 
+#### <!--road--> `bike_lane` _text_
+
+This value may be null when no `cycleway*` tags are present on the feature.
+
+<table class='small space-bottom2'>
+<tr><th>Value</th><th>Description</th></tr>
+<tr><td><code>yes</code></td><td>Bike lane present, side of road not specified.</td></tr>
+<tr><td><code>left</code></td><td>Bike lane present on the left side of the road.</td></tr>
+<tr><td><code>right</code></td><td>Bike lane present on the right side of the road.</td></tr>
+<tr><td><code>both</code></td><td>Bike lane present on both sides of the road.</td></tr>
+<tr><td><code>no</code></td><td>Road is specifically tagged with `cycleway: no`</td></tr>
+</table>
+
+
+##### <!--road--> `iso_3166_1` _text_
+The `iso_3166_1` field contains the [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166) code of the country the road is in. The value may be _null_ - either due to location match errors or for features that are in international waters.
+
+
 ##### <!--road--> `iso_3166_2` _text_
 
 The [ISO 3166-2 code](https://en.wikipedia.org/wiki/ISO_3166-2) of the state/province/region the road is in. Not all areas are covered by this standard and the value may be _null_.
@@ -939,7 +971,7 @@ Both `ref` & `reflen` may be _null_.
 
 #### <!--road--> `shield` _text_
 
-The `shield` values help to assign highway shield graphics. They should be combined with `ref` for the text on the shield and `reflen` to determine the width of shield image needed.
+The `shield` values help to assign highway shield graphics. They should be combined with `ref` for the text on the shield and `reflen` to determine the width of shield image needed. The [`shield-text-color`](#road---shield_text_color) field can be used for styling the shield text.
 
 Routes that can be symbolized with shields of a common shape & color have generic shared shield values:
 
@@ -1016,6 +1048,22 @@ Other highways with more specific shield design requirements are captured indivi
 
 The `shield` value will be _null_ where `ref` is also _null_. No further `shield` values will be added in Mapbox Streets v8.
 
+
+#### <!--road--> `shield_text_color` _text_
+
+Used to style the text on the highway shield icon.
+
+Possible values: 
+
+<div class='col12 clearfix space-bottom2'>
+<code class='col10 margin1 pad1'>
+black
+blue
+white
+yellow
+orange
+</code>
+</div>
 
 #### <!--road--> `type` _text_
 
