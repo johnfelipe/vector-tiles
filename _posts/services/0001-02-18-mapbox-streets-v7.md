@@ -213,6 +213,10 @@ The main field used for styling the landuse layer is __`class`__.
 <tr><td><code>'wood'</code></td><td>Woods and forestry areas</td></tr>
 </table>
 
+<h4>Type</h4>
+
+The __`type`__ field is pulled from the primary OSM tags for that class.
+
 
 <!-- WATERWAY -->
 <a class='doc-section' id='waterway'></a>
@@ -362,6 +366,12 @@ The main field used for styling the landuse_overlay layer is __`class`__.
 <tr><td><code>'wetland'</code></td><td>Wetlands that may include vegetation (marsh, swamp, bog)</td></tr>
 <tr><td><code>'wetland_noveg'</code></td><td>Wetlands that probably don't contain vegetation (mud, tidal flat)</td></tr>
 </table>
+
+
+<h4>Types</h4>
+
+The __`type`__ field is pulled from the primary OSM tags for that class.
+
 
 
 <!-- ROAD -->
@@ -794,9 +804,10 @@ Not all Maki icons are used, and different types of related POIs will sometimes 
 </code>
 </div>
 
-<h4>Type</h4>
+<h4>Types</h4>
 
 The __`type`__ field contains a more specific classification intended for display - eg 'Cafe', 'Hotel', 'Laundry'. These values come from the original OpenStreetMap tags and are not a limited set.
+
 
 <h4>Scalerank</h4>
 
