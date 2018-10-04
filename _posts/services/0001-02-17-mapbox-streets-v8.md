@@ -148,7 +148,7 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
     - `class`: useful for grouping places. One of: country, state, settlement (includes type=city, town, village, hamlet), or settlement_subdivision (includes type=suburb, quarter, neighbourhood).
     - `symbolrank` and `filterrank`: see description in table
     - `text_anchor`: replaces `ldir`
-    - `abbr`: provides the abbreviation for places with type `'state'`
+    - `abbr`: provides the abbreviation for places with type `state`
   - Added support for OSM `place=quarter`
   - Several feature types have moved to either `poi_label` or `natural_label`
 - [`poi_label`](#poi_label) layer:
@@ -633,6 +633,10 @@ The main field used for styling the landuse_overlay layer is `class`.
 </table>
 
 
+#### <!--landuse_overlay--> `type` _text_
+
+The `type` field is pulled from the primary OSM tags for that class.
+
 <!-- LANDUSE --------------------------------------------------------------- -->
 <a class='doc-section' id='landuse'></a>
 <h3 class='layer-ref-section'><a href='#landuse'>landuse</a>
@@ -671,6 +675,10 @@ The main field used for styling the landuse layer is `class`.
 <tr><td><code>wood</code></td><td>Woods and forestry areas</td></tr>
 </table>
 
+
+#### <!--landuse--> `type` _text_
+
+The `type` field is pulled from the primary OSM tags for that class.
 
 <!-- MOTORWAY_JUNCTION ----------------------------------------------------- -->
 <a class='doc-section' id='motorway_junction'></a>
@@ -755,7 +763,7 @@ See [`names`](#names) and [`name_script`](#name_script) in for information about
 See [`filterrank`](#filterrank) for information on using that field.
 
 
-#### <!--place_label--> `type`
+#### <!--place_label--> `type` _text_
 
 The main field for styling labels for different kinds of places is `type`.
 
@@ -778,8 +786,15 @@ The main field for styling labels for different kinds of places is `type`.
 
 #### <!--place_label--> `class` _text_
 
-TODO: Class description needed
+The `class` field provides a broad distinction between place types. The possible values are:
 
+<table class='small space-bottom2'>
+<tr><th>Class</th><th>Encompasses Types</th></tr>
+<tr><td><code>`country`</code></td><td>`country`, `territory`, `sar`, `disputed`</td></tr>
+<tr><td><code>`state`</code></td><td>`state`</td></tr>
+<tr><td><code>`settlement`</code></td><td>`city`, `town`, `village`, `hamlet`</td></tr>
+<tr><td><code>`settlement_subdivision`</code></td><td>`suburb`, `quarter`, `neighbourhood`</td></tr>
+</table>
 
 #### <!--place_label--> `symbolrank` _number_
 
@@ -799,7 +814,7 @@ The value will be _null_ for any place that is not a capital.
 
 #### <!--place_label--> `abbr` _text_
 
-TODO: abbr description needed
+This `abbr` field is available for `type`=`state` and provides the local abbreviation of the state.
 
 #### <!--place_label--> `text_anchor` _text_
 
@@ -939,23 +954,25 @@ The `structure` field describes whether the road segment is a `bridge`, `tunnel`
 
 #### <!--road--> `bike_lane` _text_
 
+The `bike_lane` field is derived from the OpenStreetMap [cycleway](https://wiki.openstreetmap.org/wiki/Key:cycleway) tag, which indicates if there is a bike lane that is part of the road itself. This is different from separated cycle tracks, which are mapped with their own way, and receive `class`=`path`, `type`=`cycleway`.
+
 This value may be null when no `cycleway*` tags are present on the feature.
 
 <table class='small space-bottom2'>
 <tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>yes</code></td><td>Bike lane present, side of road not specified.</td></tr>
-<tr><td><code>left</code></td><td>Bike lane present on the left side of the road.</td></tr>
-<tr><td><code>right</code></td><td>Bike lane present on the right side of the road.</td></tr>
-<tr><td><code>both</code></td><td>Bike lane present on both sides of the road.</td></tr>
-<tr><td><code>no</code></td><td>Road is specifically tagged with `cycleway: no`</td></tr>
+<tr><td><code>`yes`</code></td><td>Bike lane present, side of road not specified.</td></tr>
+<tr><td><code>`left`</code></td><td>Bike lane present on the left side of the road.</td></tr>
+<tr><td><code>`right`</code></td><td>Bike lane present on the right side of the road.</td></tr>
+<tr><td><code>`both`</code></td><td>Bike lane present on both sides of the road.</td></tr>
+<tr><td><code>`no`</code></td><td>Road is specifically tagged with `cycleway: no`</td></tr>
 </table>
 
 
-##### <!--road--> `iso_3166_1` _text_
+#### <!--road--> `iso_3166_1` _text_
 The `iso_3166_1` field contains the [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166) code of the country the road is in. The value may be _null_ - either due to location match errors or for features that are in international waters.
 
 
-##### <!--road--> `iso_3166_2` _text_
+#### <!--road--> `iso_3166_2` _text_
 
 The [ISO 3166-2 code](https://en.wikipedia.org/wiki/ISO_3166-2) of the state/province/region the road is in. Not all areas are covered by this standard and the value may be _null_.
 
