@@ -136,7 +136,7 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
   - `name_zh` field removed and replaced by `name_zh-Hant` (traditional Chinese)
   - New field: `name_script` indicates the primary script used in the `name` field (`Latin`, `Cyrillic`, etc)
 - [`admin`](#admin) layer:
-  - Data source has changed to match Mapbox Enterprise Boundaries v2.0.0
+  - Data source has changed to match Mapbox Enterprise Boundaries v2
   - New field: `worldview` - provides the option to cater boundary lines to different locales. See boundaries section below for details.
   - The `admin_level` now has a range of `0`  through `2` with slightly different division definitions compared to v7 - see boundaries section below for details.
   - The `disputed` and `maritime` fields now have text values of `true` or `false` rather than numeric `1` and `0`
@@ -153,20 +153,20 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
   - Several feature types have moved to either `poi_label` or `natural_label`
 - [`poi_label`](#poi_label) layer:
   - New fields:
-    - `category_en` / `category_zh-Hans`: contains POI category description for text display in English / simplified Chinese 
+    - `category_en` / `category_zh-Hans`: contains POI category description for text display in English / simplified Chinese
     - `class`: contains broad categories useful for filtering & symbol styling
     - `filterrank`: see description in table
-  - Many new `maki` values 
+  - Many new `maki` values
   - Many new feature types added
 - [`road`](#road) layer:
-  - New fields: 
+  - New fields:
     - Fields from former `road_label` layer: names, `ref`, `reflen`, `len`, `shield`, `iso_3166_2`
     - `iso_3166_1`: indicates the ISO 3166-1 2-letter country code of the road.
     - `shield-text-color`: indicates the color to use for the highway shield text.
     - `toll`: `true` for toll roads and not present / null for all other roads.
     - `surface`: indicates either `paved` or `unpaved` where this data is available from OSM.
     - `bike_lane`: indicates presence and location of a bike lane that is part of the road itself (as opposed to a separated bike lane).
-  - New class values: 
+  - New class values:
     - `service_rail` - includes service tracks such as sidings or yard rails. These were previously included in the `minor_rail` class.
     - `link` has been removed and broken out into `trunk_link`, `primary_link`, `secondary_link`, `tertiary_link`
   - Previous `road_label` layer is now merged into `road` layer, with all label fields included: `len`, `ref`, `reflen`, and `shield`.
@@ -220,7 +220,7 @@ If the `name` field is null for a particular feature, then all of the language-s
 <tr><td><code><strong>name_ko</strong></code></td><td>Korean</td></tr>
 </table>
 
-For languages that may have regional variations, no particular preference is given where place name spellings differ. 
+For languages that may have regional variations, no particular preference is given where place name spellings differ.
 
 <a id='name_script'></a>
 
@@ -274,7 +274,7 @@ The value will be _null_ if `name` is also null.
 
 #### `sizerank` _number_
 
-The `sizerank` field is included in label layers where points or lines have been derived from polygons, such as `poi_label`, `natural_label`, `airport_label`. It lets you style & filter based on the size of a feature relative to the current zoom level. The largest objects are given `sizerank=0`, and points are given `sizerank=16`. 
+The `sizerank` field is included in label layers where points or lines have been derived from polygons, such as `poi_label`, `natural_label`, `airport_label`. It lets you style & filter based on the size of a feature relative to the current zoom level. The largest objects are given `sizerank=0`, and points are given `sizerank=16`.
 
 A single feature will have a changing sizerank as you zoom in and the relative size of the feature increases. For example, a park might have a `sizerank` of 9 at z11, 6 at z12, and 2 at z13.
 
@@ -954,9 +954,9 @@ The `structure` field describes whether the road segment is a `bridge`, `tunnel`
 
 #### <!--road--> `bike_lane` _text_
 
-The `bike_lane` field is derived from the OpenStreetMap [cycleway](https://wiki.openstreetmap.org/wiki/Key:cycleway) tag, which indicates if there is a bike lane that is part of the road itself. This is different from separated cycle tracks, which are mapped with their own way, and receive `class`=`path`, `type`=`cycleway`.
+The `bike_lane` field indicates if there is a bike lane that is part of the road itself. This is different from separated cycle tracks, which are mapped as their own object in the roads layer, and receive `class`=`path`, `type`=`cycleway`.
 
-This value may be null when no `cycleway*` tags are present on the feature.
+This value may be null where explicit bike lane details are unknown.
 
 <table class='small space-bottom2'>
 <tr><th>Value</th><th>Description</th></tr>
@@ -964,7 +964,7 @@ This value may be null when no `cycleway*` tags are present on the feature.
 <tr><td><code>`left`</code></td><td>Bike lane present on the left side of the road.</td></tr>
 <tr><td><code>`right`</code></td><td>Bike lane present on the right side of the road.</td></tr>
 <tr><td><code>`both`</code></td><td>Bike lane present on both sides of the road.</td></tr>
-<tr><td><code>`no`</code></td><td>Road is specifically tagged with `cycleway: no`</td></tr>
+<tr><td><code>`no`</code></td><td>Road is known to have no bike lane.</td></tr>
 </table>
 
 
@@ -1070,7 +1070,7 @@ The `shield` value will be _null_ where `ref` is also _null_. No further `shield
 
 Used to style the text on the highway shield icon.
 
-Possible values: 
+Possible values:
 
 <div class='col12 clearfix space-bottom2'>
 <code class='col10 margin1 pad1'>
@@ -1372,4 +1372,3 @@ The waterway layer has two fields for styling - `class` and `type` - each with s
 <tr><td><code>drain</code></td><td>Medium to small artificial channel for rainwater drainage, often concrete lined.</td></tr>
 <tr><td><code>ditch</code></td><td>Small artificial channel dug in the ground for rainwater drainage.</td></tr>
 </table>
-
