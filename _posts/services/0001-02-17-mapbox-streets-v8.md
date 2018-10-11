@@ -790,10 +790,10 @@ The `class` field provides a broad distinction between place types. The possible
 
 <table class='small space-bottom2'>
 <tr><th>Class</th><th>Encompasses Types</th></tr>
-<tr><td><code>`country`</code></td><td>`country`, `territory`, `sar`, `disputed`</td></tr>
-<tr><td><code>`state`</code></td><td>`state`</td></tr>
-<tr><td><code>`settlement`</code></td><td>`city`, `town`, `village`, `hamlet`</td></tr>
-<tr><td><code>`settlement_subdivision`</code></td><td>`suburb`, `quarter`, `neighbourhood`</td></tr>
+<tr><td><code>country</code></td><td><code>country</code>, <code>territory</code>, <code>sar</code>, <code>disputed</code></td></tr>
+<tr><td><code>state</code></td><td><code>state</code></td></tr>
+<tr><td><code>settlement</code></td><td><code>city</code>, <code>town</code>, <code>village</code>, <code>hamlet</code></td></tr>
+<tr><td><code>settlement_subdivision</code></td><td><code>suburb</code>, <code>quarter</code>, <code>neighbourhood</code></td></tr>
 </table>
 
 #### <!--place_label--> `symbolrank` _number_
@@ -960,11 +960,11 @@ This value may be null where explicit bike lane details are unknown.
 
 <table class='small space-bottom2'>
 <tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>`yes`</code></td><td>Bike lane present, side of road not specified.</td></tr>
-<tr><td><code>`left`</code></td><td>Bike lane present on the left side of the road.</td></tr>
-<tr><td><code>`right`</code></td><td>Bike lane present on the right side of the road.</td></tr>
-<tr><td><code>`both`</code></td><td>Bike lane present on both sides of the road.</td></tr>
-<tr><td><code>`no`</code></td><td>Road is known to have no bike lane.</td></tr>
+<tr><td><code>yes</code></td><td>Bike lane present, side of road not specified.</td></tr>
+<tr><td><code>left</code></td><td>Bike lane present on the left side of the road.</td></tr>
+<tr><td><code>right</code></td><td>Bike lane present on the right side of the road.</td></tr>
+<tr><td><code>both</code></td><td>Bike lane present on both sides of the road.</td></tr>
+<tr><td><code>no</code></td><td>Road is known to have no bike lane.</td></tr>
 </table>
 
 
@@ -1073,8 +1073,7 @@ Used to style the text on the highway shield icon.
 Possible values:
 
 <div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1'>
-black
+<code class='col10 margin1 pad1'>black
 blue
 white
 yellow
