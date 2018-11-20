@@ -253,7 +253,11 @@ The waterway layer has two fields for styling - __`class`__ and __`type`__ - eac
     </div>
 </h3>
 
-This is a simple polygon layer with no differentiating types or classes. Water bodies are filtered and simplified according to scale - only oceans and very large lakes are shown at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
+This layer includes all types of water bodies: oceans, rivers, lakes, ponds, reservoirs, fountains, and more.
+
+It is a simple polygon layer with no differentiating types or classes, and consists of a single merged shape per tile. This allows for seamless stroke and transparency styling, but means there is no way to filter out or highlight specific water bodies or a partial subset of them.
+
+Each zoom level includes a set of water bodies that has been filtered and simplified according to scale. Only oceans, seas, and very large lakes are shown at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
 
 
 <!-- AEROWAY -->
