@@ -175,6 +175,32 @@ Additionally, v7 includes the following more specific/limited changes:
 
 ## Layer Reference
 
+The `mapbox-streets-v8` tileset contains the following layers. For reference, the current minimum-available zoom level for each layer is mentioned, but please note that this is subject to change as we roll out updates and improvements. It also does not apply to all features within a layer - only the most prominent features are available at lower-numbered zoom levels, and more features are available as you zoom in.
+
+Layer | Min. zoom level
+--- | ---
+[`landuse`](#landuse) | 5
+[`waterway`](#waterway) | 7
+[`water`](#water) | 0
+[`aeroway`](#aeroway) | 9
+[`barrier_line`](#barrier_line) | 13
+[`building`](#buildin) | 13
+[`landuse_overlay`](#landuse_overlay) | 5
+[`road`](#road) | 5
+[`admin`](#admin) | 0
+[`country_label`](#country_label) | 0 (max: 10)
+[`marine_label`](#marine_label) | 0 (max: 9)
+[`state_label`](#state_label) | 1 (max: 11)
+[`place_label`](#place_label) | 4
+[`water_label`](#water_label) | 8
+[`airport_label`](#airport_label) | 8
+[`rail_station_label`](#rail_station_label) | 12
+[`mountain_peak_label`](#mountain_peak_label) | 8
+[`poi_label`](#poi_label) | 5
+[`motorway_junction`](#motorway_junction) | 11
+[`road_label`](#road_label) | 6
+[`waterway_label`](#waterway_label) | 13
+[`housenum_label`](#housenum_label) | 16
 
 <!-- LANDUSE -->
 <a class='doc-section' id='landuse'></a>

@@ -438,6 +438,26 @@ entrance
 
 ## Layer Reference
 
+The `mapbox-streets-v8` tileset contains the following layers. For reference, the current minimum-available zoom level for each layer is mentioned, but please note that this is subject to change as we roll out updates and improvements. It also does not apply to all features within a layer - only the most prominent features are available at lower-numbered zoom levels, and more features are available as you zoom in. Labels for physically-large features also have a maximum zoom level based on their size.
+
+Layer | Min. zoom level
+--- | ---
+[`admin`](#admin) | 0
+[`aeroway`](#aeroway) | 9
+[`airport_label`](#airport_label) | 8
+[`building`](#buildin) | 13
+[`housenum_label`](#housenum_label) | 16
+[`landuse_overlay`](#landuse_overlay) | 5
+[`landuse`](#landuse) | 5
+[`motorway_junction`](#motorway_junction) | 11
+[`natural_label`](#natural_label) | 0
+[`place_label`](#place_label) | 0
+[`poi_label`](#poi_label) | 5
+[`road`](#road) | 5
+[`structure`](#road_label) | 13
+[`transit_stop_label`](#transit_stop_label) | 11
+[`water`](#water) | 0
+[`waterway`](#waterway) | 7
 
 <!-- ADMIN ----------------------------------------------------------------- -->
 <a class='doc-section' id='admin'></a>
