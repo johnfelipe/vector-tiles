@@ -50,8 +50,7 @@ is should be in single quotes as if you are using it in JSON, eg:
 <strong>mapbox.mapbox-streets-v7</strong>
 </pre>
 
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default templates in [Mapbox Studio](/studio).
-
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling.
 
 ## Overview
 
