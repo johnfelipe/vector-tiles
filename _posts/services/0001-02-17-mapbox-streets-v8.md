@@ -54,9 +54,7 @@ head: |
 <strong>mapbox.mapbox-streets-v8</strong>
 </pre>
 
-<div class='note'><strong>Note:</strong> Mapbox Streets v8 is currently a beta release. The data structure is stable as documented, but there are still known issues and limited style examples.</div>
-
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. <!--For full examples of using Mapbox Streets vector tiles to create a map style, check out the default templates in [Mapbox Studio](/studio).-->
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default styles in [Mapbox Studio](/studio).
 
 ## Overview
 
