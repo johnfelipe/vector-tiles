@@ -440,13 +440,13 @@ canvas {
   border-radius: 0.3em;
   font-weight: 900;
 }
-.blue { 
+.blue {
   background-color: #0074D9;
 }
-.red { 
+.red {
   background-color: #FF4136;
 }
-.black { 
+.black {
   background-color: #333333;
 }
 #vt-next:hover {}
@@ -456,3 +456,5 @@ canvas {
 }
 .command-step {
 }
+
+#page-footer { position: relative; z-index: 1; }
