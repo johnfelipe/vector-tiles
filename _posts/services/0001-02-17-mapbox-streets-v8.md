@@ -54,7 +54,7 @@ head: |
 <strong>mapbox.mapbox-streets-v8</strong>
 </pre>
 
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default styles in [Mapbox Studio](/studio).
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default styles in [Mapbox Studio](https://www.mapbox.com/studio/).
 
 ## Overview
 
