@@ -6,6 +6,7 @@ import ReactPageShell from '../../vendor/docs-page-shell/react-page-shell.js';
 import TopbarSticker from '@mapbox/dr-ui/topbar-sticker';
 import ProductMenu from '@mapbox/dr-ui/product-menu/product-menu';
 import TabList from '@mapbox/mr-ui/tab-list';
+import Copiable from '@mapbox/mr-ui/copiable';
 import PageLayout from '@mapbox/dr-ui/page-layout';
 import NavigationAccordion from '@mapbox/dr-ui/navigation-accordion';
 import orderedPages from '@mapbox/batfish/data/ordered-pages'; // eslint-disable-line
@@ -145,6 +146,19 @@ class PageShell extends React.Component {
             sidebarStackedOnNarrowScreens={pageNavigationNarrowStick}
           >
             <div className="mt60 mt0-mm">{pageTitle}</div>
+            {props.frontMatter.mapid ? (
+              <div>
+                <div className="prose mb36">
+                  <strong>Source id</strong>:
+                  <span className="inline-block ml6">
+                    <Copiable value={props.frontMatter.mapid} />
+                  </span>
+                </div>
+                <div className="h360 bg-gray-faint mb24" />
+              </div>
+            ) : (
+              ''
+            )}
             {props.children}
           </PageLayout>
         </div>
