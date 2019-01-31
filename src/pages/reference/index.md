@@ -33,14 +33,14 @@ To get the underlying vector tile data that makes up this image, you can request
 http://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v7/14/4823/6160.mvt?access_token=<your access token>
 ```
 
-As the name suggests, vector tiles contain vector data instead of the rendered image. They contain geometries and metadata -- like road names, place names, house numbers -- in a compact, structured format. Vector tiles are rendered only when requested by a client, like a web browser or a mobile app. Rendering happens either in the client ([Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/), [Mapbox iOS SDK](https://docs.mapbox.com/ios/maps/overview/), [Mapbox Android SDK](https://www.mapbox.com/developers/#android)) or on the fly on the server ([map API](https://docs.mapbox.com/api/maps/)). The [specification overview page](/vector-tiles/specification/) is a great place to learn more about the Mapbox Vector Tile Specification.
+As the name suggests, vector tiles contain vector data instead of the rendered image. They contain geometries and metadata -- like road names, place names, house numbers -- in a compact, structured format. Vector tiles are rendered only when requested by a client, like a web browser or a mobile app. Rendering happens either in the client ([Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/), [Mapbox iOS SDK](https://docs.mapbox.com/ios/maps/overview/), [Mapbox Android SDK](https://docs.mapbox.com/android/maps/overview/)) or on the fly on the server ([map API](https://docs.mapbox.com/api/maps/)). The [specification overview page](/vector-tiles/specification/) is a great place to learn more about the Mapbox Vector Tile Specification.
 
 Vector tiles have two important advantages over fully rendered image tiles:
 
 - **Styling** - as vectors, tiles can be styled when requested, allowing for [many map styles](https://www.mapbox.com/maps/) on global data
 - **Size** - vector tiles are really small, enabling global high resolution maps, fast map loads, and efficient caching
 
-[Mapbox Streets](https://www.mapbox.com/data-platform/#mapbox-streets), our global basemap, is entirely made of vector tiles. Any map data you upload with [Mapbox Studio](https://studio.mapbox.com/) is converted into vector tiles before styling.
+Mapbox Streets, our global basemap, is entirely made of vector tiles. Any map data you upload with [Mapbox Studio](https://studio.mapbox.com/) is converted into vector tiles before styling.
 
 ## Open Standard
 

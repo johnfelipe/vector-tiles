@@ -13,7 +13,7 @@ This is a guide to the layers and data inside the Mapbox Traffic vector tile sou
 
 Mapbox Traffic provides constantly updating congestion information on top of [Mapbox Streets](https://www.mapbox.com/maps/streets/) road geometries.
 
-When you publicly use styles or software that use Mapbox Traffic vector tiles, you must [display proper attribution](https://www.mapbox.com/help/attribution/).
+When you publicly use styles or software that use Mapbox Traffic vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
 ![](https://api.mapbox.com/styles/v1/mapbox/traffic-day-v2/tiles/256/14/4823/6160?access_token={{constants.ACCESS_TOKEN}})
 

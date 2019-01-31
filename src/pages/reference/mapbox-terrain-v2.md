@@ -12,7 +12,7 @@ This is a guide to the layers and data inside the Mapbox Terrain vector tile sou
 
 Mapbox Terrain provides hillshades, elevation contours, and landcover data all in vector form.
 
-Mapbox Terrain is based on data from a variety of sources - see [the about page](https://www.mapbox.com/about/maps/) for details. When using the Mapbox Terrain layer publicly in a design or application you must provide [proper attribution](https://www.mapbox.com/help/attribution/).
+Mapbox Terrain is based on data from a variety of sources - see [the about page](https://www.mapbox.com/about/maps/) for details. When using the Mapbox Terrain layer publicly in a design or application you must provide [proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
 ## Changelog
 

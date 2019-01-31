@@ -15,7 +15,7 @@ This is an in-depth guide to the data inside the Mapbox Streets vector tile sour
 
 Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OSM data structure and tagging system is not neccessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
 
-When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://www.mapbox.com/help/attribution/).
+When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
 ### Name fields
 
@@ -353,7 +353,7 @@ The __`type`__ field is the value of the road's "primary" OpenStreetMap tag. For
 
 The __`layer`__ field is used to determine drawing order of overlapping road segments in the tunnel and bridge layers. 95% of values are -1, 1, or 0, and 99.9999% of values are between -5 and 5.
 
-If you want to ensure proper ordering of overlapping bridges when dealing with styles that involve road casing, you'll need to [manually add some extra code](https://hey.mapbox.com/tm2-carto-patterns/roads-with-casing/) to your project.yml. The `layer` field is intended to be used by this feature, not in your CartoCSS styles directly.
+If you want to ensure proper ordering of overlapping bridges when dealing with styles that involve road casing, you'll need to manually add some extra code to your project.yml. The `layer` field is intended to be used by this feature, not in your CartoCSS styles directly.
 
 ```
 project.yml:
@@ -653,7 +653,7 @@ See _Name fields_ in the [overview](#Overview) for information about names and t
 
 #### Maki icons
 
-The __`maki`__ field is designed to make it easy to add icons to POIs using the [Maki icon project](http://mapbox.com/maki), or with other icons that follow the same naming scheme.
+The __`maki`__ field is designed to make it easy to add icons to POIs using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme.
 
 _CartoCSS example:_
 

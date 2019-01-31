@@ -16,7 +16,7 @@ This is an in-depth guide to the data inside the Mapbox Streets vector tile sour
 
 Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OSM data structure and tagging system is not neccessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
 
-When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://www.mapbox.com/help/attribution/).
+When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
 
 ### Name fields
@@ -554,7 +554,7 @@ See _Name fields_ in the [overview](#overview) for information about names and t
 
 #### Maki icons
 
-The __`maki`__ field is designed to make it easy to add icons to POIs using the [Maki icon project](http://mapbox.com/maki), or with other icons that follow the same naming scheme.
+The __`maki`__ field is designed to make it easy to add icons to POIs using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme.
 
 
 Not all Maki icons are used, and different types of related POIs will sometimes have the same __`maki`__ value (eg universities and colleges, or art supply shops and art galleries). Nameless POIs will have never have a maki value of marker (the generic default). The possible values for the __`maki`__ field are listed below.

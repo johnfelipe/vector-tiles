@@ -236,7 +236,7 @@ The value will never be _null_ and will always be in the range of 0-5.
 
 #### `maki` _text_
 
-Some layers have a `maki` field designed to make it easy to assign icons using the [Maki icon project](http://mapbox.com/maki), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can ensure your style has all the icons needed across different layers.
+Some layers have a `maki` field designed to make it easy to assign icons using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can ensure your style has all the icons needed across different layers.
 
 Not all icons from the Maki project are used in Mapbox Streets, and different types of related features will sometimes have the same `maki` value (eg universities and colleges, or art supply shops and art galleries). Nameless POIs will have never have a maki value of marker (the generic default).
 
@@ -385,7 +385,7 @@ entrance
 
 {{ <LayerInfo name="admin" type={["line"]} buffer={4} /> }}
 
-This layer contains boundary lines for national and subnational administrative units. The data source & shapes match polygons from the [Mapbox Enterprise Boundaries product](https://blog.mapbox.com/introducing-mapbox-enterprise-boundaries-2fca4a36d8ba).
+This layer contains boundary lines for national and subnational administrative units. The data source & shapes match polygons from the [Mapbox Enterprise Boundaries product](/vector-tiles/reference/enterprise-boundaries-v2/).
 
 #### <!--admin--> `admin_level` _number_
 
@@ -653,7 +653,7 @@ The value will be _null_ for any place that is not a capital.
 
 #### <!--place_label--> `text_anchor` _text_
 
-The `text_anchor` field can be used as a hint for label placement. Possible values match the [Mapbox GL Style Spec for text anchor](https://www.mapbox.com/mapbox-gl-js/style-spec/#layout-symbol-text-anchor). The value may be _null_. <!-- FIXME - more detail? -->
+The `text_anchor` field can be used as a hint for label placement. Possible values match the [Mapbox GL Style Spec for text anchor](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layout-symbol-text-anchor). The value may be _null_. <!-- FIXME - more detail? -->
 
 | Value          | Meaning                                                 |
 |----------------|---------------------------------------------------------|
