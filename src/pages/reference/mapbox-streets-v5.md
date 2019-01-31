@@ -11,7 +11,7 @@ prependJs:
 
 {{ <Note imageComponent={<BookImage height="60" width="60" />}> }}
 
-We recommend moving to Mapbox Streets v6 for additional features and improvements. However v5 is still supported and continues to receive data updates from OpenStreetMap.
+We recommend moving to [Mapbox Streets v8](/vector-tiles/reference/mapbox-streets-v8/) for additional features and improvements. Mapbox Streets v5 no longer receives data updates from OpenStreetMap.
 
 {{</Note>}}
 

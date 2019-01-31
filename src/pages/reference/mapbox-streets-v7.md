@@ -5,7 +5,15 @@ mapid: mapbox.mapbox-streets-v7
 prependJs: 
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
+  - "import Note from '@mapbox/dr-ui/note';"
+  - "import BookImage from '@mapbox/dr-ui/book-image';"
 ---
+
+{{ <Note imageComponent={<BookImage height="60" width="60" />}> }}
+
+We recommend moving to [Mapbox Streets v8](/vector-tiles/reference/mapbox-streets-v8/) for additional features and improvements. However, Mapbox Streets v7 will continue to receive data updates from OpenStreetMap.
+
+{{</Note>}}
 
 This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling.
 
