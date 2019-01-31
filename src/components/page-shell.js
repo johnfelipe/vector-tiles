@@ -148,7 +148,7 @@ class PageShell extends React.Component {
             <div className="mt60 mt0-mm">{pageTitle}</div>
             {props.frontMatter.mapid ? (
               <div>
-                <div className="prose mb36">
+                <div className="prose mb18">
                   <strong>Source id</strong>:
                   <span className="inline-block ml6">
                     <Copiable value={props.frontMatter.mapid} />

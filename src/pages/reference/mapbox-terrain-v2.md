@@ -1,5 +1,5 @@
 ---
-title: Mapbox Terrain
+title: Mapbox Terrain v2
 description: Reference documentation for the Mapbox Terrain v2 tileset.
 mapid: mapbox.mapbox-terrain-v2
 prependJs: 
@@ -28,7 +28,7 @@ A summary of the changes from v1:
 
 <!-- LANDCOVER ---------------------------------------------------->
 
-{{ <LayerInfo name="landcover" type={["polygon"]} buffer={8} /> }}
+{{ <LayerInfo name="#landcover" type={["polygon"]} buffer={8} /> }}
 
 The landcover layer provides a generalized backdrop of vegetation, agriculture, and permanent ice & snow. It is intended for stylistic use and not appropriate for science or other analysis. Empty space in the landcover layer represents either water or bare earth, rock, sand, and built-up areas.
 
@@ -60,7 +60,7 @@ Map { background-color: cornsilk; }
 
 <!-- HILLSHADE ------------------------------------------------------------>
 
-{{ <LayerInfo name="hillshade" type={["polygon"]} buffer={8} /> }}
+{{ <LayerInfo name="#hillshade" type={["polygon"]} buffer={8} /> }}
 
 The hillshade layer contains polygons that when styled appropriately display shaded relief of hills. The lighting direction is not realistic, but from the north-west (as is traditional in shaded relief).
 
@@ -118,7 +118,7 @@ _ CartoCSS example:_
 
 <!-- CONTOUR ---------------------------------------------------->
 
-{{ <LayerInfo name="contour" type={["polygon"]} buffer={4} /> }}
+{{ <LayerInfo name="#contour" type={["polygon"]} buffer={4} /> }}
 
 Contour lines indicate vertical dimension on a region by joining points of equal elevation. Full contour line coverage begins at zoom 12, while index lines are available at zoom 9 + in values specified below.
 

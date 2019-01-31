@@ -33,7 +33,7 @@ Mapbox Traffic receives two different types of data updates:
 
 ## Layer Reference
 
-{{ <LayerInfo name="traffic" type={["line"]} buffer={4} /> }}
+{{ <LayerInfo name="#traffic" type={["line"]} buffer={4} /> }}
 
 #### Classes
 

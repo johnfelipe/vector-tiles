@@ -2,13 +2,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '@mapbox/mr-ui/icon';
+const slugger = require('github-slugger')();
 
 class LayerInfo extends React.PureComponent {
   render() {
+    function slug(string) {
+      slugger.reset();
+      return slugger.slug(string);
+    }
     return (
-      <div className="pt60 mb24 txt-l" id={this.props.name}>
-        <a className="unprose mr18" href={`#${this.props.name}`}>
-          <h3 className="inline txt-code pt0">{this.props.name}</h3>
+      <h3
+        className="txt-code bg-transparent ml-neg6"
+        id={slug(this.props.name)}
+      >
+        <a
+          className="mr18 unprose color-blue-on-hover"
+          href={`#${slug(this.props.name)}`}
+        >
+          <span className="mr18">{this.props.name}</span>
         </a>
         <span
           className={
@@ -42,7 +53,7 @@ class LayerInfo extends React.PureComponent {
         ) : (
           ''
         )}
-      </div>
+      </h3>
     );
   }
 }

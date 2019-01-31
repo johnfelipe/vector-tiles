@@ -131,7 +131,7 @@ Additionally, v7 includes the following more specific/limited changes:
 
 <!-- LANDUSE ----------------------------------------------------------->
 
-{{ <LayerInfo name="landuse" type={["polygon"]} buffer={4} /> }}
+{{ <LayerInfo name="#landuse" type={["polygon"]} buffer={4} /> }}
 
 This layer includes polygons representing both land-use and land-cover.
 
@@ -161,7 +161,7 @@ The main field used for styling the landuse layer is __`class`__.
 
 <!-- WATERWAY ----------------------------------------------------------->
 
-{{ <LayerInfo name="waterway" type={["line"]} buffer={4} /> }}
+{{ <LayerInfo name="#waterway" type={["line"]} buffer={4} /> }}
 
 The waterway layer contains classes for rivers, streams, canals, etc represented as lines. These classes can represent a wide variety of possible widths. It's best to have your line stying biased toward the smaller end of the scales since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer. Also works best under `#water` layer.
 
@@ -181,7 +181,7 @@ The waterway layer has two fields for styling - __`class`__ and __`type`__ - eac
 
 <!-- WATER -------------------------------------------------------------->
 
-{{ <LayerInfo name="water" type={["polygon"]} buffer={8} /> }}
+{{ <LayerInfo name="#water" type={["polygon"]} buffer={8} /> }}
 
 This layer includes all types of water bodies: oceans, rivers, lakes, ponds, reservoirs, fountains, and more.
 
@@ -192,7 +192,7 @@ Each zoom level includes a set of water bodies that has been filtered and simpli
 
 <!-- AEROWAY ------------------------------------------------------------->
 
-{{ <LayerInfo name="aeroway" type={["line"]} buffer={4} /> }}
+{{ <LayerInfo name="#aeroway" type={["line"]} buffer={4} /> }}
 
 The aeroway layer includes both lines and polygons representing runways, helipads, etc.
 
@@ -210,7 +210,7 @@ The __`type`__ field separates different types of aeroways for styling.
 
 <!-- BARRIER_LINE ----------------------------------------------------------->
 
-{{ <LayerInfo name="barrier_line" type={["line", "polygon"]} buffer={4} /> }}
+{{ <LayerInfo name="#barrier_line" type={["line", "polygon"]} buffer={4} /> }}
 
 This layer includes lines and polygons for barriers - things such as walls and fences.
 
@@ -229,7 +229,7 @@ Cliff data from OSM is designed such that the left-hand side of the line is the 
 
 <!-- BUILDING ----------------------------------------------------------->
 
-{{ <LayerInfo name="building" type={["polygon"]} buffer={2} /> }}
+{{ <LayerInfo name="#building" type={["polygon"]} buffer={2} /> }}
 
 Large buildings appear at zoom level 13, and all buildings are included in zoom level 14 and up.
 
@@ -252,7 +252,7 @@ The __`extrude`__ field is `true` or `false` depending one whether the object sh
 
 <!-- LANDUSE_OVERLAY ------------------------------------------------------->
 
-{{ <LayerInfo name="landuse_overlay" type={["polygon"]} buffer={8} /> }}
+{{ <LayerInfo name="#landuse_overlay" type={["polygon"]} buffer={8} /> }}
 
 This layer is for landuse / landcover polygons that should be drawn above the [#water](#water) layer.
 
@@ -269,7 +269,7 @@ The main field used for styling the landuse_overlay layer is __`class`__.
 
 <!-- ROAD ------------------------------------------------------------------->
 
-{{ <LayerInfo name="road" type={["point", "line", "polygon"]} buffer={4} /> }}
+{{ <LayerInfo name="#road" type={["point", "line", "polygon"]} buffer={4} /> }}
 
 The roads layers are some of the most complex ones in Mapbox Streets. Separate `bridge` and `tunnel` layers are gone and  have been merged into road. `structure` field describes whether the road segment is a `bridge`, `tunnel`, `ford`, or `none`. Bridges and tunnels are not distinct from roads until zoom level 13.
 
@@ -396,7 +396,7 @@ The __`layer`__ field is used to determine drawing order of overlapping road seg
 
 <!-- ADMIN ------------------------------------------------------------------>
 
-{{ <LayerInfo name="admin" type={["line"]} buffer={4} /> }}
+{{ <LayerInfo name="#admin" type={["line"]} buffer={4} /> }}
 
 Administrative boundary lines. These are constructed from the OSM data in such a way that there are no overlapping lines where multiple boundary areas meet.
 
@@ -425,7 +425,7 @@ The __`iso_3166_1`__ field contains the [ISO 3166-1 alpha-2](https://en.wikipedi
 
 <!-- COUNTRY_LABEL ---------------------------------------------------------->
 
-{{ <LayerInfo name="country_label" type={["point"]} buffer={256} /> }}
+{{ <LayerInfo name="#country_label" type={["point"]} buffer={256} /> }}
 
 This layer contains points used for labeling countries. The points are placed for minimal overlap with small to medium-sized text.
 
@@ -448,7 +448,7 @@ The __`scalerank`__ field is intended to help assign different label styles base
 
 <!-- MARINE_LABEL -------------------------------------------------------->
 
-{{ <LayerInfo name="marine_label" type={["line"]} buffer={256} /> }}
+{{ <LayerInfo name="#marine_label" type={["line"]} buffer={256} /> }}
 
 Points and lines for labeling major marine features such as oceans, seas, large lakes & bays.
 
@@ -465,7 +465,7 @@ The value of the __`placement`__ field will be either `point` or `line` dependin
 
 <!-- STATE_LABEL ----------------------------------------------------------->
 
-{{ <LayerInfo name="state_label" type={["point"]} buffer={256} /> }}
+{{ <LayerInfo name="#state_label" type={["point"]} buffer={256} /> }}
 
 Points for labeling states and provinces. Currently only a small number of countries are included.
 
@@ -484,7 +484,7 @@ The __`area`__ field is the physical area of the entity in square kilometers. Us
 
 <!-- PLACE_LABEL ------------------------------------------------------------>
 
-{{ <LayerInfo name="place_label" type={["point"]} buffer={128} /> }}
+{{ <LayerInfo name="#place_label" type={["point"]} buffer={128} /> }}
 
 This layer contains points for labeling human settlements.
 
@@ -529,7 +529,7 @@ The __`ldir`__ field can be used as a hint for label offset directions at lower 
 
 <!-- WATER_LABEL ------------------------------------------------------------>
 
-{{ <LayerInfo name="water_label" type={["point"]} buffer={64} /> }}
+{{ <LayerInfo name="#water_label" type={["point"]} buffer={64} /> }}
 
 This layer contains points for labeling bodies of water such as lakes and ponds.
 
@@ -544,7 +544,7 @@ The __`area`__ field holds the area of the associated water polygon in square me
 
 <!-- POI_LABEL -------------------------------------------------------------->
 
-{{ <LayerInfo name="poi_label" type={["point"]} buffer={64} /> }}
+{{ <LayerInfo name="#poi_label" type={["point"]} buffer={64} /> }}
 
 This layer is used to place icons and labels for various points of interest (POIs).
 
@@ -654,7 +654,7 @@ The __`localrank`__ field can be used to adjust the label density by showing few
 
 <!-- ROAD_LABEL ----------------------------------------------------------->
 
-{{ <LayerInfo name="road_label" type={["point", "line"]} buffer={8} /> }}
+{{ <LayerInfo name="#road_label" type={["point", "line"]} buffer={8} /> }}
 
 #### Names
 
@@ -772,7 +772,7 @@ The __`len`__ field stores the length of the road segment in projected meters, r
 
 <!-- MOTORWAY_JUNCTION_LABEL ----------------------------------------------->
 
-{{ <LayerInfo name="motorway_junction" type={["point"]} buffer={8} /> }}
+{{ <LayerInfo name="#motorway_junction" type={["point"]} buffer={8} /> }}
 
 This layer contains point geometries for labeling motorway junctions (aka highway exits). Classes and types match the types in the road layer.
 
@@ -787,7 +787,7 @@ The __`class`__ and __`type`__ fields tell you what kind of road the junction is
 
 <!-- WATERWAY_LABEL ------------------------------------------------------->
 
-{{ <LayerInfo name="waterway_label" type={["line"]} buffer={8} /> }}
+{{ <LayerInfo name="#waterway_label" type={["line"]} buffer={8} /> }}
 
 This layer contains line geometries that match those in the [#waterway](#waterway) layer but with name fields for label rendering.
 
@@ -811,7 +811,7 @@ The __`class`__ and __`type`__ fields match those in the [#waterway](#waterway) 
 
 <!-- AIRPORT_LABEL ------------------------------------------------------->
 
-{{ <LayerInfo name="airport_label" type={["line"]} buffer={64} /> }}
+{{ <LayerInfo name="#airport_label" type={["line"]} buffer={64} /> }}
 
 This layer contains point geometries that are one of: airport, airfield, heliport, and rocket.
 
@@ -840,7 +840,7 @@ The __`scalerank`__ field is a number representing the size / importance of the 
 
 <!-- RAIL_STATION_LABEL ------------------------------------------------->
 
-{{ <LayerInfo name="rail_station_label" type={["point"]} buffer={64} /> }}
+{{ <LayerInfo name="#rail_station_label" type={["point"]} buffer={64} /> }}
 
 This layer contains point geometries with name fields for label rendering.
 
@@ -923,7 +923,7 @@ If none of the specific networks below apply to a station, the __`network`__ val
 
 <!-- MOUTAIN_PEAK_LABEL ----------------------------------------------------->
 
-{{ <LayerInfo name="mountain_peak_label" type={["point"]} buffer={64} /> }}
+{{ <LayerInfo name="#mountain_peak_label" type={["point"]} buffer={64} /> }}
 
 This layer contains point geometries that are contains mountain peaks. Include fields `elevation_m` & `elevation_ft` which contain the peak elevations in meters and feet, respectively. Values are rounded to the nearest integer.
 
@@ -947,7 +947,7 @@ The __`elevation_m`__ and __`elevation_ft`__ fields hold the peak elevation in m
 
 <!-- HOUSENUM_LABEL --------------------------------------------------------->
 
-{{ <LayerInfo name="housenum_label" type={["point"]} buffer={64} /> }}
+{{ <LayerInfo name="#housenum_label" type={["point"]} buffer={64} /> }}
 
 This layer contains points used to label the street number parts of specific addresses.
 

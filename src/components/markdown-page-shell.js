@@ -5,9 +5,7 @@ export default class MarkdownPageshell extends React.Component {
   render() {
     return (
       <PageShell {...this.props}>
-        <div className="prose" id="docs-content">
-          {this.props.children}
-        </div>
+        <div className="prose">{this.props.children}</div>
       </PageShell>
     );
   }
