@@ -1,36 +1,31 @@
 ---
 title: Mapbox Streets v8
-description: Some description.
-options: full
-class: fill-light
+description: Reference documentation for the Mapbox Streets v8 tileset.
+mapid: mapbox.mapbox-streets-v8
+prependJs: 
+  - "import Icon from '@mapbox/mr-ui/icon';"
+  - "import { LayerInfo } from '../../components/layer-info';"
 ---
 
-<pre class='fill-darken3 dark round'>
-<span class='quiet'>Source ID:</span>
-<strong>mapbox.mapbox-streets-v8</strong>
-</pre>
-
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default styles in [Mapbox Studio](https://www.mapbox.com/studio/).
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default styles in [Mapbox Studio](https://studio.mapbox.com/).
 
 ## Overview
 
 ### Data sources & updates
 
-Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OSM data structure and tagging system is not neccessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
+Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OSM data structure and tagging system is not necessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
 
-When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://www.mapbox.com/help/attribution/).
-
+When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
 The current supported version of the Mapbox Streets vector tiles receives regular data updates as new information becomes available and existing information is improved.
 
-<table class='small space-bottom2'>
-<tr><th>Layer</th><th>Source</th></tr>
-<tr><td>most layers</td><td>OpenStreetMap replication feed</td></tr>
-<tr><td><code>admin</code></td><td>custom Mapbox data</td></tr>
-<tr><td><code>water</code> (ocean parts)</td><td><a href='http://openstreetmapdata.com/'>OpenStreetMapData.com</a></td></tr>
-<tr><td><code>place_label</code>, types ‘country’ & ‘state’</td><td>custom Mapbox data</td></tr>
-<tr><td><code>natural_label</code>, types ‘ocean’ & ‘sea’  </td><td>custom Mapbox data</td></tr>
-</table>
+| Layer                  |  Source                              |
+|------------------------|--------------------------------------|
+| most layers            | OpenStreetMap replication feed       |
+| `admin`                | custom Mapbox data                   |
+| `water` (ocean parts)  | [OpenStreetMapData.com](http://openstreetmapdata.com/) | 
+| `place_label`, types `country` & `state` | custom Mapbox data | 
+| `natural_label`, types `ocean` & `sea`   | custom Mapbox data |
 
 
 ### Multiple geometry types
@@ -39,10 +34,9 @@ Mapnik vector tiles support multiple geometry types in the same layer. The Mapbo
 
 A geometry in the vector tile can be one of 3 types:
 
-1. <span class='small inline icon marker'></span> Point
-2. <span class='small inline icon polyline'></span> Linestring / multilinestring
-3. <span class='small inline icon polygon'></span> Polygon / multipolygon
-
+1. {{ <Icon name="marker" inline={true} /> }} Point
+2. {{ <Icon name="polyline" inline={true} /> }} Linestring / multilinestring
+3. {{ <Icon name="polygon" inline={true} /> }} Polygon / multipolygon
 
 In Mapbox Studio, you can select just one or two or all of the 3 types with the Geometry Type toggles in each layer's data selection tab.
 
@@ -53,12 +47,11 @@ OSM IDs are not stored as object properties but as object IDs within the vector 
 
 OpenStreetMap ID spaces are not unique across node, way, and relation object types. In order to make them unique for vector tiles, the IDs are transformed based on their OpenStreetMap object type.
 
-<table class='small space-bottom2'>
-<tr><th>OSM type</th><th>OSM ID transform</th></tr>
-<tr><td>node    </td><td><code>id × 10</code>       <em class='quiet'>eg. 123 → 1230</em></td></tr>
-<tr><td>way     </td><td><code>(id × 10) + 1</code> <em class='quiet'>eg. 123 → 1231</em></td></tr>
-<tr><td>relation</td><td><code>(id × 10) + 4</code> <em class='quiet'>eg. 123 → 1234</em></td></tr>
-</table>
+| OSM type        | OSM ID transform                          |
+|-----------------|-------------------------------------------|
+| node            | `id × 10` <br /> _eg. 123 → 1230_         | 
+| way             | `(id × 10) + 1` <br /> _eg. 123 → 1231_   |
+| relation        | `(id × 10) + 4` <br /> _eg. 123 → 1234_   |
 
 In many cases, mulitple objects from OpenStreetMap will be combined into a single object in our vector tiles. For example, water polygons are unioned to avoid seams and road lines are joined to save space and simplify better. In these cases the `osm_id` will either be `0`, or one of the input IDs chosen at random.
 
@@ -126,6 +119,7 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
     - `mode`: provides more detail about the particular mode of transport served by a stop/station
     - `stop_type`: value is one of: `stop`, `station`, `entrance`
 
+
 ## Data stability
 
 As we make ongoing data updates to reflect changes in the world, we may also add new layers, fields, and values Mapbox Streets v8 tiles. Our goal is to do this in a way that preserves compatibility with existing v8 styles as much as possible. Here's what you need to know about how Mapbox Streets v8 may change in the future:
@@ -154,21 +148,20 @@ Label names are available in a number of languages. The `name_*` value will be `
 
 If the `name` field is null for a particular feature, then all of the language-specific `name_*` fields will also be null. This means that `name` should always be the final fallback value if you want to include it in your set of label languages.
 
-<table class='small space-bottom2'>
-<tr><th>Field</th><th>Description</th></tr>
-<tr><td><code><strong>name</strong></code></td><td>The name (or names) used locally for the place.</td></tr>
-<tr><td><code><strong>name_ar</strong></code></td><td>Arabic</td></tr>
-<tr><td><code><strong>name_en</strong></code></td><td>English</td></tr>
-<tr><td><code><strong>name_es</strong></code></td><td>Spanish</td></tr>
-<tr><td><code><strong>name_fr</strong></code></td><td>French</td></tr>
-<tr><td><code><strong>name_de</strong></code></td><td>German</td></tr>
-<tr><td><code><strong>name_pt</strong></code></td><td>Portuguese</td></tr>
-<tr><td><code><strong>name_ru</strong></code></td><td>Russian</td></tr>
-<tr><td><code><strong>name_zh-Hans</strong></code></td><td>Simplified Chinese</td></tr>
-<tr><td><code><strong>name_zh-Hant</strong></code></td><td>Traditional Chinese (if available, but may contain some Simplified Chinese)</td></tr>
-<tr><td><code><strong>name_ja</strong></code></td><td>Japanese</td></tr>
-<tr><td><code><strong>name_ko</strong></code></td><td>Korean</td></tr>
-</table>
+| Field | Description |
+|---|---|
+| `name` | The name (or names) used locally for the place. |
+| `name_ar` | Arabic |
+| `name_en` | English |
+| `name_es` | Spanish |
+| `name_fr` | French |
+| `name_de` | German |
+| `name_pt` | Portuguese |
+| `name_ru` | Russian |
+| `name_zh-Hans` | Simplified Chinese |
+| `name_zh-Hant` | Traditional Chinese (if available, but may contain some Simplified Chinese) |
+| `name_ja` | Japanese |
+| `name_ko` | Korean |
 
 For languages that may have regional variations, no particular preference is given where place name spellings differ. 
 
@@ -178,8 +171,8 @@ For languages that may have regional variations, no particular preference is giv
 
 Wherever there is a `name` field, there is also a `name_script` field that describes the primary script used in that text. This can be helpful for customizing fonts or language fallback conditions. Values include:
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>Arabic
+```
+Arabic
 Armenian
 Bengali
 Bopomofo
@@ -215,8 +208,7 @@ Thai
 Tibetan
 Tifinagh
 Unknown
-</code>
-</div>
+```
 
 The value will be _null_ if `name` is also null.
 
@@ -244,36 +236,34 @@ The value will never be _null_ and will always be in the range of 0-5.
 
 #### `maki` _text_
 
-Some layers have a `maki` field designed to make it easy to assign icons using the [Maki icon project](http://mapbox.com/maki), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can ensure your style has all the icons needed across different layers.
+Some layers have a `maki` field designed to make it easy to assign icons using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can ensure your style has all the icons needed across different layers.
 
 Not all icons from the Maki project are used in Mapbox Streets, and different types of related features will sometimes have the same `maki` value (eg universities and colleges, or art supply shops and art galleries). Nameless POIs will have never have a maki value of marker (the generic default).
 
 The possible values for the `maki` field for all layers are listed below. Icon names that were not part of any layer in v7 are marked with 🆕. No further values will be added in Mapbox Streets v8.
 
-<code>airport_label:</code>
+`airport_label:` 
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1'>airport
+```
+airport
 airfield
 heliport
 rocket
-</code>
-</div>
+```
 
-<code>natural_label:</code>
+`natural_label:` 
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1'>marker
+```
+marker
 mountain
 volcano
 waterfall 🆕
-</code>
-</div>
+```
 
-<code>poi_label:</code>
+`poi_label:` 
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>alcohol-shop
+```
+alcohol-shop
 american-football 🆕
 amusement-park
 aquarium
@@ -374,60 +364,49 @@ watch 🆕
 watermill 🆕
 windmill 🆕
 zoo
-</code>
-</div>
+```
 
-<code>transit_stop_label:</code>
+`transit_stop_label:` 
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>bicycle-share
+```
+bicycle-share
 bus
 ferry
 rail
 rail-metro
 rail-light
 entrance
-</code>
-</div>
+```
+
 
 ## Layer Reference
 
+<!-- ADMIN --------------------------------------------------------------->
 
-<!-- ADMIN ----------------------------------------------------------------- -->
-<a class='doc-section' id='admin'></a>
-<h3 class='layer-ref-section'><a href='#admin'>admin</a>
-    <div class='geomtype' title='lines'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='      inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>4</strong>
-    </div>
-</h3>
+{{ <LayerInfo name="admin" type={["line"]} buffer={4} /> }}
 
-This layer contains boundary lines for national and subnational administrative units. The data source & shapes match polygons from the [Mapbox Enterprise Boundaries product](https://blog.mapbox.com/introducing-mapbox-enterprise-boundaries-2fca4a36d8ba).
+This layer contains boundary lines for national and subnational administrative units. The data source & shapes match polygons from the [Mapbox Enterprise Boundaries product](/vector-tiles/reference/enterprise-boundaries-v2/).
 
 #### <!--admin--> `admin_level` _number_
 
 The `admin_level` field separates different levels of boundaries.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>0</code></td><td>Countries</td></tr>
-<tr><td><code>1</code></td><td>First-level administrative divisions</td></tr>
-<tr><td><code>2</code></td><td>Second-level administrative divisions</td></tr>
-</table>
+| Value | Description |
+|---|---|
+| `0` | Countries |
+| `1` | First-level administrative divisions |
+| `2` | Second-level administrative divisions |
 
 #### <!--admin--> `worldview` _text_
 
 Mapbox Streets v8 introduces the notion of worldviews to the administrative boundary layer. The vector tiles contain multiple versions of some boundaries, each with a `worldview` value indicating the intended audience. It is important to apply a worldview filter to all of your `admin` style layers, otherwise your map will show conflicting & overlapping boundary lines. The filter should always include both `all` and one of the region-specific values.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>all</code></td><td>Appropriate for all worldviews (most boundaries)</td></tr>
-<tr><td><code>CN</code></td><td>Boundaries for a mainland Chinese audience/worldview, but not officially approved for use in the PRC.</td></tr>
-<tr><td><code>IN</code></td><td>Boundaries conforming to cartographic requirements for use in India</td></tr>
-<tr><td><code>US</code></td><td>Boundaries for an American audience, & which are generally appropriate outside of China & India. Lines do not necessarily reflect official US foreign policy.</td></tr>
-</table>
+| Value   | Description                                      |
+|---------|--------------------------------------------------|
+| `all`   | Appropriate for all worldviews (most boundaries) |
+| `CN`    | Boundaries for a mainland Chinese audience/worldview, but not officially approved for use in the PRC. |
+| `IN`    | Boundaries conforming to cartographic requirements for use in India |
+| `US`    | Boundaries for an American audience, & which are generally appropriate outside of China & India. Lines do not necessarily reflect official US foreign policy. |
 
 #### <!--admin--> `disputed` _text_
 
@@ -443,15 +422,8 @@ The `iso_3166_1` field contains the [ISO 3166-1 alpha-2](https://en.wikipedia.or
 
 
 <!-- AEROWAY --------------------------------------------------------------- -->
-<a class='doc-section' id='aeroway'></a>
-<h3 class='layer-ref-section'><a href='#aeroway'>aeroway</a>
-    <div class='geomtype' title='lines & polygons'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='      inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>4</strong>
-    </div>
-</h3>
+
+{{ <LayerInfo name="aeroway" type={["line"]} buffer={4} /> }}
 
 The aeroway layer includes both lines and polygons representing runways, helipads, etc.
 
@@ -459,29 +431,21 @@ The aeroway layer includes both lines and polygons representing runways, helipad
 
 The `type` field separates different types of aeroways for styling.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>runway</code></td><td>Where planes take off & land</td></tr>
-<tr><td><code>taxiway</code></td><td>Where planes move between runways, gates, and hangars</td></tr>
-<tr><td><code>apron</code></td><td>Where planes park, refuel, load</td></tr>
-<tr><td><code>helipad</code></td><td>Where helicopters take off & land</td></tr>
-</table>
+| Value      | Description                                           |
+|------------|-------------------------------------------------------|
+| `runway`   | Where planes take off & land                          |
+| `taxiway`  | Where planes move between runways, gates, and hangars |
+| `apron`    | Where planes park, refuel, load                       |
+| `helipad`  | Where helicopters take off & land                     |
 
 #### <!--aeroway--> `ref` _text_
 
 The `ref` field contains runway and taxiway identifiers. The value may be _null_.
 
 
-<!-- AIRPORT_LABEL --------------------------------------------------------- -->
-<a class='doc-section' id='airport_label'></a>
-<h3 class='layer-ref-section'><a href='#airport_label'>airport_label</a>
-    <div class='geomtype' title='lines'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='      inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>64</strong>
-    </div>
-</h3>
+<!-- AIRPORT_LABEL ------------------------------------------------------->
+
+{{ <LayerInfo name="airport_label" type={["line"]} buffer={64} /> }}
 
 This layer contains point geometries that are one of: airport, airfield, heliport, and rocket.
 
@@ -497,25 +461,17 @@ The `ref` field contains short identifier codes for many airports. These are pul
 
 The `maki` field lets you assign different icons to different types of airports. See the [`maki](#maki) part of the Common Fields section for more details.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>airport</code></td><td>Most commercial airports</td></tr>
-<tr><td><code>airfield</code></td><td>Smaller airports & private airfields</td></tr>
-<tr><td><code>heliport</code></td><td>For helicopters</td></tr>
-<tr><td><code>rocket</code></td><td>Spaceflight facilities</td></tr>
-</table>
+| Value      | Description                           |
+|------------|---------------------------------------|
+| `airport`  | Most commercial airports              |
+| `airfield` | Smaller airports & private airfields  |
+| `heliport` | For helicopters                       |
+| `rocket`   | Spaceflight facilities                |
 
 
-<!-- BUILDING -------------------------------------------------------------- -->
-<a class='doc-section' id='building'></a>
-<h3 class='layer-ref-section'><a href='#building'>building</a>
-    <div class='geomtype' title='polygons'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='      inline small icon polygon'></span>
-        buffer: <strong>2</strong>
-    </div>
-</h3>
+<!-- BUILDING ------------------------------------------------------------->
+
+{{ <LayerInfo name="building" type={["polygon"]} buffer={2} /> }}
 
 Large buildings appear at zoom level 13, and all buildings are included in zoom level 14 and up.
 
@@ -540,16 +496,9 @@ The `min_height` field contains the height in meters from the ground to the _bot
 The `extrude` field indicates whether the object should be included in 3D-extrusion renderings. For example a complex building might have various `building:part` objects mapped with different heights, in addition to a building object representing the footprint of the entire building. Only the `building:part` objects are needed for 3D rendering, so the full footprint outline will have an `extrude` value of `false`. The `extrude` value will always be either `true` or `false` (never _null_).
 
 
-<!-- HOUSENUM_LABEL -------------------------------------------------------- -->
-<a class='doc-section' id='housenum_label'></a>
-<h3 class='layer-ref-section'><a href='#housenum_label'>housenum_label</a>
-    <div class='geomtype' title='points'>
-        <span class='      inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>64</strong>
-    </div>
-</h3>
+<!-- HOUSENUM_LABEL ---------------------------------------------------->
+
+{{ <LayerInfo name="housenum_label" type={["point"]} buffer={64} /> }}
 
 This layer contains points used to label the street number parts of specific addresses.
 
@@ -558,16 +507,9 @@ This layer contains points used to label the street number parts of specific add
 The `house_num` field countains house and building numbers. These are commonly integers but may include letters or be only letters, eg "1600", "31B", "D". If an address has no number tag but has a house name or building name, the `house_num` field will be the name instead.
 
 
-<!-- LANDUSE_OVERLAY ------------------------------------------------------- -->
-<a class='doc-section' id='landuse_overlay'></a>
-<h3 class='layer-ref-section'><a href='#landuse_overlay'>landuse_overlay</a>
-    <div class='geomtype' title='polygons'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='      inline small icon polygon'></span>
-        buffer: <strong>8</strong>
-    </div>
-</h3>
+<!-- LANDUSE_OVERLAY ---------------------------------------------------->
+
+{{ <LayerInfo name="landuse_overlay" type={["polygon"]} buffer={8} /> }}
 
 This layer is for landuse / landcover polygons that should be drawn above the [#water](#water) layer.
 
@@ -575,24 +517,16 @@ This layer is for landuse / landcover polygons that should be drawn above the [#
 
 The main field used for styling the landuse_overlay layer is `class`.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>national_park</code></td><td>Relatively large area of land set aside by a government for human recreation and environmental protection</td></tr>
-<tr><td><code>wetland</code></td><td>Wetlands that may include vegetation (marsh, swamp, bog)</td></tr>
-<tr><td><code>wetland_noveg</code></td><td>Wetlands that probably dont contain vegetation (mud, tidal flat)</td></tr>
-</table>
+| Value             | Description                                         |
+|-------------------|-----------------------------------------------------|
+| `national_park`   | Relatively large area of land set aside by a government for human recreation and environmental protection |
+| `wetland`         | Wetlands that may include vegetation (marsh, swamp, bog) |
+| `wetland_noveg`   | Wetlands that probably dont contain vegetation (mud, tidal flat) |
 
 
-<!-- LANDUSE --------------------------------------------------------------- -->
-<a class='doc-section' id='landuse'></a>
-<h3 class='layer-ref-section'><a href='#landuse'>landuse</a>
-    <div class='geomtype' title='polygons'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='      inline small icon polygon'></span>
-        buffer: <strong>4</strong>
-    </div>
-</h3>
+<!-- LANDUSE ------------------------------------------------------------->
+
+{{ <LayerInfo name="landuse" type={["polygon"]} buffer={4} /> }}
 
 This layer includes polygons representing both land-use and land-cover.
 
@@ -602,36 +536,28 @@ It's common for many different types of landuse/landcover to be overlapping, so 
 
 The main field used for styling the landuse layer is `class`.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>aboriginal_lands</code></td><td>The boundary of aboriginal lands.</td></tr>
-<tr><td><code>agriculture</code></td><td>Various types of crop and farmland</td></tr>
-<tr><td><code>airport</code></td><td>Airport grounds</td></tr>
-<tr><td><code>cemetery</code></td><td>Cemeteries and graveyards</td></tr>
-<tr><td><code>glacier</code></td><td>Glaciers or permanent ice/snow</td></tr>
-<tr><td><code>grass</code></td><td>Grasslands, meadows, fields, lawns, etc</td></tr>
-<tr><td><code>hospital</code></td><td>Hospital grounds</td></tr>
-<tr><td><code>park</code></td><td>City parks, village greens, playgrounds, national parks, nature reserves, etc</td></tr>
-<tr><td><code>piste</code></td><td>Area used for skiing, snowboading, and other snow/mountain sports</td></tr>
-<tr><td><code>pitch</code></td><td>Sports fields & courts of all types</td></tr>
-<tr><td><code>rock</code></td><td>Bare rock, scree, quarries</td></tr>
-<tr><td><code>sand</code></td><td>Sand, beaches, dunes</td></tr>
-<tr><td><code>school</code></td><td>Primary, secondary, post-secondary school grounds</td></tr>
-<tr><td><code>scrub</code></td><td>Bushes, scrub, heaths</td></tr>
-<tr><td><code>wood</code></td><td>Woods and forestry areas</td></tr>
-</table>
+| Value               | Description                                 |
+|---------------------|---------------------------------------------|
+| `aboriginal_lands`  | The boundary of aboriginal lands.           |
+| `agriculture`       | Various types of crop and farmland          |
+| `airport`           | Airport grounds                             |
+| `cemetery`          | Cemeteries and graveyards                   |
+| `glacier`           | Glaciers or permanent ice/snow              |
+| `grass`             | Grasslands, meadows, fields, lawns, etc     |
+| `hospital`          | Hospital grounds                            |
+| `park`              | City parks, village greens, playgrounds, national parks, nature reserves, etc |
+| `piste`             | Area used for skiing, snowboading, and other snow/mountain sports |
+| `pitch`             | Sports fields & courts of all types         |
+| `rock`              | Bare rock, scree, quarries                  |
+| `sand`              | Sand, beaches, dunes                        |
+| `school`            | Primary, secondary, post-secondary school grounds |
+| `scrub`             | Bushes, scrub, heaths                       |
+| `wood`              | Woods and forestry areas                    |
 
 
-<!-- MOTORWAY_JUNCTION ----------------------------------------------------- -->
-<a class='doc-section' id='motorway_junction'></a>
-<h3><a href='#motorway_junction'>motorway_junction</a>
-    <div class='geomtype' title='lines'>
-        <span class='      inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>8</strong>
-    </div>
-</h3>
+<!-- MOTORWAY_JUNCTION --------------------------------------------------->
+
+{{ <LayerInfo name="motorway_junction" type={["point"]} buffer={8} /> }}
 
 This layer contains point geometries for labeling motorway junctions (aka highway exits). Classes and types match the types in the road layer.
 
@@ -644,16 +570,9 @@ The motorway junction layer has a `ref` field and a `name` field for styling lab
 The `class` and `type` fields tell you what kind of road the junction is on. See the [#road](#road) layer for possible values.
 
 
-<!-- NATURAL_LABEL --------------------------------------------------------- -->
-<a class='doc-section' id='natural_label'></a>
-<h3 class='layer-ref-section'><a href='#natural_label'>natural_label</a>
-    <div class='geomtype' title='points'>
-        <span class='      inline small icon marker'></span>
-        <span class='      inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>64</strong>
-    </div>
-</h3>
+<!-- NATURAL_LABEL ------------------------------------------------------->
+
+{{ <LayerInfo name="natural_label" type={["point", "line"]} buffer={64} /> }}
 
 The `natural_label` layer contains points and lines for styling natural features such as bodies of water, mountain peaks, valleys, deserts, and so on.
 
@@ -665,38 +584,30 @@ See [`sizerank`](#sizerank) for information about that field.
 
 The `natural_label` layer is organized into a number of different classes for styling & filtering. Within each class, serveral `maki` values are available for assigning icons to features - see the [`maki`](#maki) part of the Common Fields section for more details about that field.
 
-<table class='small space-bottom2'>
-<tr><th>class</th><th>maki values</th><th>feature types</th></tr>
-<tr><td><code>bay</code></td><td><code>marker</code></td><td>inlet in a large body of water</td></tr>
-<tr><td><code>canal</code></td><td><code>marker</code></td><td></td></tr>
-<tr><td><code>dock</code></td><td><code>marker</code></td><td>enclosed area of water for ships</td></tr>
-<tr><td><code>glacier</code></td><td><code>marker</code></td><td>glacier</td></tr>
-<tr><td><code>landform</code></td><td><code>mountain</code>, <code>volcano</code>, <code>marker</code></td><td>peaks, meadows, cave entrances, archipelago, island, islet, saddle, fell, desert, valley, etc.</td></tr>
-<tr><td><code>ocean</code></td><td><code>marker</code></td><td>oceans</td></tr>
-<tr><td><code>reservoir</code></td><td><code>marker</code></td><td>human water containment areas</td></tr>
-<tr><td><code>river</code></td><td><code>marker</code></td><td></td></tr>
-<tr><td><code>sea</code></td><td><code>marker</code></td><td>seas and other very large water features including some gulfs, straits, bays, etc.</td></tr>
-<tr><td><code>stream</code></td><td><code>marker</code></td><td></td></tr>
-<tr><td><code>water_feature</code></td><td><code>waterfall</code>, <code>marker</code></td><td>waterfalls</td></tr>
-<tr><td><code>water</code></td><td><code>marker</code></td><td>lakes, ponds, etc.</td></tr>
-<tr><td><code>wetland</code></td><td><code>marker</code></td><td>wetland, marsh</td></tr>
-</table>
+| class           | maki values | feature types                           |
+|-----------------|-------------|-----------------------------------------|
+| `bay`           | `marker`    | inlet in a large body of water          |
+| `canal`         | `marker`    |                                         |
+| `dock`          | `marker`    | enclosed area of water for ships        |
+| `glacier`       | `marker`    | glacier                                 |
+| `landform`      | `mountain` , `volcano` , `marker` | peaks, meadows, cave entrances, archipelago, island, islet, saddle, fell, desert, valley, etc. |
+| `ocean`         | `marker`    | oceans                                  |
+| `reservoir`     | `marker`    | human water containment areas           |
+| `river`         | `marker`    |                                         |
+| `sea`           | `marker`    | seas and other very large water features including some gulfs, straits, bays, etc. |
+| `stream`        | `marker`    |                                         |
+| `water_feature` | `waterfall` , `marker` | waterfalls                   |
+| `water`         | `marker`    | lakes, ponds, etc.                      |
+| `wetland`       | `marker`    | wetland, marsh                          |
 
 #### <!--natural_label--> `elevation_m` _number_ & `elevation_ft` _number_
 
 The `elevation_m` and `elevation_ft` fields hold the feature elevation in meters and feet, respectively. Values are rounded to the nearest whole number and do not include units. Use a text field such as `{elevation_ft} feet` or `{elevation_m}m` in Mapbox Studio to display the units. These fields may be _null_.
 
 
-<!-- PLACE_LABEL ----------------------------------------------------------- -->
-<a class='doc-section' id='place_label'></a>
-<h3 class='layer-ref-section'><a href='#place_label'>place_label</a>
-    <div class='geomtype' title='points'>
-        <span class='      inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>128</strong>
-    </div>
-</h3>
+<!-- PLACE_LABEL ------------------------------------------------------->
+
+{{ <LayerInfo name="place_label" type={["point"]} buffer={128} /> }}
 
 This layer contains points for labeling places including countries, states, cities, towns, and neighbourhoods.
 
@@ -709,21 +620,20 @@ See [`filterrank`](#filterrank) for information on using that field.
 
 The main field for styling labels for different kinds of places is `type`.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>country</code></td><td>Sovereign or partially-recognized states</td></tr>
-<tr><td><code>sar</code></td><td>Special Administrative Region</td></tr>
-<tr><td><code>territory</code></td><td>Semi-autonomous or other subnational entities with ISO 3166-1 codes</td></tr>
-<tr><td><code>disputed_territory</code></td><td>Disputed territories with ISO 3166-1 codes.</td></tr>
-<tr><td><code>state</code></td><td>First-level administrative divisions or similar. Only a small subset of these are included in order to reduce clutter and put focus on cities, towns, etc.</td></tr>
-<tr><td><code>city</code></td><td>Settlement of about 100,000 or more people.</td></tr>
-<tr><td><code>town</code></td><td>Urban or rural settlement of about 10,000-100,000 people</td></tr>
-<tr><td><code>village</code></td><td>Usually rural settlement of less than about 10,000</td></tr>
-<tr><td><code>hamlet</code></td><td>Rural settlement with a population of about 200 or fewer</td></tr>
-<tr><td><code>suburb</code></td><td>A distinct section of an urban settlement such as an annexed town, historical district, or large & important neighborhood.</td></tr>
-<tr><td><code>quarter</code></td><td>A large neighborhood or section of a larger city or town</td></tr>
-<tr><td><code>neighbourhood</code></td><td>A smaller neighborhood or part of a larger settlement</td></tr>
-</table>
+| Value                | Description |
+|----------------------|---|
+| `country`            | Sovereign or partially-recognized states |
+| `sar`                | Special Administrative Region |
+| `territory`          | Semi-autonomous or other subnational entities with ISO 3166-1 codes |
+| `disputed_territory` | Disputed territories with ISO 3166-1 codes. |
+| `state`              | First-level administrative divisions or similar. Only a small subset of these are included in order to reduce clutter and put focus on cities, towns, etc. |
+| `city`               | Settlement of about 100,000 or more people. |
+| `town`               | Urban or rural settlement of about 10,000-100,000 people | 
+| `village`            | Usually rural settlement of less than about 10,000 |
+| `hamlet`             | Rural settlement with a population of about 200 or fewer |
+| `suburb`             | A distinct section of an urban settlement such as an annexed town, historical district, or large & important neighborhood. |
+| `quarter`            | A large neighborhood or section of a larger city or town |
+| `neighbourhood`      | A smaller neighborhood or part of a larger settlement |
 
 #### <!--place_label--> `symbolrank`
 
@@ -743,32 +653,24 @@ The value will be _null_ for any place that is not a capital.
 
 #### <!--place_label--> `text_anchor` _text_
 
-The `text_anchor` field can be used as a hint for label placement. Possible values match the [Mapbox GL Style Spec for text anchor](https://www.mapbox.com/mapbox-gl-js/style-spec/#layout-symbol-text-anchor). The value may be _null_. <!-- FIXME - more detail? -->
+The `text_anchor` field can be used as a hint for label placement. Possible values match the [Mapbox GL Style Spec for text anchor](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layout-symbol-text-anchor). The value may be _null_. <!-- FIXME - more detail? -->
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Meaning</th></tr>
-<tr><td><code>center</code></td><td>The center of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>left</code></td><td>The left side of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>right</code></td><td>The right side of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>top</code></td><td>The top of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>bottom</code></td><td>The bottom of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>top-left</code></td><td>The top left corner of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>top-right</code></td><td>The top right corner of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>bottom-left</code></td><td>The bottom left corner of the text is placed closest to the anchor.</td></tr>
-<tr><td><code>bottom-right</code></td><td>The bottom right corner of the text is placed closest to the anchor.</td></tr>
-</table>
+| Value          | Meaning                                                 |
+|----------------|---------------------------------------------------------|
+| `center`       | The center of the text is placed closest to the anchor. |
+| `left`         | The left side of the text is placed closest to the anchor. |
+| `right`        | The right side of the text is placed closest to the anchor. |
+| `top`          | The top of the text is placed closest to the anchor.    |
+| `bottom`       | The bottom of the text is placed closest to the anchor. |
+| `top-left`     | The top left corner of the text is placed closest to the anchor. |
+| `top-right`    | The top right corner of the text is placed closest to the anchor. |
+| `bottom-left`  | The bottom left corner of the text is placed closest to the anchor. |
+| `bottom-right` | The bottom right corner of the text is placed closest to the anchor. |
 
 
-<!-- POI_LABEL ------------------------------------------------------------- -->
-<a class='doc-section' id='poi_label'></a>
-<h3 class='layer-ref-section'><a href='#poi_label'>poi_label</a>
-    <div class='geomtype' title='points'>
-        <span class='      inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>64</strong>
-    </div>
-</h3>
+<!-- POI_LABEL ------------------------------------------------------------>
+
+{{ <LayerInfo name="poi_label" type={["point"]} buffer={64} /> }}
 
 This layer is used to place icons and labels for various points of interest (POIs).
 
@@ -782,8 +684,8 @@ See [`maki`](#maki) for more information about using this field for assigning ic
 
 The `class` field groups points of interest into broad categories for styling purposes. The values are useful for designing icon color schemes, for example.
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>arts_and_entertainment
+```
+arts_and_entertainment
 building
 commercial_services
 education
@@ -803,8 +705,7 @@ religion
 sport_and_leisure
 store_like
 visitor_amenities
-</code>
-</div>
+```
 
 
 #### <!--poi_label--> `type` _text_
@@ -818,16 +719,9 @@ The `category_en` & `category_zh-Hans` fields contain translated category descri
 Language coverage may be expanded in a future v8 update.
 
 
-<!-- ROAD ------------------------------------------------------------------ -->
-<a class='doc-section' id='road'></a>
-<h3 class='layer-ref-section'><a href='#road'>road</a>
-    <div class='geomtype' title='points, lines, & polygons'>
-        <span class='inline small icon marker'></span>
-        <span class='inline small icon polyline'></span>
-        <span class='inline small icon polygon'></span>
-        buffer: <strong>4</strong>
-    </div>
-</h3>
+<!-- ROAD -------------------------------------------------------------->
+
+{{ <LayerInfo name="road" type={["point", "line", "polygon"]} buffer={4} /> }}
 
 The roads layer contains lines, points, and polygons needed for drawing features such as roads, railways, paths and their labels.
 
@@ -837,37 +731,36 @@ See [`names`](#names) and [`name_script`](#name_script) in for information about
 
 The main field used for styling the road layers is `class`.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>motorway</code></td><td>High-speed, grade-separated highways</td></tr>
-<tr><td><code>motorway_link</code></td><td>Link roads/lanes/ramps connecting to motorways</td></tr>
-<tr><td><code>trunk</code></td><td>Important roads that are not motorways.</td></tr>
-<tr><td><code>trunk_link</code></td><td>Link roads/lanes/ramps  connecting to trunk roads</td></tr>
-<tr><td><code>primary</code></td><td>A major highway linking large towns.</td></tr>
-<tr><td><code>primary_link</code></td><td>Link roads/lanes connecting to primary roads</td></tr>
-<tr><td><code>secondary</code></td><td>A highway linking large towns.</td></tr>
-<tr><td><code>secondary_link</code></td><td>Link roads/lanes connecting to secondary roads</td></tr>
-<tr><td><code>tertiary</code></td><td>A road linking small settlements, or the local centres of a large town or city.</td></tr>
-<tr><td><code>tertiary_link</code></td><td>Link roads/lanes connecting to tertiary roads</td></tr>
-<tr><td><code>street</code></td><td>Standard unclassified, residential, road, and living_street road types</td></tr>
-<tr><td><code>street_limited</code></td><td>Streets that may have limited or no access for motor vehicles.</td></tr>
-<tr><td><code>pedestrian</code></td><td>Includes pedestrian streets, plazas, and public transportation platforms.</td></tr>
-<tr><td><code>construction</code></td><td>Includes motor roads under construction (but not service roads, paths, etc).</td></tr>
-<tr><td><code>track</code></td><td>Roads mostly for agricultural and forestry use etc.</td></tr>
-<tr><td><code>service</code></td><td>Access roads, alleys, agricultural tracks, and other services roads. Also includes parking lot aisles, public & private driveways.</td></tr>
-<tr><td><code>ferry</code></td><td>Those that serves automobiles and no or unspecified automobile service.</td></tr>
-<tr><td><code>path</code></td><td>Foot paths, cycle paths, ski trails.</td></tr>
-<tr><td><code>major_rail</code></td><td>Railways, including mainline, commuter rail, and rapid transit.</td></tr>
-<tr><td><code>minor_rail</code></td><td>Includes light rail & tram lines.</td></tr>
-<tr><td><code>service_rail</code></td><td>Yard and service railways.</td></tr>
-<tr><td><code>aerialway</code></td><td>Ski lifts, gondolas, and other types of aerialway.</td></tr>
-<tr><td><code>golf</code></td><td>The approximate centerline of a golf course hole</td></tr>
-<tr><td><code>roundabout</code></td><td>Circular continous-flow intersection</td></tr>
-<tr><td><code>mini_roundabout</code></td><td>Smaller variation of a roundabout with no center island or obstacle</td></tr>
-<tr><td><code>turning_circle</code></td><td>(point) Widened section at the end of a cull-de-sac for turning around a vehicle</td></tr>
-<tr><td><code>turning_loop</code></td><td>(point) Similar to a turning circle but with an island or other obstruction at the centerpoint</td></tr>
-<tr><td><code>traffic_signals</code></td><td>(point) Lights or other signal controlling traffic flow at an intersection</td></tr>
-</table>
+| Value              | Description                                  |
+|--------------------|----------------------------------------------|
+| `motorway`         | High-speed, grade-separated highways         |
+| `motorway_link`    | Link roads/lanes/ramps connecting to motorways |
+| `trunk`            | Important roads that are not motorways.      |
+| `trunk_link`       | Link roads/lanes/ramps  connecting to trunk roads |
+| `primary`          | A major highway linking large towns.         |
+| `primary_link`     | Link roads/lanes connecting to primary roads |
+| `secondary`        | A highway linking large towns.               |
+| `secondary_link`   | Link roads/lanes connecting to secondary roads |
+| `tertiary`         | A road linking small settlements, or the local centres of a large town or city. |
+| `tertiary_link`    | Link roads/lanes connecting to tertiary roads|
+| `street`           | Standard unclassified, residential, road, and living_street road types |
+| `street_limited`   | Streets that may have limited or no access for motor vehicles. |
+| `pedestrian`       | Includes pedestrian streets, plazas, and public transportation platforms. |
+| `construction`     | Includes motor roads under construction (but not service roads, paths, etc). |
+| `track`            | Roads mostly for agricultural and forestry use etc. |
+| `service`          | Access roads, alleys, agricultural tracks, and other services roads. Also includes parking lot aisles, public & private driveways. |
+| `ferry`            | Those that serves automobiles and no or unspecified automobile service. |
+| `path`             | Foot paths, cycle paths, ski trails.         |
+| `major_rail`       | Railways, including mainline, commuter rail, and rapid transit. |
+| `minor_rail`       | Includes light rail & tram lines.            |
+| `service_rail`     | Yard and service railways.                   |
+| `aerialway`        | Ski lifts, gondolas, and other types of aerialway. |
+| `golf`             | The approximate centerline of a golf course hole |
+| `roundabout`       | Circular continuous-flow intersection         |
+| `mini_roundabout`  | Smaller variation of a roundabout with no center island or obstacle |
+| `turning_circle`   | (point) Widened section at the end of a cull-de-sac for turning around a vehicle |
+| `turning_loop`     | (point) Similar to a turning circle but with an island or other obstruction at the centerpoint |
+| `traffic_signals`  | (point) Lights or other signal controlling traffic flow at an intersection |
 
 #### <!--road--> `oneway` _text_
 
@@ -897,88 +790,86 @@ The `shield` values help to assign highway shield graphics. They should be combi
 
 Routes that can be symbolized with shields of a common shape & color have generic shared shield values:
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>reflen range</th><th>Description</th></tr>
-<tr><td><code>default</code></td><td>2-6</td><td>No specific shield design suggested.</td></tr>
-<tr><td><code>rectangle-white</code></td><td>2-6</td><td></td></tr>
-<tr><td><code>rectangle-red</code></td><td>2-6</td><td></td></tr>
-<tr><td><code>rectangle-orange</code></td><td>2-6</td><td></td></tr>
-<tr><td><code>rectangle-yellow</code></td><td>2-6</td><td></td></tr>
-<tr><td><code>rectangle-green</code></td><td>2-6</td><td></td></tr>
-<tr><td><code>rectangle-blue</code></td><td>2-6</td><td></td></tr>
-<tr><td><code>circle-white</code></td><td>2-6</td><td></td></tr>
-</table>
+| Value              | reflen range | Description                          |
+|--------------------|--------------|--------------------------------------|
+| `default`          | 2-6          | No specific shield design suggested. |
+| `rectangle-white`  | 2-6          |                                      |
+| `rectangle-red`    | 2-6          |                                      |
+| `rectangle-orange` | 2-6          |                                      |
+| `rectangle-yellow` | 2-6          |                                      |
+| `rectangle-green`  | 2-6          |                                      |
+| `rectangle-blue`   | 2-6          |                                      |
+| `circle-white`     | 2-6          |                                      |
 
 
 Other highways with more specific shield design requirements are captured individually:
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>reflen range</th><th>Description</th></tr>
-<tr><td><code>ae-national</code></td><td>3-4</td><td>United Arab Emirates national routes</td></tr>
-<tr><td><code>ae-d-route</code></td><td>3-4</td><td>UAE Dubai D-routes</td></tr>
-<tr><td><code>ae-f-route</code></td><td>3</td><td>UAE Fujairah F-routes</td></tr>
-<tr><td><code>ae-s-route</code></td><td>4</td><td>UAE Sharjah S-routes</td></tr>
-<tr><td><code>au-national-highway</code></td><td>2-3</td><td>Australia national highways</td></tr>
-<tr><td><code>au-national-route</code></td><td>2-6</td><td>Australia national routes</td></tr>
-<tr><td><code>au-state</code></td><td>2-6</td><td>Australia state roads</td></tr>
-<tr><td><code>au-tourist</code></td><td>2-3</td><td>Australia tourist routes</td></tr>
-<tr><td><code>br-federal</code></td><td>3</td><td>Brazil federal highways</td></tr>
-<tr><td><code>br-state</code></td><td>2-3</td><td>Brazil state highways</td></tr>
-<tr><td><code>ch-motorway</code></td><td>2-3</td><td>Switzerland motorways</td></tr>
-<tr><td><code>cn-nths-expy</code></td><td>3-5</td><td>China national expressway</td></tr>
-<tr><td><code>cn-provincial-expy</code></td><td>3-5</td><td>China provincial/regional expressway</td></tr>
-<tr><td><code>de-motorway</code></td><td>2-3</td><td>Germany motorways (Autobahnen)</td></tr>
-<tr><td><code>gr-motorway</code></td><td>2-4</td><td>Greece motorways</td></tr>
-<tr><td><code>hk-strategic-route</code></td><td>2</td><td>Hong Kong strategic routes</td></tr>
-<tr><td><code>hr-motorway</code></td><td>3-4</td><td>Croatia motorways</td></tr>
-<tr><td><code>hu-motorway</code></td><td>2-3</td><td>Hungary motorways</td></tr>
-<tr><td><code>hu-main</code></td><td>2-5</td><td>Hungary main roads</td></tr>
-<tr><td><code>in-national</code></td><td>2-4</td><td>India national highways & expressways</td></tr>
-<tr><td><code>in-state</code></td><td>2-3</td><td>India state highways</td></tr>
-<tr><td><code>kr-natl-expy</code></td><td>2-3</td><td>South Korea national expressways</td></tr>
-<tr><td><code>kr-natl-hwy</code></td><td>2</td><td>South Korea national highways</td></tr>
-<tr><td><code>kr-metro-expy</code></td><td>2-3</td><td>South Korea metropolitan expressways</td></tr>
-<tr><td><code>kr-metropolitan</code></td><td>2-6</td><td>South Korea metropolitan routes</td></tr>
-<tr><td><code>kr-local</code></td><td>2-6</td><td>South Korea local routes</td></tr>
-<tr><td><code>mx-federal</code></td><td>2-4</td><td>Mexico federal highways</td></tr>
-<tr><td><code>mx-state</code></td><td>2-4</td><td>Mexico state highways</td></tr>
-<tr><td><code>nz-state</code></td><td>2-3</td><td>New Zealand state highways</td></tr>
-<tr><td><code>pe-national</code></td><td>2-3</td><td>Peru national highways</td></tr>
-<tr><td><code>pe-regional</code></td><td>3-4</td><td>Peru departmental / regional highways</td></tr>
-<tr><td><code>ro-national</code></td><td>2-3</td><td>Romania national roads</td></tr>
-<tr><td><code>ro-county</code></td><td>3-4</td><td>Romania county roads</td></tr>
-<tr><td><code>ro-communal</code></td><td>2-4</td><td>Romania communal roads</td></tr>
-<tr><td><code>si-motorway</code></td><td>2</td><td>Slovenia motorways</td></tr>
-<tr><td><code>tw-national</code></td><td>2</td><td>Taiwan national routes</td></tr>
-<tr><td><code>tw-provincial-expy</code></td><td>2</td><td>Taiwan provincial expressways</td></tr>
-<tr><td><code>tw-provincial</code></td><td>2</td><td>Taiwan provincial routes</td></tr>
-<tr><td><code>tw-county-township</code></td><td>2-6</td><td>Taiwan county / township routes</td></tr>
-<tr><td><code>us-interstate</code></td><td>2-4</td><td>US Interstates</td></tr>
-<tr><td><code>us-interstate-duplex</code></td><td>4-5</td><td>US Interstates - segment shared by 2 route numbers</td></tr>
-<tr><td><code>us-interstate-business</code></td><td>2-3</td><td>US Interstates - business routes</td></tr>
-<tr><td><code>us-interstate-truck</code></td><td>2-3</td><td>US Interstates - truck routes</td></tr>
-<tr><td><code>us-highway</code></td><td>2-4</td><td>US highways</td></tr>
-<tr><td><code>us-highway-duplex</code></td><td>3-5</td><td>US highways - segment shared by 2 route numbers</td></tr>
-<tr><td><code>us-highway-alternate</code></td><td>2-3</td><td>US highways - alternate routes</td></tr>
-<tr><td><code>us-highway-business</code></td><td>2-3</td><td>US highways - business routes</td></tr>
-<tr><td><code>us-highway-bypass</code></td><td>2-3</td><td>US highways - bypasses</td></tr>
-<tr><td><code>us-highway-truck</code></td><td>2-3</td><td>US highways - truck routes</td></tr>
-<tr><td><code>us-bia</code></td><td>2-4</td><td>US BIA Indian routes</td></tr>
-<tr><td><code>za-national</code></td><td>2-3</td><td>South Africa national routes</td></tr>
-<tr><td><code>za-provincial</code></td><td>2</td><td>South Africa provincial routes</td></tr>
-</table>
+| Value                  | reflen range | Description                     |
+|------------------------|--------------|---------------------------------|
+| `ae-national`          | 3-4          | United Arab Emirates national routes |
+| `ae-d-route`           | 3-4          | UAE Dubai D-routes              |
+| `ae-f-route`           | 3            | UAE Fujairah F-routes           |
+| `ae-s-route`           | 4            | UAE Sharjah S-routes            |
+| `au-national-highway`  | 2-3          | Australia national highways     |
+| `au-national-route`    | 2-6          | Australia national routes       |
+| `au-state`             | 2-6          | Australia state roads           |
+| `au-tourist`           | 2-3          | Australia tourist routes        |
+| `br-federal`           | 3            | Brazil federal highways         |
+| `br-state`             | 2-3          | Brazil state highways           |
+| `ch-motorway`          | 2-3          | Switzerland motorways           |
+| `cn-nths-expy`         | 3-5          | China national expressway       |
+| `cn-provincial-expy`   | 3-5          | China provincial/regional expressway |
+| `de-motorway`          | 2-3          | Germany motorways (Autobahnen)  |
+| `gr-motorway`          | 2-4          | Greece motorways                |
+| `hk-strategic-route`   | 2            | Hong Kong strategic routes      |
+| `hr-motorway`          | 3-4          | Croatia motorways               |
+| `hu-motorway`          | 2-3          | Hungary motorways               |
+| `hu-main`              | 2-5          | Hungary main roads              |
+| `in-national`          | 2-4          | India national highways & expressways |
+| `in-state`             | 2-3          | India state highways            |
+| `kr-natl-expy`         | 2-3          | South Korea national expressways|
+| `kr-natl-hwy`          | 2            | South Korea national highways   |
+| `kr-metro-expy`        | 2-3          | South Korea metropolitan expressways |
+| `kr-metropolitan`      | 2-6          | South Korea metropolitan routes |
+| `kr-local`             | 2-6          | South Korea local routes        |
+| `mx-federal`           | 2-4          | Mexico federal highways         |
+| `mx-state`             | 2-4          | Mexico state highways           |
+| `nz-state`             | 2-3          | New Zealand state highways      |
+| `pe-national`          | 2-3          | Peru national highways          |
+| `pe-regional`          | 3-4          | Peru departmental / regional highways |
+| `ro-national`          | 2-3          | Romania national roads          |
+| `ro-county`            | 3-4          | Romania county roads            |
+| `ro-communal`          | 2-4          | Romania communal roads          |
+| `si-motorway`          | 2            | Slovenia motorways              |
+| `tw-national`          | 2            | Taiwan national routes          |
+| `tw-provincial-expy`   | 2            | Taiwan provincial expressways   |
+| `tw-provincial`        | 2            | Taiwan provincial routes        |
+| `tw-county-township`   | 2-6          | Taiwan county / township routes |
+| `us-interstate`        | 2-4          | US Interstates                  |
+| `us-interstate-duplex` | 4-5          | US Interstates - segment shared by 2 route numbers |
+| `us-interstate-business` | 2-3        | US Interstates - business routes|
+| `us-interstate-truck`  | 2-3          | US Interstates - truck routes   |
+| `us-highway`           | 2-4          | US highways                     |
+| `us-highway-duplex`    | 3-5          | US highways - segment shared by 2 route numbers |
+| `us-highway-alternate` | 2-3          | US highways - alternate routes  |
+| `us-highway-business`  | 2-3          | US highways - business routes   |
+| `us-highway-bypass`    | 2-3          | US highways - bypasses          |
+| `us-highway-truck`     | 2-3          | US highways - truck routes      |
+| `us-bia`               | 2-4          | US BIA Indian routes            |
+| `za-national`          | 2-3          | South Africa national routes    |
+| `za-provincial`        | 2            | South Africa provincial routes  |
 
 The `shield` value will be _null_ where `ref` is also _null_. No further `shield` values will be added in Mapbox Streets v8.
 
 
 #### <!--road--> `type` _text_
 
-The `type` field is the value of the road's "primary" OpenStreetMap tag. For most roads this is the `highway` tag, but for aerialways it will be the `aerialway` tag, and for golf holes it will be the `golf` tag. See <a href='http://taginfo.openstreetmap.org/keys/highway#values'>Taginfo</a> for a list of used tag values. Several classes pull in additional detail when it is available from OpenStreetMap.
+The `type` field is the value of the road's "primary" OpenStreetMap tag. For most roads this is the `highway` tag, but for aerialways it will be the `aerialway` tag, and for golf holes it will be the `golf` tag. See [Taginfo](http://taginfo.openstreetmap.org/keys/highway#values) for a list of used tag values. Several classes pull in additional detail when it is available from OpenStreetMap.
 
 Possible `construction` class `type` values:
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>construction:motorway
+```
+construction:motorway
 construction:motorway_link
 construction:trunk
 construction:trunk_link
@@ -994,73 +885,67 @@ construction:road
 construction:living_street
 construction:pedestrian
 construction
-</code>
-</div>
+```
 
 Possible `track` class `type` values:
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>track:grade1
+```
+track:grade1
 track:grade2
 track:grade3
 track:grade4
 track:grade5
 track
-</code>
-</div>
+```
 
 Possible `service` class `type` values:
 
-<div class='col12 clearfix space-bottom2'>
-<code class='col10 margin1 pad1 row3 scroll-styled'>service:alley
+```
+service:alley
 service:emergency_access
 service:drive_through
 service:driveway
 service:parking
 service:parking_aisle
 service
-</code>
-</div>
+```
 
 For the `path` class, some custom type assignments have been made based on insight from various categorical, physical, and access tags from OpenStreetMap.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>steps</code></td><td>aka stairs</td></tr>
-<tr><td><code>corridor</code></td><td>An indoors passageway</td></tr>
-<tr><td><code>sidewalk</code></td><td>aka pavement in many places outside North America</td></tr>
-<tr><td><code>crossing</code></td><td>Usually connects sidewalk lines across a road</td></tr>
-<tr><td><code>piste</code></td><td>Ski & snowboard trails, both downhill and cross-country.</td></tr>
-<tr><td><code>mountain_bike</code></td><td>Trails used primarily or exclusively for mountain biking</td></tr>
-<tr><td><code>hiking</code></td><td>Hiking trails or otherwise rough pedestrian paths</td></tr>
-<tr><td><code>trail</code></td><td>May be suitable for either hiking or mountain biking</td></tr>
-<tr><td><code>cycleway</code></td><td>Paths primarily or exclusively for cyclists</td></tr>
-<tr><td><code>footway</code></td><td>Paths primarily or exclusively for pedestrians</td></tr>
-<tr><td><code>path</code></td><td>Unspecified or mixed-use paths</td></tr>
-<tr><td><code>bridleway</code></td><td>Equestrian trails</td></tr>
-</table>
+| Value          | Description                                                |
+|-----------------|-----------------------------------------------------------|
+| `steps`         | aka stairs                                                |
+| `corridor`      | An indoors passageway                                     |
+| `sidewalk`      | aka pavement in many places outside North America         |
+| `crossing`      | Usually connects sidewalk lines across a road             |
+| `piste`         | Ski & snowboard trails, both downhill and cross-country   |
+| `mountain_bike` | Trails used primarily or exclusively for mountain biking  |
+| `hiking`        | Hiking trails or otherwise rough pedestrian paths         |
+| `trail`         | May be suitable for either hiking or mountain biking      |
+| `cycleway`      | Paths primarily or exclusively for cyclists               |
+| `footway`       | Paths primarily or exclusively for pedestrians            |
+| `path`          | Unspecified or mixed-use paths                            |
+| `bridleway`     | Equestrian trails                                         |
 
 Possible `ferry` class `type` values:
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>ferry_auto</code></td><td>Ferry serves automobiles</td></tr>
-<tr><td><code>ferry</code></td><td>No or unspecified automobile service</td></tr>
-</table>
+| Value        | Description                            |
+|--------------|----------------------------------------|
+| `ferry_auto` | Ferry serves automobiles               |
+| `ferry`      | No or unspecified automobile service   |
 
 
 Possible `aerialway` class `type` values:
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>aerialway:cablecar</code></td><td>Just one or two large cars. The cable forms a loop, but the cars do not loop around, they just move up and down on their own side.</td></tr>
-<tr><td><code>aerialway:gondola</code></td><td>Many cars on a looped cable.</td></tr>
-<tr><td><code>aerialway:mixed_lift</code></td><td>Mix of chair lifts and gondolas on the same line; may change seasonally.</td></tr>
-<tr><td><code>aerialway:chair_lift</code></td><td>Looped cable with a series of single chairs and exposed to the open air.</td></tr>
-<tr><td><code>aerialway:drag_lift</code></td><td>Includes t-bars, j-bars, platter/button lifts, and tow ropes</td></tr>
-<tr><td><code>aerialway:magic_carpet</code></td><td>Conveyor belt installed at the level of the snow, some include a canopy or tunnel.</td></tr>
-<tr><td><code>aerialway</code></td><td>Other or unspecified type of aerialway</td></tr>
-</table>
+| Value                     | Description                                     |
+|---------------------------|-------------------------------------------------|
+| `aerialway:cablecar`      | Just one or two large cars. The cable forms a loop, but the cars do not loop around, they just move up and down on their own side. |
+| `aerialway:gondola`       | Many cars on a looped cable.                    |
+| `aerialway:mixed_lift`    | Mix of chair lifts and gondolas on the same line; may change seasonally. |
+| `aerialway:chair_lift`    | Looped cable with a series of single chairs and exposed to the open air. |
+| `aerialway:drag_lift`     | Includes t-bars, j-bars, platter/button lifts, and tow ropes |
+| `aerialway:magic_carpet`  | Conveyor belt installed at the level of the snow, some include a canopy or tunnel. |
+| `aerialway`               | Other or unspecified type of aerialway           |
 
 #### <!--road--> `layer` _number_
 
@@ -1071,16 +956,9 @@ The `layer` field is used to determine drawing order of overlapping road segment
 The `len` field stores the length of the road segment in projected meters, rounded to the nearest whole number. This can be useful for limiting some label styles to longer roads. The value may be _null_ where the geometry is not a line.
 
 
-<!-- STRUCTURE ------------------------------------------------------------- -->
-<a class='doc-section' id='structure'></a>
-<h3 class='layer-ref-section'><a href='#structure'>structure</a>
-    <div class='geomtype' title='lines & polygons'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='      inline small icon polyline'></span>
-        <span class='      inline small icon polygon'></span>
-        buffer: <strong>4</strong>
-    </div>
-</h3>
+<!-- STRUCTURE ---------------------------------------------------------->
+
+{{ <LayerInfo name="structure" type={["line", "polygon"]} buffer={4} /> }}
 
 This layer includes lines and polygons for structures which are not buildings. This includes both natural and human features - cliffs, walls, piers, gates.
 
@@ -1088,30 +966,22 @@ Cliff data is designed such that the left-hand side of the line is the top of th
 
 #### <!--structure--> `class` _text_
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>cliff</code></td><td>The precipice of a vertical or very steep drop, gullies are included</td></tr>
-<tr><td><code>fence</code></td><td>Include various types of fence and wall barriers</td></tr>
-<tr><td><code>gate</code></td><td>Only gates that are lines or areas are included</td></tr>
-<tr><td><code>hedge</code></td><td>A line of closely spaced shrubs and tree species, which form a barrier or mark the boundary of an area</td></tr>
-<tr><td><code>land</code></td><td>Includes breakwaters and piers</td></tr>
-</table>
+| Value      | Description                                              |
+|------------|----------------------------------------------------------|
+| `cliff`    | The precipice of a vertical or very steep drop, gullies are included |
+| `fence`    | Include various types of fence and wall barriers         |
+| `gate`     | Only gates that are lines or areas are included          |
+| `hedge`    | A line of closely spaced shrubs and tree species, which form a barrier or mark the boundary of an area |
+| `land`     | Includes breakwaters and piers                           |
 
 #### <!--structure--> `type` _text_
 
 The `type` field contains the original value of the feature's primary tag from OSM.
 
 
-<!-- TRANSIT_STOP_LABEL ---------------------------------------------------- -->
-<a class='doc-section' id='transit_stop_label'></a>
-<h3 class='layer-ref-section'><a href='#transit_stop_label'>transit_stop_label</a>
-    <div class='geomtype' title='points'>
-        <span class='      inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>64</strong>
-    </div>
-</h3>
+<!-- TRANSIT_STOP_LABEL -------------------------------------------------->
+
+{{ <LayerInfo name="transit_stop_label" type={["point"]} buffer={64} /> }}
 
 The `transit_stop_label` contains points for symbolizing transit stops, stations, and associated features such as entrances.
 
@@ -1119,42 +989,39 @@ See [`names`](#names) and [`name_script`](#name_script) in for information about
 
 #### <!--transit_stop_label--> `stop_type` _text_
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>station</code></td><td>Used as the standard stop type for most rail & ferry modes. For buses and trams, stations represent centralized hubs.</td></tr>
-<tr><td><code>stop</code></td><td>Used for bus and tram modes as the standard stop type. They are generally more frequently-spaced than stations and may need smaller symbols/text.</td></tr>
-<tr><td><code>entrance</code></td><td>Specific entry points to a station</td></tr>
-</table>
+| Value         | Description                                             |
+|---------------|---------------------------------------------------------|
+| `station`     | Used as the standard stop type for most rail & ferry modes. For buses and trams, stations represent centralized hubs. |
+| `stop`        | Used for bus and tram modes as the standard stop type. They are generally more frequently-spaced than stations and may need smaller symbols/text. |
+| `entrance`    | Specific entry points to a station.                     |
 
 #### <!--transit_stop_label--> `mode` _text_
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>rail</code></td><td>National, regional, or commuter rail systems.</td></tr>
-<tr><td><code>metro_rail</code></td><td>Urban rapid transit systems with dedicated rights of way, sometimes partially or fully underground.</td></tr>
-<tr><td><code>light_rail</code></td><td>Less capacity than heavy/metro rail. Often on tracks separated from motor traffic but may share grade at intersections.</td></tr>
-<tr><td><code>tram</code></td><td>Lighter rail with 1 or 2 carriages, often on a tracks shared with motor vehicle traffic.</td></tr>
-<tr><td><code>monorail</code></td><td>Often medium-low capacity and with localized or private use such as in theme parks or airports.</td></tr>
-<tr><td><code>funicular</code></td><td>Cable-driven inclined railways. Often touristic and low-capacity.</td></tr>
-<tr><td><code>bicycle</code></td><td>For bicycle rental docks/stations</td></tr>
-<tr><td><code>bus</code></td><td>For bus stops or stations</td></tr>
-<tr><td><code>ferry</code></td><td>A boat that may take passengers on foot, in motor vehicles, or both</td></tr>
-</table>
+| Value         | Description                                     |
+|---------------|-------------------------------------------------|
+| `rail`        | National, regional, or commuter rail systems.   |
+| `metro_rail`  | Urban rapid transit systems with dedicated rights of way, sometimes partially or fully underground. |
+| `light_rail`  | Less capacity than heavy/metro rail. Often on tracks separated from motor traffic but may share grade at intersections. |
+| `tram`        | Lighter rail with 1 or 2 carriages, often on a tracks shared with motor vehicle traffic. |
+| `monorail`    | Often medium-low capacity and with localized or private use such as in theme parks or airports. |
+| `funicular`   | Cable-driven inclined railways. Often touristic and low-capacity. |
+| `bicycle`     | For bicycle rental docks/stations               |
+| `bus`         | For bus stops or stations                       |
+| `ferry`       | A boat that may take passengers on foot, in motor vehicles, or both |
 
 #### <!--transit_stop_label--> `maki` _text_
 
 The `maki` field lets you assign icons to the rail station based on a few basic station types. See [`maki`](#maki) in the Common Fields section for more information.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>bicycle-share</code></td><td></td></tr>
-<tr><td><code>bus</code></td><td></td></tr>
-<tr><td><code>ferry</code></td><td></td></tr>
-<tr><td><code>rail</code></td><td>Default rail station</td></tr>
-<tr><td><code>rail-metro</code></td><td>Station for a subway, metro, or other rapid-transit system</td></tr>
-<tr><td><code>rail-light</code></td><td>Light rail station</td></tr>
-<tr><td><code>entrance</code></td><td>Specific station entrance points (eg stairs, escalators, elevators)</td></tr>
-</table>
+| Value             | Description                                 |
+|-------------------|---------------------------------------------|
+| `bicycle-share`   |                                             |
+| `bus`             |                                             |
+| `ferry`           |                                             |
+| `rail`            | Default rail station                        |
+| `rail-metro`      | Station for a subway, metro, or other rapid-transit system |
+| `rail-light`      | Light rail station                          |
+| `entrance`        | Specific station entrance points (eg stairs, escalators, elevators) |
 
 #### <!--transit_stop_label--> `network` _text_
 
@@ -1162,75 +1029,67 @@ The `network` field lets you assign more specific icons for rail stations that a
 
 If none of the specific networks below apply to a station, the `network` value will be the same as the `maki` value (see previous section).
 
-<table class='small space-bottom2'>
-<tr><th style='width: 36em'>Value</th><th>Description</th></tr>
-<tr><td><code>barcelona-metro</code></td><td>Barcelona, Spain</td></tr>
-<tr><td><code>boston-t</code></td><td>Boston, Massachusetts</td></tr>
-<tr><td><code>chongqing-rail-transit</code></td><td>Chongqing, China</td></tr>
-<tr><td><code>de-s-bahn</code></td><td>Germany</td></tr>
-<tr><td><code>de-s-bahn.de-u-bahn</code></td><td>Germany</td></tr>
-<tr><td><code>de-u-bahn</code></td><td>Germany</td></tr>
-<tr><td><code>delhi-metro</code></td><td>Delhi, India</td></tr>
-<tr><td><code>gb-national-rail</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-dlr</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-dlr.london-overground.london-tfl-rail.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-dlr.london-overground.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-dlr.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-overground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-overground.london-tfl-rail.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-overground.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-tfl-rail</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-tfl-rail.london-overground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-tfl-rail.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>gb-national-rail.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>hong-kong-mtr</code></td><td>Hong Kong</td></tr>
-<tr><td><code>kiev-metro</code></td><td>Kiev, Ukraine</td></tr>
-<tr><td><code>london-dlr</code></td><td>Docklands Light Rail, London, United Kingdom</td></tr>
-<tr><td><code>london-dlr.london-tfl-rail</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>london-dlr.london-tfl-rail.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>london-dlr.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>london-overground</code></td><td>London Overground, United Kingdom</td></tr>
-<tr><td><code>london-overground.london-tfl-rail</code></td><td>London Overground, United Kingdom</td></tr>
-<tr><td><code>london-overground.london-tfl-rail.london-underground</code></td><td>London Overground, United Kingdom</td></tr>
-<tr><td><code>london-overground.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>london-tfl-rail</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>london-tfl-rail.london-underground</code></td><td>London, United Kingdom</td></tr>
-<tr><td><code>london-underground</code></td><td>London Underground, United Kingdom</td></tr>
-<tr><td><code>madrid-metro</code></td><td>Madrid, Spain</td></tr>
-<tr><td><code>mexico-city-metro</code></td><td>Mexico City, Mexico</td></tr>
-<tr><td><code>milan-metro</code></td><td>Milan, Italy</td></tr>
-<tr><td><code>moscow-metro</code></td><td>Moscow Metro, Russia</td></tr>
-<tr><td><code>new-york-subway</code></td><td>New York City, New York</td></tr>
-<tr><td><code>osaka-subway</code></td><td>Osaka, Japan</td></tr>
-<tr><td><code>oslo-metro</code></td><td>Oslo, Norway</td></tr>
-<tr><td><code>paris-metro</code></td><td>Paris Metro, France</td></tr>
-<tr><td><code>paris-rer</code></td><td>Paris regional commuter rail, France</td></tr>
-<tr><td><code>paris-metro.paris-rer</code></td><td>Paris, France</td></tr>
-<tr><td><code>paris-rer.paris-transilien</code></td><td>Paris, France</td></tr>
-<tr><td><code>paris-transilien</code></td><td>Paris suburban rail, France</td></tr>
-<tr><td><code>philadelphia-septa</code></td><td>Philadelphia, Pennsylvania</td></tr>
-<tr><td><code>san-francisco-bart</code></td><td>San Francisco, California</td></tr>
-<tr><td><code>singapore-mrt</code></td><td>Singapore</td></tr>
-<tr><td><code>stockholm-metro</code></td><td>stockholm, Sweden</td></tr>
-<tr><td><code>taipei-metro</code></td><td>Taipei, Taiwan</td></tr>
-<tr><td><code>tokyo-metro</code></td><td>Tokyo, Japan</td></tr>
-<tr><td><code>vienna-u-bahn</code></td><td>Vienna, Austria</td></tr>
-<tr><td><code>washington-metro</code></td><td>Washington DC Metro</td></tr>
-</table>
+| Value                             | Description                             |
+|-----------------------------------|-----------------------------------------|
+| `barcelona-metro`                 | Barcelona, Spain                        |
+| `boston-t`                        | Boston, Massachusetts                   |
+| `chongqing-rail-transit`          | Chongqing, China                        |
+| `de-s-bahn`                       | Germany                                 |
+| `de-s-bahn.de-u-bahn`             | Germany                                 |
+| `de-u-bahn`                       | Germany                                 |
+| `delhi-metro`                     | Delhi, India                            |
+| `gb-national-rail`                | London, United Kingdom                  |
+| `gb-national-rail.london-dlr`     | London, United Kingdom                  |
+| `gb-national-rail.london-dlr.london-overground.london-tfl-rail.london-underground` | London, United Kingdom |
+| `gb-national-rail.london-dlr.london-overground.london-underground` | London, United Kingdom |
+| `gb-national-rail.london-dlr.london-underground` | London, United Kingdom |
+| `gb-national-rail.london-overground` | London, United Kingdom |
+| `gb-national-rail.london-overground.london-tfl-rail.london-underground` | London, United Kingdom |
+| `gb-national-rail.london-overground.london-underground` | London, United Kingdom |
+| `gb-national-rail.london-tfl-rail` | London, United Kingdom                 |
+| `gb-national-rail.london-tfl-rail.london-overground` | London, United Kingdom |
+| `gb-national-rail.london-tfl-rail.london-underground` | London, United Kingdom |
+| `gb-national-rail.london-underground` | London, United Kingdom              |
+| `hong-kong-mtr`                   | Hong Kong                               |
+| `kiev-metro`                      | Kiev, Ukraine                           |
+| `london-dlr`                      | Docklands Light Rail, London, United Kingdom |
+| `london-dlr.london-tfl-rail`      | London, United Kingdom                  |
+| `london-dlr.london-tfl-rail.london-underground` | London, United Kingdom    |
+| `london-dlr.london-underground`   | London, United Kingdom                  |
+| `london-overground`               | London Overground, United Kingdom       |
+| `london-overground.london-tfl-rail` | London Overground, United Kingdom     |
+| `london-overground.london-tfl-rail.london-underground` | London Overground, United Kingdom |
+| `london-overground.london-underground` | London, United Kingdom             |
+| `london-tfl-rail`                 | London, United Kingdom                  |
+| `london-tfl-rail.london-underground` | London, United Kingdom               |
+| `london-underground`              | London Underground, United Kingdom      |
+| `madrid-metro`                    | Madrid, Spain                           |
+| `mexico-city-metro`               | Mexico City, Mexico                     |
+| `milan-metro`                     | Milan, Italy                            |
+| `moscow-metro`                    | Moscow Metro, Russia                    |
+| `new-york-subway`                 | New York City, New York                 |
+| `osaka-subway`                    | Osaka, Japan                            |
+| `oslo-metro`                      | Oslo, Norway                            |
+| `paris-metro`                     | Paris Metro, France                     |
+| `paris-rer`                       | Paris regional commuter rail, France    |
+| `paris-metro.paris-rer`           | Paris, France                           |
+| `paris-rer.paris-transilien`      | Paris, France                           |
+| `paris-transilien`                | Paris suburban rail, France             |
+| `philadelphia-septa`              | Philadelphia, Pennsylvania              |
+| `san-francisco-bart`              | San Francisco, California               |
+| `singapore-mrt`                   | Singapore                               |
+| `stockholm-metro`                 | Stockholm, Sweden                       |
+| `taipei-metro`                    | Taipei, Taiwan                          |
+| `tokyo-metro`                     | Tokyo, Japan                            |
+| `vienna-u-bahn`                   | Vienna, Austria                         |
+| `washington-metro`                | Washington DC Metro                     |
 
 No further `network` values will be added in Mapbox Streets v8.
 
 
-<!-- WATER ----------------------------------------------------------------- -->
-<a class='doc-section' id='water'></a>
-<h3 class='layer-ref-section'><a href='#water'>water</a>
-    <div class='geomtype' title='polygons'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='quiet inline small icon polyline'></span>
-        <span class='      inline small icon polygon'></span>
-        buffer: <strong>8</strong>
-    </div>
-</h3>
+<!-- WATER ----------------------------------------------------------->
+
+{{ <LayerInfo name="water" type={["polygon"]} buffer={8} /> }}
 
 This layer includes all types of water bodies: oceans, rivers, lakes, ponds, reservoirs, fountains, and more.
 
@@ -1239,16 +1098,9 @@ It is a simple polygon layer with no differentiating types or classes, and consi
 Each zoom level includes a set of water bodies that has been filtered and simplified according to scale. Only oceans, seas, and very large lakes are shown at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
 
 
-<!-- WATERWAY -------------------------------------------------------------- -->
-<a class='doc-section' id='waterway'></a>
-<h3 class='layer-ref-section'><a href='#waterway'>waterway</a>
-    <div class='geomtype' title='lines'>
-        <span class='quiet inline small icon marker'></span>
-        <span class='      inline small icon polyline'></span>
-        <span class='quiet inline small icon polygon'></span>
-        buffer: <strong>4</strong>
-    </div>
-</h3>
+<!-- WATERWAY ---------------------------------------------------------->
+
+{{ <LayerInfo name="waterway" type={["line"]} buffer={4} /> }}
 
 The waterway layer contains classes for rivers, streams, canals, etc represented as lines. These classes can represent a wide variety of possible widths. It's best to have your line stying biased toward the smaller end of the scales since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer. Also works best under `#water` layer.
 
@@ -1256,13 +1108,12 @@ The waterway layer contains classes for rivers, streams, canals, etc represented
 
 The waterway layer has two fields for styling - `class` and `type` - each with similar values.
 
-<table class='small space-bottom2'>
-<tr><th>Value</th><th>Description</th></tr>
-<tr><td><code>river</code></td><td>Everything from the Amazon down to small creeks a couple meters wide</td></tr>
-<tr><td><code>canal</code></td><td>Medium to large artificial waterway</td></tr>
-<tr><td><code>stream</code></td><td>Very small waterway, usually no wider than a meter or two</td></tr>
-<tr><td><code>stream_intermittent</code></td><td><strong>Class only</strong>. A stream that does not always have water flowing through it.</td></tr>
-<tr><td><code>drain</code></td><td>Medium to small artificial channel for rainwater drainage, often concrete lined.</td></tr>
-<tr><td><code>ditch</code></td><td>Small artificial channel dug in the ground for rainwater drainage.</td></tr>
-</table>
+| Value                 | Description                                  |
+|-----------------------|----------------------------------------------|
+| `river`               | Everything from the Amazon down to small creeks a couple meters wide |
+| `canal`               | Medium to large artificial waterway          |
+| `stream`              | Very small waterway, usually no wider than a meter or two |
+| `stream_intermittent` | **Class only**. A stream that does not always have water flowing through it. |
+| `drain`               | Medium to small artificial channel for rainwater drainage, often concrete lined. |
+| `ditch`               | Small artificial channel dug in the ground for rainwater drainage. |
 
