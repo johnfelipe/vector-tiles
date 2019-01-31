@@ -160,7 +160,7 @@ _CartoCSS example:_
 
 ```css
 #contour {
-  <em>// only show every other contour line</em>
+  /* only show every other contour line */
   [index=10], [ele=2] { line-width: 1; }
 }
 ```
