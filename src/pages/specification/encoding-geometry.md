@@ -1,10 +1,5 @@
 ---
-layout: redirect
-redirect: /specification/
 title: Encoding geometry
-description: Some description.
-hash: encoding-geom
-category: specification
 prependJs:
     - "import * as constants from '../../constants';"
     - "import { EncodingGeometryDiagram } from '../../components/illustrations/encoding-geometry-diagram';"

@@ -1,10 +1,5 @@
 ---
-layout: redirect
-redirect: /specification/
 title: Versioning
-description: Some description.
-hash: versioning
-category: specification
 ---
 
 ## Versioning

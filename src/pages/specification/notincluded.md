@@ -1,10 +1,5 @@
 ---
-layout: redirect
-redirect: /specification/
 title: What the spec doesn't cover
-description: Some description.
-hash: not-included
-category: specification
 prependJs:
     - "import * as constants from '../../constants';"
     - "import { NotIncludedDiagram } from '../../components/illustrations/not-included-diagram';"
@@ -54,5 +49,3 @@ The conversion from geographic coordinates (latitude and longitude) to vector ti
 Interested in diving into the complete specification? Take a look at the [repository on Github]({{constants.VERSION_URL}}{{constants.CURRENT}}). If you have any questions or notice anything incorrect with this page or the specification, you can [submit an issue](https://github.com/mapbox/vector-tiles/issues) and we'll work through it.
 
 If you are interested in contributing please refer to the [`CONTRIBUTING.md`]({{constants.VERSION_URL}}) file on GitHub.
-
-<a href='/vector-tiles' class='button icon prev'>Back to vector tiles</a>

@@ -25,6 +25,7 @@ module.exports = () => {
     stylesheets: [
       require.resolve('@mapbox/mbx-assembly/dist/assembly.css'),
       path.join(pageShellDir, 'page-shell-styles.css'),
+      path.join(__dirname, './css/site.css'),
       require.resolve('@mapbox/dr-ui/css/docs-prose.css'),
       path.join(__dirname, './src/css/prism.css')
     ],

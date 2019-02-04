@@ -1,10 +1,5 @@
 ---
-layout: redirect
-redirect: /specification/
 title: Encoding attributes
-description: Some description.
-hash: encoding-attr
-category: specification
 prependJs:
   - "import { EncodingAttributesDiagram } from '../../components/illustrations/encoding-attributes-diagram';"
 ---

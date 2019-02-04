@@ -1,10 +1,5 @@
 ---
-layout: redirect
-redirect: /specification/
 title: Winding order
-description: Some description.
-hash: winding-order
-category: specification
 prependJs:
   - "import { WindingOrderDiagram } from '../../components/illustrations/winding-order-diagram';"
 ---

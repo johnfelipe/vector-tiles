@@ -1,10 +1,5 @@
 ---
-layout: redirect
-redirect: /specification/
 title: Format
-description: Some description.
-hash: format
-category: specification
 prependJs:
     - "import * as constants from '../../constants';"
 ---

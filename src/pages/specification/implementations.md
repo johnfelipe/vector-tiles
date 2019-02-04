@@ -1,10 +1,5 @@
 ---
-layout: redirect
-redirect: /specification/
 title: Implementations
-description: Some description.
-hash: implementations
-category: specification
 ---
 
 ## Implementations

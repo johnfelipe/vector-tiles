@@ -67,7 +67,7 @@ Oversimplification example
 }
 .simp-geom {}
 .simp-poly {
-  fill:#c0c0c0;
+  fill:#c6d2e1;
 }
 .simp-ring {
   fill: none;
@@ -75,14 +75,14 @@ Oversimplification example
   stroke-width: 2;
 }
 .simp-ring-outer {
-  stroke: #0074D9;
+  stroke: #4264fb;
 }
 .simp-ring-inner {
-  stroke: #FF4136;
+  stroke: #ee4e8b;
 }
 .simp-dashed {
   fill: none;
-  stroke: #c0c0c0;
+  stroke: #c6d2e1;
   stroke-dasharray: 6,6;
 }
 
@@ -99,7 +99,7 @@ Flipped polygon example
   opacity: 1;
 }
 .flip-grid {
-  fill: #e5e5e5;
+  fill: #f4f7fb;
 }
 .flip-ring {
   fill: none;
@@ -109,13 +109,13 @@ Flipped polygon example
 }
 .flip-dashed {
   stroke-dasharray:6,6;
-  stroke: #c0c0c0;
+  stroke: #c6d2e1;
 }
 .flip-outer {
-  stroke: #0074D9;
+  stroke: #4264fb;
 }
 .flip-inner {
-  stroke: #FF4136;
+  stroke: #ee4e8b;
 }
 
 
@@ -128,7 +128,7 @@ Attribute encoding example
 }
 .attr:hover {
   color: #f6f6f6;
-  background: #85144b;
+  background: #4264fb;
 }
 .feature,
 .attr {
@@ -139,26 +139,18 @@ Attribute encoding example
 .value,
 .feature,
 .feat {
-  display: inline-block;
   padding-right: 1em;
   cursor: pointer;
 }
 .tagset.highlight {
-  background: #ffc28d;
+  background: #edf0fd;
 }
 .key-group,
 .value-group {
   display: inline-block;
-  border-left: 2px solid #ffffff;
   padding-left: 5px;
   margin-left: -5px;
   counter-reset: section -1;
-}
-.key-group.highlight {
-  border-left: 2px solid #f9a0e5;
-}
-.value-group.highlight {
-  border-left: 2px solid #b1d6c5;
 }
 .key,
 .value {
@@ -186,15 +178,15 @@ Attribute encoding example
   opacity: 1;
 }
 .key.highlight {
-  background: #f9a0e5;
+  background: #f8c8da;
 }
 .value.highlight {
-  background: #b1d6c5;
+  background: #c5b9eb;
 }
 
 .feature:hover,
 .feat.highlight {
-  background: #ccffe2;
+  background: #aab7ef;
 }
 .code {
   line-height: 1.7em;
@@ -213,7 +205,6 @@ Winding order example
 .ring {
   position: absolute;
   left: 50%;
-  top: 50%;
 }
 .outer {
   width: 80%;
@@ -236,7 +227,7 @@ Winding order example
 }
 .outer.small {
   width: 40%;
-  left: 60%;
+  left: 65%;
   margin-top: 20%;
 }
 .ccw {
@@ -337,9 +328,6 @@ Winding order example
   background: #c0c0c0;
   color: #c0c0c0;
 }
-#axis-bump {
-  margin-top: -47px;
-}
 #x-axis {
   width: 100px;
   height: 1px;
@@ -393,9 +381,6 @@ Winding order example
   border-bottom: 4px solid transparent;
 }
 @media only screen and (min-width: 1200px) {
-  #axis-bump {
-    margin-top: -89px
-  }
   #x-axis {
     width: 200px;
   }
@@ -441,13 +426,13 @@ canvas {
   font-weight: 900;
 }
 .blue {
-  background-color: #0074D9;
+  background-color: #4264fb;
 }
 .red {
-  background-color: #FF4136;
+  background-color: #ee4e8b;
 }
 .black {
-  background-color: #333333;
+  background-color: #23374d;
 }
 #vt-next:hover {}
 #vt-next:focus {}
