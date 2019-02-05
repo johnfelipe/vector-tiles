@@ -28,5 +28,9 @@ module.exports = {
   wo5: {
     basename: 'wo-5.png',
     sizes: [{ width: 480 }, { width: 960 }]
+  },
+  vectorTileHeaderImage: {
+    basename: 'vector-tile-header-image.png',
+    sizes: [{ width: 480 }, { width: 960 }]
   }
 };
