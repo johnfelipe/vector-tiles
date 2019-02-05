@@ -22,6 +22,8 @@ const productPageOrder = {
 module.exports = () => {
   const config = {
     siteBasePath: '/vector-tiles',
+    outputDirectory: path.join(__dirname, '_site/'),
+    temporaryDirectory: path.join(__dirname, '_site_tmp/'),
     stylesheets: [
       require.resolve('@mapbox/mbx-assembly/dist/assembly.css'),
       path.join(pageShellDir, 'page-shell-styles.css'),
