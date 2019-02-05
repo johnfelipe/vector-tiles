@@ -5,9 +5,21 @@ mapid: mapbox.mapbox-streets-v8
 prependJs: 
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
+  - "import { SourceLayerTypes } from '../../components/source-layer-types';"
+  - "import { MapPreview } from '../../components/map';"
+  - "import { streetsV8 } from '../../data/styles';"
 ---
 
 This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default styles in [Mapbox Studio](https://studio.mapbox.com/).
+
+{{ 
+<MapPreview 
+    styleJson={streetsV8}
+    lat={48.8566}
+    lon={2.3522}
+    zoom={14}
+/> 
+}}
 
 ## Overview
 
@@ -34,9 +46,7 @@ Mapnik vector tiles support multiple geometry types in the same layer. The Mapbo
 
 A geometry in the vector tile can be one of 3 types:
 
-1. {{ <Icon name="marker" inline={true} /> }} Point
-2. {{ <Icon name="polyline" inline={true} /> }} Linestring / multilinestring
-3. {{ <Icon name="polygon" inline={true} /> }} Polygon / multipolygon
+{{ <SourceLayerTypes /> }}
 
 In Mapbox Studio, you can select just one or two or all of the 3 types with the Geometry Type toggles in each layer's data selection tab.
 
@@ -54,70 +64,6 @@ OpenStreetMap ID spaces are not unique across node, way, and relation object typ
 | relation        | `(id × 10) + 4` <br /> _eg. 123 → 1234_   |
 
 In many cases, mulitple objects from OpenStreetMap will be combined into a single object in our vector tiles. For example, water polygons are unioned to avoid seams and road lines are joined to save space and simplify better. In these cases the `osm_id` will either be `0`, or one of the input IDs chosen at random.
-
-## Changelog
-
-The layers and properties in Mapbox Streets v8 have undergone a major reorganization to optimize for styling with the latest features in Mapbox Studio such as expressions. We've also expanded coverage of feature types and properties for styling, with a particular emphasis on labels & icons.
-
-- 3 new layer names:
-  - [`natural_label`](#natural_label)
-  - [`structure`](#structure)
-  - [`transit_stop_label`](#transit_stop_label)
-- 9 removed layer names - the data from these layers have moved into other layers as noted here:
-  - `barrier_line` - data moved to new layer [`structure`](#structure)
-  - `country_label` - data moved to [`place_label`](#place_label)
-  - `marine_label` - data moved to new layer [`natural_label`](#natural_label)
-  - `mountain_peak_label` - data moved to new layer [`natural_label`](#natural_label)
-  - `rail_station_label` - data moved to new layer [`transit_stop_label`](#transit_stop_label)
-  - `road_label` - data moved to [`road`](#road)
-  - `state_label` - data moved to [`place_label`](#place_label)
-  - `water_label` - data moved to new layer [`natural_label`](#natural_label)
-  - `waterway_label` - data moved to new layer [`natural_label`](#natural_label)
-- New ranking fields fields for label layers:
-  - [`sizerank`](#sizerank)
-  - [`filterrank`](#sizerank)
-  - [`symbolrank`](#place_label---symbolrank) (`place_label` layer)
-  - `scalerank` and `localrank` have been removed from all layers
-- Name fields:
-  - Translated name fields (`name_en`, `name_fr`, etc) will now contain _null_ values where no translation is available, rather than falling back to `name`. This will allow you to customize your fallback preferences using Mapbox GL expressions.
-  - `name_zh` field removed and replaced by `name_zh-Hant` (traditional Chinese)
-  - New field: `name_script` indicates the primary script used in the `name` field (`Latin`, `Cyrillic`, etc)
-- [`admin`](#admin) layer:
-  - Data source has changed to match Mapbox Enterprise Boundaries
-  - New field: `worldview` - provides the option to cater boundary lines to different locales. See boundaries section below for details.
-  - The `admin_level` now has a range of `0`  through `2` with slightly different division definitions compared to v7 - see boundaries section below for details.
-  - The `disputed` and `maritime` fields now have text values of `true` or `false` rather than numeric `1` and `0`
-- [`aeroway`](#aeroway) layer:
-  - New field: `ref` indicates the runway or taxiway identifier
-- [`place_label`](#place_label) layer:
-  - New fields:
-    - `iso_3166_1`: indicates the 2-letter country/territory code of the place or the country that the place is within.
-    - `symbolrank` and `filterrank`: see description in table
-    - `text_anchor` - replaces `ldir`
-  - Added support for OSM `place=quarter`
-  - Several feature types have moved to either `poi_label` or `natural_label`
-- [`poi_label`](#poi_label) layer:
-  - New fields:
-    - `category_en` / `category_zh-Hans`: contains POI category description for text display in English / simplified Chinese 
-    - `class`: contains broad categories useful for filtering & symbol styling
-    - `filterrank`: see description in table
-  - Many new `maki` values 
-  - Many new feature types added
-- [`road`](#road) layer:
-  - New fields: 
-    - Fields from former `road_label` layer: names, `ref`, `reflen`, `len`, `shield`, `iso_3166_2`
-    - `toll`: `true` for toll roads and not present / null for all other roads.
-    - `surface`: indicates either `paved` or `unpaved` where this data is available from OSM.
-    - `bike_lane`: indicates presence and location of a bike lane that is part of the road itself (as opposed to a separated bike lane).
-  - New class values: 
-    - `service_rail` - includes service tracks such as sidings or yard rails. These were previously included in the `minor_rail` class.
-    - `link` has been removed and broken out into `trunk_link`, `primary_link`, `secondary_link`, `tertiary_link`
-  - Previous `road_label` layer is now merged into `road` layer, with all label fields included: `len`, `ref`, `reflen`, and `shield`.
-- [`transit_stop_label`](#transit_stop_label) layer:
-  - Replaces the `railway_station_label` layer from v7 and includes some new features such as bus stops (new), ferry terminals, and bikeshare stations (previously in the `poi_label` layer).
-  - New fields:
-    - `mode`: provides more detail about the particular mode of transport served by a stop/station
-    - `stop_type`: value is one of: `stop`, `station`, `entrance`
 
 
 ## Data stability
@@ -142,7 +88,7 @@ You should design your styles to account for the possibility of new field values
 
 <a id='names'></a>
 
-#### `name` _text_ & `name_<lang-code>` _text_
+### `name` _text_ & `name_<lang-code>` _text_
 
 Label names are available in a number of languages. The `name_*` value will be `null` if no translation data is available for a given feature; when styling label layers, you are responsible for determining an appropriate fallback approach.
 
@@ -167,7 +113,7 @@ For languages that may have regional variations, no particular preference is giv
 
 <a id='name_script'></a>
 
-#### `name_script` _text_
+### `name_script` _text_
 
 Wherever there is a `name` field, there is also a `name_script` field that describes the primary script used in that text. This can be helpful for customizing fonts or language fallback conditions. Values include:
 
@@ -214,7 +160,7 @@ The value will be _null_ if `name` is also null.
 
 <a id='sizerank'></a>
 
-#### `sizerank` _number_
+### `sizerank` _number_
 
 The `sizerank` field is included in label layers where points or lines have been derived from polygons, such as `poi_label`, `natural_label`, `airport_label`. It lets you style & filter based on the size of a feature relative to the current zoom level. The largest objects are given `sizerank=0`, and points are given `sizerank=16`. 
 
@@ -224,7 +170,7 @@ The value will never be _null_ and will always be within the range 0-16.
 
 <a id='filterank'></a>
 
-#### `filterrank` _number_
+### `filterrank` _number_
 
 Filterrank is a value from 0-5 used to customize label density. It's intended to be used in style layer filters (in the 'Select data' tab in Mapbox Studio). The value is relative to the current zoom level. For example the same POI might have `filterrank=5` at z10 while having `filterrank=1` at z14, since zooming in changed the relative importance of the POI.
 
@@ -234,7 +180,7 @@ The value will never be _null_ and will always be in the range of 0-5.
 
 <a id='maki'></a>
 
-#### `maki` _text_
+### `maki` _text_
 
 Some layers have a `maki` field designed to make it easy to assign icons using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can ensure your style has all the icons needed across different layers.
 
@@ -383,7 +329,9 @@ entrance
 
 <!-- ADMIN --------------------------------------------------------------->
 
-{{ <LayerInfo name="admin" type={["line"]} buffer={4} /> }}
+### `admin`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 This layer contains boundary lines for national and subnational administrative units. The data source & shapes match polygons from the [Mapbox Enterprise Boundaries product](/vector-tiles/reference/enterprise-boundaries-v2/).
 
@@ -423,7 +371,9 @@ The `iso_3166_1` field contains the [ISO 3166-1 alpha-2](https://en.wikipedia.or
 
 <!-- AEROWAY --------------------------------------------------------------- -->
 
-{{ <LayerInfo name="aeroway" type={["line"]} buffer={4} /> }}
+### `aeroway`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 The aeroway layer includes both lines and polygons representing runways, helipads, etc.
 
@@ -445,7 +395,9 @@ The `ref` field contains runway and taxiway identifiers. The value may be _null_
 
 <!-- AIRPORT_LABEL ------------------------------------------------------->
 
-{{ <LayerInfo name="airport_label" type={["line"]} buffer={64} /> }}
+### `airport_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains point geometries that are one of: airport, airfield, heliport, and rocket.
 
@@ -471,7 +423,9 @@ The `maki` field lets you assign different icons to different types of airports.
 
 <!-- BUILDING ------------------------------------------------------------->
 
-{{ <LayerInfo name="building" type={["polygon"]} buffer={2} /> }}
+### `building`
+
+{{ <LayerInfo type={["polygon"]} buffer={2} /> }}
 
 Large buildings appear at zoom level 13, and all buildings are included in zoom level 14 and up.
 
@@ -498,7 +452,9 @@ The `extrude` field indicates whether the object should be included in 3D-extrus
 
 <!-- HOUSENUM_LABEL ---------------------------------------------------->
 
-{{ <LayerInfo name="housenum_label" type={["point"]} buffer={64} /> }}
+### `housenum_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains points used to label the street number parts of specific addresses.
 
@@ -509,7 +465,9 @@ The `house_num` field countains house and building numbers. These are commonly i
 
 <!-- LANDUSE_OVERLAY ---------------------------------------------------->
 
-{{ <LayerInfo name="landuse_overlay" type={["polygon"]} buffer={8} /> }}
+### `landuse_overlay`
+
+{{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
 This layer is for landuse / landcover polygons that should be drawn above the [#water](#water) layer.
 
@@ -526,7 +484,9 @@ The main field used for styling the landuse_overlay layer is `class`.
 
 <!-- LANDUSE ------------------------------------------------------------->
 
-{{ <LayerInfo name="landuse" type={["polygon"]} buffer={4} /> }}
+### `landuse`
+
+{{ <LayerInfo type={["polygon"]} buffer={4} /> }}
 
 This layer includes polygons representing both land-use and land-cover.
 
@@ -557,7 +517,9 @@ The main field used for styling the landuse layer is `class`.
 
 <!-- MOTORWAY_JUNCTION --------------------------------------------------->
 
-{{ <LayerInfo name="motorway_junction" type={["point"]} buffer={8} /> }}
+### `motorway_junction`
+
+{{ <LayerInfo type={["point"]} buffer={8} /> }}
 
 This layer contains point geometries for labeling motorway junctions (aka highway exits). Classes and types match the types in the road layer.
 
@@ -572,7 +534,9 @@ The `class` and `type` fields tell you what kind of road the junction is on. See
 
 <!-- NATURAL_LABEL ------------------------------------------------------->
 
-{{ <LayerInfo name="natural_label" type={["point", "line"]} buffer={64} /> }}
+### `natural_label`
+
+{{ <LayerInfo type={["point", "line"]} buffer={64} /> }}
 
 The `natural_label` layer contains points and lines for styling natural features such as bodies of water, mountain peaks, valleys, deserts, and so on.
 
@@ -607,7 +571,9 @@ The `elevation_m` and `elevation_ft` fields hold the feature elevation in meters
 
 <!-- PLACE_LABEL ------------------------------------------------------->
 
-{{ <LayerInfo name="place_label" type={["point"]} buffer={128} /> }}
+### `place_label`
+
+{{ <LayerInfo type={["point"]} buffer={128} /> }}
 
 This layer contains points for labeling places including countries, states, cities, towns, and neighbourhoods.
 
@@ -670,7 +636,9 @@ The `text_anchor` field can be used as a hint for label placement. Possible valu
 
 <!-- POI_LABEL ------------------------------------------------------------>
 
-{{ <LayerInfo name="poi_label" type={["point"]} buffer={64} /> }}
+### `poi_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer is used to place icons and labels for various points of interest (POIs).
 
@@ -721,7 +689,9 @@ Language coverage may be expanded in a future v8 update.
 
 <!-- ROAD -------------------------------------------------------------->
 
-{{ <LayerInfo name="road" type={["point", "line", "polygon"]} buffer={4} /> }}
+### `road`
+
+{{ <LayerInfo type={["point", "line", "polygon"]} buffer={4} /> }}
 
 The roads layer contains lines, points, and polygons needed for drawing features such as roads, railways, paths and their labels.
 
@@ -958,7 +928,9 @@ The `len` field stores the length of the road segment in projected meters, round
 
 <!-- STRUCTURE ---------------------------------------------------------->
 
-{{ <LayerInfo name="structure" type={["line", "polygon"]} buffer={4} /> }}
+### `structure`
+
+{{ <LayerInfo type={["line", "polygon"]} buffer={4} /> }}
 
 This layer includes lines and polygons for structures which are not buildings. This includes both natural and human features - cliffs, walls, piers, gates.
 
@@ -981,7 +953,9 @@ The `type` field contains the original value of the feature's primary tag from O
 
 <!-- TRANSIT_STOP_LABEL -------------------------------------------------->
 
-{{ <LayerInfo name="transit_stop_label" type={["point"]} buffer={64} /> }}
+### `transit_stop_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 The `transit_stop_label` contains points for symbolizing transit stops, stations, and associated features such as entrances.
 
@@ -1089,7 +1063,9 @@ No further `network` values will be added in Mapbox Streets v8.
 
 <!-- WATER ----------------------------------------------------------->
 
-{{ <LayerInfo name="water" type={["polygon"]} buffer={8} /> }}
+### `water`
+
+{{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
 This layer includes all types of water bodies: oceans, rivers, lakes, ponds, reservoirs, fountains, and more.
 
@@ -1100,7 +1076,9 @@ Each zoom level includes a set of water bodies that has been filtered and simpli
 
 <!-- WATERWAY ---------------------------------------------------------->
 
-{{ <LayerInfo name="waterway" type={["line"]} buffer={4} /> }}
+### `waterway`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 The waterway layer contains classes for rivers, streams, canals, etc represented as lines. These classes can represent a wide variety of possible widths. It's best to have your line stying biased toward the smaller end of the scales since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer. Also works best under `#water` layer.
 
@@ -1117,3 +1095,66 @@ The waterway layer has two fields for styling - `class` and `type` - each with s
 | `drain`               | Medium to small artificial channel for rainwater drainage, often concrete lined. |
 | `ditch`               | Small artificial channel dug in the ground for rainwater drainage. |
 
+## Changelog
+
+The layers and properties in Mapbox Streets v8 have undergone a major reorganization to optimize for styling with the latest features in Mapbox Studio such as expressions. We've also expanded coverage of feature types and properties for styling, with a particular emphasis on labels & icons.
+
+- 3 new layer names:
+  - [`natural_label`](#natural_label)
+  - [`structure`](#structure)
+  - [`transit_stop_label`](#transit_stop_label)
+- 9 removed layer names - the data from these layers have moved into other layers as noted here:
+  - `barrier_line` - data moved to new layer [`structure`](#structure)
+  - `country_label` - data moved to [`place_label`](#place_label)
+  - `marine_label` - data moved to new layer [`natural_label`](#natural_label)
+  - `mountain_peak_label` - data moved to new layer [`natural_label`](#natural_label)
+  - `rail_station_label` - data moved to new layer [`transit_stop_label`](#transit_stop_label)
+  - `road_label` - data moved to [`road`](#road)
+  - `state_label` - data moved to [`place_label`](#place_label)
+  - `water_label` - data moved to new layer [`natural_label`](#natural_label)
+  - `waterway_label` - data moved to new layer [`natural_label`](#natural_label)
+- New ranking fields fields for label layers:
+  - [`sizerank`](#sizerank)
+  - [`filterrank`](#sizerank)
+  - [`symbolrank`](#place_label---symbolrank) (`place_label` layer)
+  - `scalerank` and `localrank` have been removed from all layers
+- Name fields:
+  - Translated name fields (`name_en`, `name_fr`, etc) will now contain _null_ values where no translation is available, rather than falling back to `name`. This will allow you to customize your fallback preferences using Mapbox GL expressions.
+  - `name_zh` field removed and replaced by `name_zh-Hant` (traditional Chinese)
+  - New field: `name_script` indicates the primary script used in the `name` field (`Latin`, `Cyrillic`, etc)
+- [`admin`](#admin) layer:
+  - Data source has changed to match Mapbox Enterprise Boundaries
+  - New field: `worldview` - provides the option to cater boundary lines to different locales. See boundaries section below for details.
+  - The `admin_level` now has a range of `0`  through `2` with slightly different division definitions compared to v7 - see boundaries section below for details.
+  - The `disputed` and `maritime` fields now have text values of `true` or `false` rather than numeric `1` and `0`
+- [`aeroway`](#aeroway) layer:
+  - New field: `ref` indicates the runway or taxiway identifier
+- [`place_label`](#place_label) layer:
+  - New fields:
+    - `iso_3166_1`: indicates the 2-letter country/territory code of the place or the country that the place is within.
+    - `symbolrank` and `filterrank`: see description in table
+    - `text_anchor` - replaces `ldir`
+  - Added support for OSM `place=quarter`
+  - Several feature types have moved to either `poi_label` or `natural_label`
+- [`poi_label`](#poi_label) layer:
+  - New fields:
+    - `category_en` / `category_zh-Hans`: contains POI category description for text display in English / simplified Chinese 
+    - `class`: contains broad categories useful for filtering & symbol styling
+    - `filterrank`: see description in table
+  - Many new `maki` values 
+  - Many new feature types added
+- [`road`](#road) layer:
+  - New fields: 
+    - Fields from former `road_label` layer: names, `ref`, `reflen`, `len`, `shield`, `iso_3166_2`
+    - `toll`: `true` for toll roads and not present / null for all other roads.
+    - `surface`: indicates either `paved` or `unpaved` where this data is available from OSM.
+    - `bike_lane`: indicates presence and location of a bike lane that is part of the road itself (as opposed to a separated bike lane).
+  - New class values: 
+    - `service_rail` - includes service tracks such as sidings or yard rails. These were previously included in the `minor_rail` class.
+    - `link` has been removed and broken out into `trunk_link`, `primary_link`, `secondary_link`, `tertiary_link`
+  - Previous `road_label` layer is now merged into `road` layer, with all label fields included: `len`, `ref`, `reflen`, and `shield`.
+- [`transit_stop_label`](#transit_stop_label) layer:
+  - Replaces the `railway_station_label` layer from v7 and includes some new features such as bus stops (new), ferry terminals, and bikeshare stations (previously in the `poi_label` layer).
+  - New fields:
+    - `mode`: provides more detail about the particular mode of transport served by a stop/station
+    - `stop_type`: value is one of: `stop`, `station`, `entrance`

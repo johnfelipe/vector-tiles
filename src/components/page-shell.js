@@ -38,8 +38,8 @@ class PageShell extends React.Component {
 
     const meta = Object.assign(
       {
-        title: props.frontMatter.title,
-        description: props.frontMatter.description,
+        title: this.props.frontMatter.title,
+        description: this.props.frontMatter.description,
         pathname: props.location.pathname
       },
       props.meta
@@ -59,23 +59,49 @@ class PageShell extends React.Component {
     let pageNavigation = <div />;
 
     if (pathPrefixMatch[1] === 'reference/') {
-      const secondLevelItems = props.frontMatter.headings
-        .filter(heading => {
-          return heading.level === 2;
-        })
-        .map(h2 => {
+      const parseHeadings = arr => {
+        return arr.map((heading, index) => {
           return {
-            title: h2.text,
-            path: h2.slug
+            level: heading.level,
+            text: heading.text,
+            slug: heading.slug,
+            order: index
           };
         });
+      };
+
+      const orderedHeadings = this.props.frontMatter.headings
+        ? parseHeadings(this.props.frontMatter.headings)
+        : parseHeadings(this.props.headings);
+
+      const topLevelHeadings = orderedHeadings.filter(h => h.level === 2);
+      const secondLevelItems = topLevelHeadings.map((h2, index) => {
+        const nextH2 = topLevelHeadings[index + 1];
+        return {
+          title: h2.text,
+          path: h2.slug,
+          thirdLevelItems: orderedHeadings
+            .filter(
+              f =>
+                f.level === 3 &&
+                f.order > h2.order &&
+                (nextH2 ? f.order < nextH2.order : true)
+            )
+            .map(h3 => {
+              return {
+                title: h3.text,
+                path: h3.slug
+              };
+            })
+        };
+      });
       pageNavigation = (
         <div className="mx0-mm ml-neg24 mr-neg36 relative-mm absolute right left">
           <NavigationAccordion
             currentPath={props.location.pathname}
             contents={{
-              firstLevelItems: orderedPages[pathPrefixMatch[1]],
-              secondLevelItems: secondLevelItems
+              firstLevelItems: orderedPages['reference/'],
+              secondLevelItems: secondLevelItems || null
             }}
             onDropdownChange={value => {
               routeToPrefixed(value);
@@ -89,10 +115,10 @@ class PageShell extends React.Component {
     }
 
     let pageTitle = '';
-    if (props.frontMatter.title !== 'Introduction') {
+    if (this.props.frontMatter.title !== 'Introduction') {
       pageTitle = (
         <h1 className="txt-h1 txt-fancy  pt0-mm pt24 pb24">
-          {props.frontMatter.title}
+          {this.props.frontMatter.title}
         </h1>
       );
     }
@@ -146,15 +172,14 @@ class PageShell extends React.Component {
             sidebarStackedOnNarrowScreens={pageNavigationNarrowStick}
           >
             <div className="mt60 mt0-mm">{pageTitle}</div>
-            {props.frontMatter.mapid ? (
+            {this.props.frontMatter.mapid ? (
               <div>
                 <div className="prose mb18">
                   <strong>Source id</strong>:
                   <span className="inline-block ml6">
-                    <Copiable value={props.frontMatter.mapid} />
+                    <Copiable value={this.props.frontMatter.mapid} />
                   </span>
                 </div>
-                <div className="h360 bg-gray-faint mb24" />
               </div>
             ) : (
               ''

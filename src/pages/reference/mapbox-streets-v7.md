@@ -5,17 +5,18 @@ mapid: mapbox.mapbox-streets-v7
 prependJs: 
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
+  - "import { SourceLayerTypes } from '../../components/source-layer-types';"
   - "import Note from '@mapbox/dr-ui/note';"
   - "import BookImage from '@mapbox/dr-ui/book-image';"
 ---
+
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling.
 
 {{ <Note imageComponent={<BookImage height="60" width="60" />}> }}
 
 We recommend moving to [Mapbox Streets v8](/vector-tiles/reference/mapbox-streets-v8/) for additional features and improvements. However, Mapbox Streets v7 will continue to receive data updates from OpenStreetMap.
 
 {{</Note>}}
-
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling.
 
 ## Overview
 
@@ -60,9 +61,7 @@ Mapnik vector tiles support multiple geometry types in the same layer. The Mapbo
 
 A geometry in the vector tile can be one of 3 types:
 
-1. {{ <Icon name="marker" inline={true} /> }} Point
-2. {{ <Icon name="polyline" inline={true} /> }} Linestring / multilinestring
-3. {{ <Icon name="polygon" inline={true} /> }} Polygon / multipolygon
+{{ <SourceLayerTypes /> }}
 
 In Mapbox Studio, you can select one, two, or all three of these geometry types with the Geometry Type toggles in each layer's **Select data** tab.
 
@@ -91,55 +90,15 @@ OpenStreetMap ID spaces are not unique across node, way, and relation object typ
 
 In many cases, mulitple objects from OpenStreetMap will be combined into a single object in our vector tiles. For example, water polygons are unioned to avoid seams and road lines are joined to save space and simplify better. In these cases the __`osm_id`__ will either be `0`, or one of the input IDs chosen at random.
 
-## Changelog
-
-A summary of the changes from v6:
-
-Mapbox Streets v7 contains 10 major changes that may require reworking of your styles depending on how they've been constructed:
-
-1. The separate `#bridge` and `#tunnel` layers are gone and  have been merged into `#road`. A new `structure` class field describes whether the road segment is a `bridge`, `tunnel`, `ford`, or `none`. When upgrading from v6, bridge and tunnel style layers should be pointed at the `#road` layer with appropriate filters on the `structure` field. Bridges and tunnels are not distinct from roads until zoom level 13.
-2. Major changes to the `class` fields have been made in the [#road](#road) layer:
-    - The `main` class has been seperated into `trunk`, `primary`, `secondary`, and `tertiary` classes.
-   - The `street` class has been modified to include `unclassified`, `residential`, `road` and `living_street`.
-    - The `street_limited` class no longer includes pedestrian streets or roads under construction.
-    - New classes:
-      - `pedestrian` - includes pedestrian streets, plazas, and public transportation platforms
-      - `construction` - includes motor roads under construction (but not service roads, paths, etc)
-      - `track` - contains tracks that were part of the `service` class in v6
-      - `ferry`
-    - The following class names have been unchanged: `motorway`, `motorway_link`, `path`, `golf`, `major_rail`, and `minor_rail`.
-    - Class names `main` and `driveway` have been removed.
-    - Classes `construction`, `track`, `service`, `path`, `ferry` and `aerialway` pull in additional `type` detail when it is available from OpenStreetMap as outlined in [#road](#road) section.
-7. Road labels: new road classes will also apply to their corresponding labels.
-4. New possible combination of `shield=us-highway` with `reflen=4`. This may require a new sprite image. New networks added to the `road_label` layer's `shield` field. These will require new sprite images.
-4. New layer [#mountain_peak_label](#mountain_peak_label) contains mountain peaks that were in the `poi_label` layer in v6. New fields `elevation_m` & `elevation_ft` contain the peak elevations in meters and feet, respectively. Values are rounded to the nearest integer. New values in the `maki` field: `mountain`, `volcano`.
-5. New layer [#airport_label](#airport_label) contains airports that were in the `poi_label` layer in v6.
-6. New layer [#rail_station_label](#rail_station_label) contains rail stations that were in the `#poi_label` layer in v6. Major changes have been made to `network` field values. New networks have been added and existing networks renamed for clarity. If you are using this field to style rail station icons you will need to rename existing sprite images and add new ones. See outlined below in [#rail_station_label](#rail_station_label).
-7. National parks and similar parks are now in their own class `national_park` in the `landuse_overlay` layer, whereas in v6 they were part of the `park` class of the `landuse` layer.
-9. New `type` values have been added to the `place_label` layer: `island` (moved from `poi_label`), `islet` (moved from `poi_label`), `archipelago`, `residential`, and `aboriginal_lands`.
-10. OSM ID tranformation algorithm has changed (see previous section) and are stored as vector tile object IDs rather than standalone fields.
-
-
-Additionally, v7 includes the following more specific/limited changes:
-
-- Landuse: `class=aboriginal_lands` has been added here from `boundary=aboriginal_lands` and `boundary:type=aboriginal_lands` in OSM.
-- POI labels: the `name` field of the `poi_label` layer may be null (in v6, nameless POIs were not included). Nameless POIs will have never have a `maki` value of `marker` (the generic default).
-- POI labels: adjustments to existing maki values:
-    - `grocery`: now includes marketplaces
-    - `shop`: now includes camera and photo shops (`camera` value is removed)
-- Gullies: the `class=cliff` features in the barrier_line layer now include `natural=earth_bank` (aka gully) objects from OSM.
-- Road labels: 'Park' is no longer abbreviated to 'Pk'.
-- Bridges and tunnels are not distinct from roads until zoom level 13.
-- Underground buildings: the `building` layer includes a new `underground` field that is either `true` or `false` depending on whether the building is underground (eg a subway station)
-
-
 
 ## Layer Reference
 
 
 <!-- LANDUSE ----------------------------------------------------------->
 
-{{ <LayerInfo name="#landuse" type={["polygon"]} buffer={4} /> }}
+### `#landuse`
+
+{{ <LayerInfo type={["polygon"]} buffer={4} /> }}
 
 This layer includes polygons representing both land-use and land-cover.
 
@@ -169,7 +128,9 @@ The main field used for styling the landuse layer is __`class`__.
 
 <!-- WATERWAY ----------------------------------------------------------->
 
-{{ <LayerInfo name="#waterway" type={["line"]} buffer={4} /> }}
+### `#waterway`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 The waterway layer contains classes for rivers, streams, canals, etc represented as lines. These classes can represent a wide variety of possible widths. It's best to have your line stying biased toward the smaller end of the scales since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer. Also works best under `#water` layer.
 
@@ -189,7 +150,9 @@ The waterway layer has two fields for styling - __`class`__ and __`type`__ - eac
 
 <!-- WATER -------------------------------------------------------------->
 
-{{ <LayerInfo name="#water" type={["polygon"]} buffer={8} /> }}
+### `#water`
+
+{{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
 This layer includes all types of water bodies: oceans, rivers, lakes, ponds, reservoirs, fountains, and more.
 
@@ -200,7 +163,9 @@ Each zoom level includes a set of water bodies that has been filtered and simpli
 
 <!-- AEROWAY ------------------------------------------------------------->
 
-{{ <LayerInfo name="#aeroway" type={["line"]} buffer={4} /> }}
+### `#aeroway`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 The aeroway layer includes both lines and polygons representing runways, helipads, etc.
 
@@ -218,7 +183,9 @@ The __`type`__ field separates different types of aeroways for styling.
 
 <!-- BARRIER_LINE ----------------------------------------------------------->
 
-{{ <LayerInfo name="#barrier_line" type={["line", "polygon"]} buffer={4} /> }}
+### `#barrier_line`
+
+{{ <LayerInfo type={["line", "polygon"]} buffer={4} /> }}
 
 This layer includes lines and polygons for barriers - things such as walls and fences.
 
@@ -237,7 +204,9 @@ Cliff data from OSM is designed such that the left-hand side of the line is the 
 
 <!-- BUILDING ----------------------------------------------------------->
 
-{{ <LayerInfo name="#building" type={["polygon"]} buffer={2} /> }}
+### `#building`
+
+{{ <LayerInfo type={["polygon"]} buffer={2} /> }}
 
 Large buildings appear at zoom level 13, and all buildings are included in zoom level 14 and up.
 
@@ -260,7 +229,9 @@ The __`extrude`__ field is `true` or `false` depending one whether the object sh
 
 <!-- LANDUSE_OVERLAY ------------------------------------------------------->
 
-{{ <LayerInfo name="#landuse_overlay" type={["polygon"]} buffer={8} /> }}
+### `#landuse_overlay`
+
+{{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
 This layer is for landuse / landcover polygons that should be drawn above the [#water](#water) layer.
 
@@ -277,7 +248,9 @@ The main field used for styling the landuse_overlay layer is __`class`__.
 
 <!-- ROAD ------------------------------------------------------------------->
 
-{{ <LayerInfo name="#road" type={["point", "line", "polygon"]} buffer={4} /> }}
+### `#road`
+
+{{ <LayerInfo type={["point", "line", "polygon"]} buffer={4} /> }}
 
 The roads layers are some of the most complex ones in Mapbox Streets. Separate `bridge` and `tunnel` layers are gone and  have been merged into road. `structure` field describes whether the road segment is a `bridge`, `tunnel`, `ford`, or `none`. Bridges and tunnels are not distinct from roads until zoom level 13.
 
@@ -404,7 +377,9 @@ The __`layer`__ field is used to determine drawing order of overlapping road seg
 
 <!-- ADMIN ------------------------------------------------------------------>
 
-{{ <LayerInfo name="#admin" type={["line"]} buffer={4} /> }}
+### `#admin`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 Administrative boundary lines. These are constructed from the OSM data in such a way that there are no overlapping lines where multiple boundary areas meet.
 
@@ -433,7 +408,9 @@ The __`iso_3166_1`__ field contains the [ISO 3166-1 alpha-2](https://en.wikipedi
 
 <!-- COUNTRY_LABEL ---------------------------------------------------------->
 
-{{ <LayerInfo name="#country_label" type={["point"]} buffer={256} /> }}
+### `#country_label`
+
+{{ <LayerInfo type={["point"]} buffer={256} /> }}
 
 This layer contains points used for labeling countries. The points are placed for minimal overlap with small to medium-sized text.
 
@@ -456,7 +433,9 @@ The __`scalerank`__ field is intended to help assign different label styles base
 
 <!-- MARINE_LABEL -------------------------------------------------------->
 
-{{ <LayerInfo name="#marine_label" type={["line"]} buffer={256} /> }}
+### `#marine_label`
+
+{{ <LayerInfo type={["line"]} buffer={256} /> }}
 
 Points and lines for labeling major marine features such as oceans, seas, large lakes & bays.
 
@@ -473,7 +452,9 @@ The value of the __`placement`__ field will be either `point` or `line` dependin
 
 <!-- STATE_LABEL ----------------------------------------------------------->
 
-{{ <LayerInfo name="#state_label" type={["point"]} buffer={256} /> }}
+### `#state_label`
+
+{{ <LayerInfo type={["point"]} buffer={256} /> }}
 
 Points for labeling states and provinces. Currently only a small number of countries are included.
 
@@ -492,7 +473,9 @@ The __`area`__ field is the physical area of the entity in square kilometers. Us
 
 <!-- PLACE_LABEL ------------------------------------------------------------>
 
-{{ <LayerInfo name="#place_label" type={["point"]} buffer={128} /> }}
+### `#place_label`
+
+{{ <LayerInfo type={["point"]} buffer={128} /> }}
 
 This layer contains points for labeling human settlements.
 
@@ -537,7 +520,9 @@ The __`ldir`__ field can be used as a hint for label offset directions at lower 
 
 <!-- WATER_LABEL ------------------------------------------------------------>
 
-{{ <LayerInfo name="#water_label" type={["point"]} buffer={64} /> }}
+### `#water_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains points for labeling bodies of water such as lakes and ponds.
 
@@ -552,7 +537,9 @@ The __`area`__ field holds the area of the associated water polygon in square me
 
 <!-- POI_LABEL -------------------------------------------------------------->
 
-{{ <LayerInfo name="#poi_label" type={["point"]} buffer={64} /> }}
+### `#poi_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer is used to place icons and labels for various points of interest (POIs).
 
@@ -662,7 +649,9 @@ The __`localrank`__ field can be used to adjust the label density by showing few
 
 <!-- ROAD_LABEL ----------------------------------------------------------->
 
-{{ <LayerInfo name="#road_label" type={["point", "line"]} buffer={8} /> }}
+### `#road_label`
+
+{{ <LayerInfo type={["point", "line"]} buffer={8} /> }}
 
 #### Names
 
@@ -780,7 +769,9 @@ The __`len`__ field stores the length of the road segment in projected meters, r
 
 <!-- MOTORWAY_JUNCTION_LABEL ----------------------------------------------->
 
-{{ <LayerInfo name="#motorway_junction" type={["point"]} buffer={8} /> }}
+### `#motorway_junction`
+
+{{ <LayerInfo type={["point"]} buffer={8} /> }}
 
 This layer contains point geometries for labeling motorway junctions (aka highway exits). Classes and types match the types in the road layer.
 
@@ -795,7 +786,9 @@ The __`class`__ and __`type`__ fields tell you what kind of road the junction is
 
 <!-- WATERWAY_LABEL ------------------------------------------------------->
 
-{{ <LayerInfo name="#waterway_label" type={["line"]} buffer={8} /> }}
+### `#waterway_label`
+
+{{ <LayerInfo type={["line"]} buffer={8} /> }}
 
 This layer contains line geometries that match those in the [#waterway](#waterway) layer but with name fields for label rendering.
 
@@ -819,7 +812,9 @@ The __`class`__ and __`type`__ fields match those in the [#waterway](#waterway) 
 
 <!-- AIRPORT_LABEL ------------------------------------------------------->
 
-{{ <LayerInfo name="#airport_label" type={["line"]} buffer={64} /> }}
+### `#airport_label`
+
+{{ <LayerInfo type={["line"]} buffer={64} /> }}
 
 This layer contains point geometries that are one of: airport, airfield, heliport, and rocket.
 
@@ -848,7 +843,9 @@ The __`scalerank`__ field is a number representing the size / importance of the 
 
 <!-- RAIL_STATION_LABEL ------------------------------------------------->
 
-{{ <LayerInfo name="#rail_station_label" type={["point"]} buffer={64} /> }}
+### `#rail_station_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains point geometries with name fields for label rendering.
 
@@ -931,7 +928,9 @@ If none of the specific networks below apply to a station, the __`network`__ val
 
 <!-- MOUTAIN_PEAK_LABEL ----------------------------------------------------->
 
-{{ <LayerInfo name="#mountain_peak_label" type={["point"]} buffer={64} /> }}
+### `#mountain_peak_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains point geometries that are contains mountain peaks. Include fields `elevation_m` & `elevation_ft` which contain the peak elevations in meters and feet, respectively. Values are rounded to the nearest integer.
 
@@ -955,8 +954,52 @@ The __`elevation_m`__ and __`elevation_ft`__ fields hold the peak elevation in m
 
 <!-- HOUSENUM_LABEL --------------------------------------------------------->
 
-{{ <LayerInfo name="#housenum_label" type={["point"]} buffer={64} /> }}
+### `#housenum_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains points used to label the street number parts of specific addresses.
 
 The __`house_num`__ field countains house and building numbers. These are commonly integers but may include letters or be only letters, eg "1600", "31B", "D". If an address has no number tag but has a house name or building name, the __`house_num`__ field will be the name instead.
+
+
+## Changelog
+
+A summary of the changes from v6:
+
+Mapbox Streets v7 contains 10 major changes that may require reworking of your styles depending on how they've been constructed:
+
+1. The separate `#bridge` and `#tunnel` layers are gone and  have been merged into `#road`. A new `structure` class field describes whether the road segment is a `bridge`, `tunnel`, `ford`, or `none`. When upgrading from v6, bridge and tunnel style layers should be pointed at the `#road` layer with appropriate filters on the `structure` field. Bridges and tunnels are not distinct from roads until zoom level 13.
+2. Major changes to the `class` fields have been made in the [#road](#road) layer:
+    - The `main` class has been seperated into `trunk`, `primary`, `secondary`, and `tertiary` classes.
+   - The `street` class has been modified to include `unclassified`, `residential`, `road` and `living_street`.
+    - The `street_limited` class no longer includes pedestrian streets or roads under construction.
+    - New classes:
+      - `pedestrian` - includes pedestrian streets, plazas, and public transportation platforms
+      - `construction` - includes motor roads under construction (but not service roads, paths, etc)
+      - `track` - contains tracks that were part of the `service` class in v6
+      - `ferry`
+    - The following class names have been unchanged: `motorway`, `motorway_link`, `path`, `golf`, `major_rail`, and `minor_rail`.
+    - Class names `main` and `driveway` have been removed.
+    - Classes `construction`, `track`, `service`, `path`, `ferry` and `aerialway` pull in additional `type` detail when it is available from OpenStreetMap as outlined in [#road](#road) section.
+7. Road labels: new road classes will also apply to their corresponding labels.
+4. New possible combination of `shield=us-highway` with `reflen=4`. This may require a new sprite image. New networks added to the `road_label` layer's `shield` field. These will require new sprite images.
+4. New layer [#mountain_peak_label](#mountain_peak_label) contains mountain peaks that were in the `poi_label` layer in v6. New fields `elevation_m` & `elevation_ft` contain the peak elevations in meters and feet, respectively. Values are rounded to the nearest integer. New values in the `maki` field: `mountain`, `volcano`.
+5. New layer [#airport_label](#airport_label) contains airports that were in the `poi_label` layer in v6.
+6. New layer [#rail_station_label](#rail_station_label) contains rail stations that were in the `#poi_label` layer in v6. Major changes have been made to `network` field values. New networks have been added and existing networks renamed for clarity. If you are using this field to style rail station icons you will need to rename existing sprite images and add new ones. See outlined below in [#rail_station_label](#rail_station_label).
+7. National parks and similar parks are now in their own class `national_park` in the `landuse_overlay` layer, whereas in v6 they were part of the `park` class of the `landuse` layer.
+9. New `type` values have been added to the `place_label` layer: `island` (moved from `poi_label`), `islet` (moved from `poi_label`), `archipelago`, `residential`, and `aboriginal_lands`.
+10. OSM ID tranformation algorithm has changed (see previous section) and are stored as vector tile object IDs rather than standalone fields.
+
+
+Additionally, v7 includes the following more specific/limited changes:
+
+- Landuse: `class=aboriginal_lands` has been added here from `boundary=aboriginal_lands` and `boundary:type=aboriginal_lands` in OSM.
+- POI labels: the `name` field of the `poi_label` layer may be null (in v6, nameless POIs were not included). Nameless POIs will have never have a `maki` value of `marker` (the generic default).
+- POI labels: adjustments to existing maki values:
+    - `grocery`: now includes marketplaces
+    - `shop`: now includes camera and photo shops (`camera` value is removed)
+- Gullies: the `class=cliff` features in the barrier_line layer now include `natural=earth_bank` (aka gully) objects from OSM.
+- Road labels: 'Park' is no longer abbreviated to 'Pk'.
+- Bridges and tunnels are not distinct from roads until zoom level 13.
+- Underground buildings: the `building` layer includes a new `underground` field that is either `true` or `false` depending on whether the building is underground (eg a subway station)

@@ -4,9 +4,21 @@ description: Reference documentation for the Mapbox Terrain v2 tileset.
 mapid: mapbox.mapbox-terrain-v2
 prependJs: 
   - "import { LayerInfo } from '../../components/layer-info';"
+  - "import { SourceLayerTypes } from '../../components/source-layer-types';"
+  - "import { MapPreview } from '../../components/map';"
+  - "import { terrainV2 } from '../../data/styles';"
 ---
 
 This is a guide to the layers and data inside the Mapbox Terrain vector tile source to help with styling.
+
+{{ 
+<MapPreview 
+    styleJson={terrainV2}
+    lat={40}
+    lon={-1}
+    zoom={12}
+/> 
+}}
 
 ## Overview
 
@@ -14,21 +26,17 @@ Mapbox Terrain provides hillshades, elevation contours, and landcover data all i
 
 Mapbox Terrain is based on data from a variety of sources - see [the about page](https://www.mapbox.com/about/maps/) for details. When using the Mapbox Terrain layer publicly in a design or application you must provide [proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
-## Changelog
+A geometry in the vector tile can be one of 3 types:
 
-A summary of the changes from v1:
-
-- Various elevation data improvements and updates (notably over most of Europe and Africa)
-- __`class`__ field in the [#hillshade](#hillshade) layer simplified to just 2 classes: `highlight`, `shadow`
-- `level` field added to the [#hillshade](#hillshade) layer for more granular styling
-- Coastlines have an `index` value of `-1` in the [#contour](#contour) layer
+{{ <SourceLayerTypes /> }}
 
 ## Layer Reference
 
-
 <!-- LANDCOVER ---------------------------------------------------->
 
-{{ <LayerInfo name="#landcover" type={["polygon"]} buffer={8} /> }}
+### `#landcover`
+
+{{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
 The landcover layer provides a generalized backdrop of vegetation, agriculture, and permanent ice & snow. It is intended for stylistic use and not appropriate for science or other analysis. Empty space in the landcover layer represents either water or bare earth, rock, sand, and built-up areas.
 
@@ -60,7 +68,9 @@ Map { background-color: cornsilk; }
 
 <!-- HILLSHADE ------------------------------------------------------------>
 
-{{ <LayerInfo name="#hillshade" type={["polygon"]} buffer={8} /> }}
+### `#hillshade`
+
+{{<LayerInfo type={["polygon"]} buffer={8} />}}
 
 The hillshade layer contains polygons that when styled appropriately display shaded relief of hills. The lighting direction is not realistic, but from the north-west (as is traditional in shaded relief).
 
@@ -118,7 +128,9 @@ _ CartoCSS example:_
 
 <!-- CONTOUR ---------------------------------------------------->
 
-{{ <LayerInfo name="#contour" type={["polygon"]} buffer={4} /> }}
+### `#contour`
+
+{{<LayerInfo type={["polygon"]} buffer={4} />}}
 
 Contour lines indicate vertical dimension on a region by joining points of equal elevation. Full contour line coverage begins at zoom 12, while index lines are available at zoom 9 + in values specified below.
 
@@ -164,3 +176,14 @@ _CartoCSS example:_
   [index=10], [ele=2] { line-width: 1; }
 }
 ```
+
+
+## Changelog
+
+A summary of the changes from v1:
+
+- Various elevation data improvements and updates (notably over most of Europe and Africa)
+- __`class`__ field in the [#hillshade](#hillshade) layer simplified to just 2 classes: `highlight`, `shadow`
+- `level` field added to the [#hillshade](#hillshade) layer for more granular styling
+- Coastlines have an `index` value of `-1` in the [#contour](#contour) layer
+- 

@@ -4,6 +4,7 @@ description: Reference documentation for the Enterprise Boundaries v2 tileset.
 prependJs: 
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
+  - "import { SourceLayerTypes } from '../../components/source-layer-types';"
   - "import Note from '@mapbox/dr-ui/note';"
   - "import BookImage from '@mapbox/dr-ui/book-image';"
 ---
@@ -43,14 +44,14 @@ Enterprise Boundaries are composed of a number of separate tilesets each with th
 
 Each layer in Enterprise Boundary tilesets will contain one of 3 geometry types:
 
-1. {{ <Icon name="marker" inline={true} /> }} Point
-2. {{ <Icon name="polyline" inline={true} /> }} Linestring / multilinestring
-3. {{ <Icon name="polygon" inline={true} /> }} Polygon / multipolygon
+{{ <SourceLayerTypes /> }}
 
 
 ## Area Layer Reference
 
-{{ <LayerInfo name="boundaries_{type}_{level}" type={["polygon"]} /> }}
+### `boundaries_{type}_{level}`
+
+{{ <LayerInfo type={["polygon"]} /> }}
 
 Each area tileset has a layer named `boundaries_{type}_{level}`, where `{type}` is one of `admin`, `postal`, or `stats`, and `{level}` is a number `0` through `5`. The `{type}` and `{level}` values correspond to the given tileset.
 
@@ -69,7 +70,9 @@ The vector tiles contain multiple versions of some boundaries, each with a `worl
 | `IN` | Boundaries conforming to cartographic requirements for use in India. |
 | `US` | Boundaries for an American audience, & which are generally appropriate outside of China & India. (Lines do not necessarily reflect official US foreign policy.) |
 
-{{ <LayerInfo name="points_{type}_{level}" type={["point"]} /> }}
+### `points_{type}_{level}`
+
+{{ <LayerInfo type={["point"]} /> }}
 
 Each area tileset has a layer named `points_{type}_{level}`, where `{type}` is one of `admin`, `postal`, or `stats`, and `{level}` is a number `0` through `5`. The `{type}` and `{level}` values correspond to the given tileset.
 
@@ -79,7 +82,9 @@ The point layers have the same two [`id`](#area---id-text) and [`worldview`](#ar
 
 ## Administrative Line Layer Reference
 
-{{ <LayerInfo name="boundaries_admin_lines" type={["line"]} /> }}
+### `boundaries_admin_lines`
+
+{{ <LayerInfo type={["line"]} /> }}
 
 The administrative lines tileset contains a single layer containing boundary lines for all administrative levels (a0 through a5).
 

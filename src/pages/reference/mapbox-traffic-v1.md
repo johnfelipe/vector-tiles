@@ -5,9 +5,20 @@ mapid: mapbox.mapbox-traffic-v1
 prependJs:
   - "import * as constants from '../../constants';"
   - "import { LayerInfo } from '../../components/layer-info';"
+  - "import { MapPreview } from '../../components/map';"
+  - "import { trafficV1 } from '../../data/styles';"
 ---
 
 This is a guide to the layers and data inside the Mapbox Traffic vector tile source to help with styling.
+
+{{ 
+<MapPreview 
+    styleJson={trafficV1}
+    lat={34.0422}
+    lon={-118.2437}
+    zoom={12}
+/> 
+}}
 
 ## Overview
 
@@ -15,7 +26,7 @@ Mapbox Traffic provides constantly updating congestion information on top of [Ma
 
 When you publicly use styles or software that use Mapbox Traffic vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
-![](https://api.mapbox.com/styles/v1/mapbox/traffic-day-v2/tiles/256/14/4823/6160?access_token={{constants.ACCESS_TOKEN}})
+<!-- ![](https://api.mapbox.com/styles/v1/mapbox/traffic-day-v2/tiles/256/14/4823/6160?access_token={{constants.ACCESS_TOKEN}}) -->
 
 ### Line offsets
 
@@ -33,7 +44,9 @@ Mapbox Traffic receives two different types of data updates:
 
 ## Layer Reference
 
-{{ <LayerInfo name="#traffic" type={["line"]} buffer={4} /> }}
+### `#traffic`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 #### Classes
 

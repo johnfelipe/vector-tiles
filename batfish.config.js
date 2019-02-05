@@ -27,7 +27,8 @@ module.exports = () => {
       path.join(pageShellDir, 'page-shell-styles.css'),
       path.join(__dirname, './css/site.css'),
       require.resolve('@mapbox/dr-ui/css/docs-prose.css'),
-      path.join(__dirname, './src/css/prism.css')
+      path.join(__dirname, './src/css/prism.css'),
+      'https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css'
     ],
     applicationWrapperPath: path.join(
       __dirname,
@@ -35,6 +36,7 @@ module.exports = () => {
     ),
     inlineJs: [{ filename: path.join(pageShellDir, 'page-shell-script.js') }],
     webpackPlugins: [new batfish.webpack.EnvironmentPlugin(['DEPLOY_ENV'])],
+    webpackStaticIgnore: [/mapbox-gl.js$/],
     jsxtremeMarkdownOptions: {
       getWrapper: resource => {
         if (/\/specification\//.test(resource)) {
@@ -51,7 +53,8 @@ module.exports = () => {
       },
       rehypePlugins: [
         require('rehype-slug'),
-        require('@mapbox/dr-ui/plugins/add-links-to-headings')
+        require('@mapbox/dr-ui/plugins/add-links-to-headings'),
+        require('@mapbox/dr-ui/plugins/create-sections')
       ]
     },
     dataSelectors: {

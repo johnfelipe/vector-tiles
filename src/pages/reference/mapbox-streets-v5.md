@@ -5,6 +5,7 @@ mapid: mapbox.mapbox-streets-v5
 prependJs: 
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
+  - "import { SourceLayerTypes } from '../../components/source-layer-types';"
   - "import Note from '@mapbox/dr-ui/note';"
   - "import BookImage from '@mapbox/dr-ui/book-image';"
 ---
@@ -72,9 +73,7 @@ Mapnik vector tiles support multiple geometry types in the same layer. The Mapbo
 
 A geometry in the vector tile can be one of 3 types:
 
-1. {{ <Icon name="marker" inline={true} /> }} Point
-2. {{ <Icon name="polyline" inline={true} /> }} Linestring / multilinestring
-3. {{ <Icon name="polygon" inline={true} /> }} Polygon / multipolygon
+{{ <SourceLayerTypes /> }}
 
 In CartoCSS you can select just one or two of the 3 types by filtering on the special `mapnik::geometry_type` property.
 
@@ -97,27 +96,15 @@ The current supported version of the Mapbox Streets vector tiles receives regula
 | [#water](#water) (ocean parts) | [OpenStreetMap Data](http://openstreetmapdata.com) |
 | [#marine_label](#marine_label), [#country_label](#country_label), [#country_label_line](#country_label_line), [#state_label](#state_label) | custom data |
 
-## Changelog
-
-A summary of the changes from v4:
-
-- New __`class`__ field added in the [#waterway](#waterway) layer. You can safely ignore this change when upgrading styles from v4
-- New __`maki`__ values in the [#poi_label](#poi_label) layer: `bakery`, `camera`, `car`, `clothing-store`, `dog-park`, `entrance`, `laundry`, `rail-light`, `rail-metro`, `suitcase`. If upgrading a v4 style that uses `[maki]` in a URL expression (eg for `marker-file`), you will need to make sure to add files to match the new values.
-- New __`network`__ values in the [#poi_label](#poi_label) layer: `wiener-linien`, `metro`, `rer`, `metro.rer`, `transilien`, `rer.transilien`, `moscow-metro`, `s-bahn`, `u-bahn`, `sbahn.u-bahn`. If upgrading a v4 style that uses `[network]` in a URL expression (eg for `marker-file`), you will need to make sure to add files to match the new values.
-- New [#housenum_label](#housenum_label) layer for labeling house and building numbers. You can safely ignore this change when upgrading styles from v4
-- New __`localrank`__ field in the [#place_label](#place_label) layer. When upgrading styles from v4 it is recommended to remove any `text-min-distance` styles from you place labels and use __`localrank`__ to control label density.
-- New __`class`__ values in the [#landuse](#landuse) layer: `agriculture`, `glacier`, `grass`, `piste`, `rock`, `scrub`. When upgrading styles from v4, look for catch-all styles that may have unexpected results for unhandled values (eg dark grey polygon fills, black outlines).
-- In the [#road_label](#road_label) layer, the __`ref`__ field is now available for all road types. Previously only it was available for motorways. For most style upgrades from it should be safe to ignore this change, though there may be edge cases where action is needed.
-- The [#marine_label](#marine_label) layer now contains actual point geometries so you can use `['mapnik::geometry_type'=1]` instead of `[placement='point']`. The __`placement`__ field has been kept for backwards-compatibility, however, so no action is necessary for this change when upgrading styles from v4.
-- New __`capital`__ field added in the [#place_label](#place_label) layer to identify cities that are the capitals of countries, regions, or states/provinces. You can safely ignore this change when upgrading styles from v4.
-
 
 ## Layer Reference
 
 
 <!-- LANDUSE ------------------------------------------------------->
 
-{{ <LayerInfo name="#landuse" type={["polygon"]} buffer={4} /> }}
+### `#landuse`
+
+{{ <LayerInfo type={["polygon"]} buffer={4} /> }}
 
 This layer includes polygons representing both land-use and land-cover.
 
@@ -146,7 +133,9 @@ The main field used for styling the landuse layer is __`class`__.
 
 <!-- WATERWAY -------------------------------------------------------------->
 
-{{ <LayerInfo name="#waterway" type={["line"]} buffer={4} /> }}
+### `#waterway`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 The waterway layer contains rivers, streams, canals, etc represented as lines.
 
@@ -179,7 +168,9 @@ _CartoCSS example:_
 
 <!-- WATER ----------------------------------------------------------------->
 
-{{ <LayerInfo name="#water" type={["polygon"]} buffer={8} /> }}
+### `#water`
+
+{{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
 This is a simple polygon layer with no differentiating types or classes. Water bodies are filtered and simplified according to scale - only oceans and very large lakes are shown at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
 
@@ -202,7 +193,9 @@ Drawing outlines on water can be tricky. Since rivers and lakes are often broken
 
 <!-- AEROWAY ---------------------------------------------------------->
 
-{{ <LayerInfo name="#aeroway" type={["line"]} buffer={4} /> }}
+### `#aeroway`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 The aeroway layer includes both lines and polygons representing runways, helipads, etc.
 
@@ -232,7 +225,9 @@ _CartoCSS example:_
 
 <!-- BARRIER_LINE ------------------------------------------------------->
 
-{{ <LayerInfo name="#barrier_line" type={["line", "polygon"]} buffer={4} /> }}
+### `#barrier_line`
+
+{{ <LayerInfo type={["line", "polygon"]} buffer={4} /> }}
 
 This layer includes lines and polygons for barriers - things such as walls and fences.
 
@@ -258,7 +253,9 @@ _CartoCSS example:_
 
 <!-- BUILDING ------------------------------------------------------------->
 
-{{ <LayerInfo name="#building" type={["polygon"]} buffer={2} /> }}
+### `#building`
+
+{{ <LayerInfo type={["polygon"]} buffer={2} /> }}
 
 This is a simple polygon layer with no differentiating types or classes. Large buildings appear at zoom level 13, and all buildings are included in zoom level 14 and up.
 
@@ -274,7 +271,9 @@ _CartoCSS example:_
 
 <!-- LANDUSE_OVERLAY -->
 
-{{ <LayerInfo name="#landuse_overlay" type={["polygon"]} buffer={4} /> }}
+### `#landuse_overlay`
+
+{{ <LayerInfo type={["polygon"]} buffer={4} /> }}
 
 This layer is for landuse / landcover polygons that should be drawn above the [#water](#water) layer.
 
@@ -298,7 +297,9 @@ _CartoCSS example:_
 
 <!-- TUNNEL, ROAD, & BRIDGE ------------------------------------------->
 
-{{ <LayerInfo name="#tunnel, #road, #bridge" type={["point", "line", "polygon"]} buffer={4} /> }}
+### `#tunnel, #road, #bridge`
+
+{{ <LayerInfo type={["point", "line", "polygon"]} buffer={4} /> }}
 
 The roads layers are some of the most complex ones in Mapbox Streets. Starting at zoom level 12, tunnels and bridges are broken out of the `#road` layer into either `#tunnel` or `#bridge`.
 
@@ -355,7 +356,9 @@ _properties:
 
 <!-- ADMIN ------------------------------------------------------------------->
 
-{{ <LayerInfo name="#admin" type={["line"]} buffer={4} /> }}
+### `#admin`
+
+{{ <LayerInfo type={["line"]} buffer={4} /> }}
 
 Administrative boundary lines. These are constructed from the OSM data in such a way that there are no overlapping lines where multiple boundary areas meet.
 
@@ -398,7 +401,9 @@ _CartoCSS example:_
 
 <!-- COUNTRY_LABEL_LINE ---------------------------------------------------->
 
-{{ <LayerInfo name="#country_label_line" type={["line"]} buffer={2} /> }}
+### `#country_label_line`
+
+{{ <LayerInfo type={["line"]} buffer={2} /> }}
 
 This layer contains lines used as label leader lines for some country labels at low zoom levels. There are no data fields for this layer - just a single, simple line style is needed.
 
@@ -411,7 +416,9 @@ _CartoCSS example:_
 
 <!-- COUNTRY_LABEL --------------------------------------------------------->
 
-{{ <LayerInfo name="#country_label" type={["point"]} buffer={256} /> }}
+### `#country_label`
+
+{{ <LayerInfo type={["point"]} buffer={256} /> }}
 
 This layer contains points used for labeling countries. The points are placed for minimal overlap with small to medium-sized text.
 
@@ -440,7 +447,9 @@ _CartoCSS example:_
 
 <!-- MARINE_LABEL -------------------------------------------------------->
 
-{{ <LayerInfo name="#marine_label" type={["line"]} buffer={256} /> }}
+### `#marine_label`
+
+{{ <LayerInfo type={["line"]} buffer={256} /> }}
 
 Points and lines for labeling major marine features such as oceans, seas, large lakes & bays.
 
@@ -475,7 +484,9 @@ _CartoCSS example:_
 
 <!-- STATE_LABEL ----------------------------------------------------------->
 
-{{ <LayerInfo name="#state_label" type={["point"]} buffer={256} /> }}
+### `#state_label`
+
+{{ <LayerInfo type={["point"]} buffer={256} /> }}
 
 Points for labeling states and provinces. Currently only a small number of countries are included.
 
@@ -502,7 +513,9 @@ _CartoCSS example:_
 
 <!-- PLACE_LABEL ------------------------------------------------------------>
 
-{{ <LayerInfo name="#place_label" type={["point"]} buffer={128} /> }}
+### `#place_label`
+
+{{ <LayerInfo type={["point"]} buffer={128} /> }}
 
 This layer contains points for labeling human settlements.
 
@@ -601,7 +614,9 @@ _CartoCSS example:_
 
 <!-- WATER_LABEL --------------------------------------------------------->
 
-{{ <LayerInfo name="#water_label" type={["point"]} buffer={64} /> }}
+### `#water_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains points for labeling bodies of water such as lakes and ponds.
 
@@ -630,7 +645,9 @@ _CartoCSS example:_
 
 <!-- POI_LABEL -------------------------------------------------------------->
 
-{{ <LayerInfo name="#poi_label" type={["point"]} buffer={64} /> }}
+### `#poi_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer is used to place icons and labels for various points of interest (POIs).
 
@@ -780,7 +797,9 @@ The __`ref`__ field is a short reference code that can be used as an alternative
 
 <!-- ROAD_LABEL ----------------------------------------------------------->
 
-{{ <LayerInfo name="#road_label" type={["point", "line"]} buffer={64} /> }}
+### `#road_label`
+
+{{ <LayerInfo type={["point", "line"]} buffer={64} /> }}
 
 #### Names
 
@@ -825,7 +844,9 @@ The __`len`__ field stores the length of the road segment in projected meters, r
 
 <!-- WATERWAY_LABEL --------------------------------------------------------->
 
-{{ <LayerInfo name="#waterway_label" type={["line"]} buffer={64} /> }}
+### `#waterway_label`
+
+{{ <LayerInfo type={["line"]} buffer={64} /> }}
 
 This layer contains line geometries that match those in the [#waterway](#waterway) layer but with name fields for label rendering.
 
@@ -849,7 +870,9 @@ The __`class`__ and __`type`__ fields match those in the [#waterway](#waterway) 
 
 <!-- HOUSENUM_LABEL --------------------------------------------------------->
 
-{{ <LayerInfo name="#housenum_label" type={["point"]} buffer={64} /> }}
+### `#housenum_label`
+
+{{ <LayerInfo type={["point"]} buffer={64} /> }}
 
 This layer contains points used to label the street number parts of specific addresses.
 
@@ -863,3 +886,18 @@ _CartoCSS example:_
   text-face-name: 'Open Sans Regular';
 }
 ```
+
+
+## Changelog
+
+A summary of the changes from v4:
+
+- New __`class`__ field added in the [#waterway](#waterway) layer. You can safely ignore this change when upgrading styles from v4
+- New __`maki`__ values in the [#poi_label](#poi_label) layer: `bakery`, `camera`, `car`, `clothing-store`, `dog-park`, `entrance`, `laundry`, `rail-light`, `rail-metro`, `suitcase`. If upgrading a v4 style that uses `[maki]` in a URL expression (eg for `marker-file`), you will need to make sure to add files to match the new values.
+- New __`network`__ values in the [#poi_label](#poi_label) layer: `wiener-linien`, `metro`, `rer`, `metro.rer`, `transilien`, `rer.transilien`, `moscow-metro`, `s-bahn`, `u-bahn`, `sbahn.u-bahn`. If upgrading a v4 style that uses `[network]` in a URL expression (eg for `marker-file`), you will need to make sure to add files to match the new values.
+- New [#housenum_label](#housenum_label) layer for labeling house and building numbers. You can safely ignore this change when upgrading styles from v4
+- New __`localrank`__ field in the [#place_label](#place_label) layer. When upgrading styles from v4 it is recommended to remove any `text-min-distance` styles from you place labels and use __`localrank`__ to control label density.
+- New __`class`__ values in the [#landuse](#landuse) layer: `agriculture`, `glacier`, `grass`, `piste`, `rock`, `scrub`. When upgrading styles from v4, look for catch-all styles that may have unexpected results for unhandled values (eg dark grey polygon fills, black outlines).
+- In the [#road_label](#road_label) layer, the __`ref`__ field is now available for all road types. Previously only it was available for motorways. For most style upgrades from it should be safe to ignore this change, though there may be edge cases where action is needed.
+- The [#marine_label](#marine_label) layer now contains actual point geometries so you can use `['mapnik::geometry_type'=1]` instead of `[placement='point']`. The __`placement`__ field has been kept for backwards-compatibility, however, so no action is necessary for this change when upgrading styles from v4.
+- New __`capital`__ field added in the [#place_label](#place_label) layer to identify cities that are the capitals of countries, regions, or states/provinces. You can safely ignore this change when upgrading styles from v4.
