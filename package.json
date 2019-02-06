@@ -1,0 +1,63 @@
+{
+  "name": "vector-tiles",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Documentation for Mapbox vector tiles.",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "lint-staged",
+    "format": "prettier --write \"**/*.js\"",
+    "lint": "eslint .",
+    "start": "batfish start",
+    "start-production": "DEPLOY_ENV=production batfish start",
+    "build": "batfish build",
+    "build-production": "DEPLOY_ENV=production batfish build",
+    "serve-static": "batfish serve-static",
+    "pretest": "npm run lint",
+    "test": "echo \"No tests yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapbox/vector-tiles.git"
+  },
+  "author": "Mapbox",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/mapbox/vector-tiles/issues"
+  },
+  "homepage": "https://github.com/mapbox/vector-tiles#readme",
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "@mapbox/appropriate-images-react": "^1.0.0",
+    "@mapbox/dr-ui": "^0.5.0",
+    "@mapbox/mbx-assembly": "^0.28.2",
+    "@mapbox/mr-ui": "^0.5.0",
+    "babel-eslint": "^10.0.1",
+    "mapbox-gl": "^0.53.0-beta.1",
+    "prismjs": "^1.15.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-helmet": "^5.2.0",
+    "react-scrollspy": "^3.3.5"
+  },
+  "devDependencies": {
+    "@mapbox/batfish": "^1.9.7",
+    "@mapbox/eslint-config-mapbox": "^1.2.1",
+    "@mapbox/svg-react-transformer-loader": "^1.0.3",
+    "eslint": "^5.12.0",
+    "eslint-config-prettier": "^2.10.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-react": "^7.12.3",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.15.3",
+    "rehype-slug": "^2.0.2"
+  },
+  "optionalDependencies": {
+    "@mapbox/appropriate-images": "^1.0.0"
+  }
+}
