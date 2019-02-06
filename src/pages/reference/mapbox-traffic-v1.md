@@ -26,8 +26,6 @@ Mapbox Traffic provides constantly updating congestion information on top of [Ma
 
 When you publicly use styles or software that use Mapbox Traffic vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
-<!-- ![](https://api.mapbox.com/styles/v1/mapbox/traffic-day-v2/tiles/256/14/4823/6160?access_token={{constants.ACCESS_TOKEN}}) -->
-
 ### Line offsets
 
 Mapbox Traffic can be used to display congestion for both directions on two way roads. When styling congestion, it's recommended that you add a positive `line-offset` to the layer to visually separate the directions of travel.

@@ -27,9 +27,9 @@ module.exports = () => {
     stylesheets: [
       require.resolve('@mapbox/mbx-assembly/dist/assembly.css'),
       path.join(pageShellDir, 'page-shell-styles.css'),
-      path.join(__dirname, './css/site.css'),
+      path.join(__dirname, './src/css/site.css'),
       require.resolve('@mapbox/dr-ui/css/docs-prose.css'),
-      path.join(__dirname, './src/css/prism.css'),
+      require.resolve('@mapbox/dr-ui/css/prism.css'),
       'https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css'
     ],
     applicationWrapperPath: path.join(
@@ -56,7 +56,8 @@ module.exports = () => {
       rehypePlugins: [
         require('rehype-slug'),
         require('@mapbox/dr-ui/plugins/add-links-to-headings'),
-        require('@mapbox/dr-ui/plugins/create-sections')
+        require('@mapbox/dr-ui/plugins/create-sections'),
+        require('@mapbox/dr-ui/plugins/make-table-scroll')
       ]
     },
     dataSelectors: {

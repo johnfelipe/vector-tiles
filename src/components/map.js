@@ -33,7 +33,6 @@ class MapPreview extends React.Component {
     this.map.on('load', () => {
       this.map.showTileBoundaries = true;
     });
-
     this.map.on('mousemove', e => {
       const features = this.map.queryRenderedFeatures(e.point);
       this.map.getCanvas().style.cursor = 'crosshair';
@@ -83,36 +82,43 @@ class MapPreview extends React.Component {
 
   render() {
     return (
-      <div className="my24">
-        <div
-          ref={el => (this.mapContainer = el)}
-          style={{ height: '400px' }}
-          className={`w-full bg-blue-faint my12 ${
-            this.state.toggleValue === 'map' ? '' : 'none'
-          }`}
-        />
-        <div
-          style={{ height: '400px' }}
-          className={`w-full my12 ${
-            this.state.toggleValue === 'style-json' ? '' : 'none'
-          }`}
-        >
-          <CodeSnippet
-            code={JSON.stringify(this.props.styleJson, null, 2)}
-            highlightedCode={highlightJson(
-              JSON.stringify(this.props.styleJson, null, 2)
-            )}
-            maxHeight={400}
+      <div className="my24" style={{ minHeight: '500px' }}>
+        <div className="relative" style={{ height: '424px' }}>
+          <div
+            ref={el => (this.mapContainer = el)}
+            className="w-full bg-blue-faint my12 absolute"
+            style={{
+              height: '400px',
+              visibility:
+                this.state.toggleValue === 'map' ? 'visible' : 'hidden'
+            }}
           />
+          <div
+            id="style-json-snippet"
+            className="w-full my12 absolute bg-white"
+            style={{
+              height: '400px',
+              visibility:
+                this.state.toggleValue === 'style-json' ? 'visible' : 'hidden'
+            }}
+          >
+            <CodeSnippet
+              code={JSON.stringify(this.props.styleJson, null, 2)}
+              highlightedCode={highlightJson(
+                JSON.stringify(this.props.styleJson, null, 2)
+              )}
+              maxHeight={400}
+            />
+          </div>
         </div>
-        <div className="grid grid--gut18">
-          <div className="col col col--8-mxl col--7-ml col--6 txt-s color-gray">
+        <div className="flex-parent flex-parent--space-between-main">
+          <div className="flex-child txt-s color-gray">
             The map above uses minimal styling to illustrate the coverage,
             density, and zoom extents of various source layers in this tileset.
             Toggle between <strong>Map</strong> and <strong>Style JSON</strong>{' '}
             to see the relationship between the visual map and the source data.
           </div>
-          <div className="col col--4-mxl col--5-ml col--6 align-r">
+          <div className="flex-child wmin180 align-r">
             <ControlToggleSet
               id="map-toggle"
               value={this.state.toggleValue}

@@ -33,7 +33,7 @@ class NotIncludedDiagram extends React.PureComponent {
     return (
       <div>
         <div className="grid grid--gut24 my24">
-          <div className="col col--6-mm col--12">
+          <div className="col col--6-ml col--12">
             <p>
               Simplification can cause <strong>invalid polygons</strong>{' '}
               according to the OGC standards by oversimplifying polygon rings to
@@ -42,7 +42,7 @@ class NotIncludedDiagram extends React.PureComponent {
               ring outside of the exterior ring.
             </p>
           </div>
-          <div className="col col--5">
+          <div className="col col--6-ml col--12 mt0-ml mt24">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="300"
@@ -149,7 +149,7 @@ class NotIncludedDiagram extends React.PureComponent {
           </div>
         </div>
         <div className="grid grid--gut24 my24">
-          <div className="col col--6-mm col--12">
+          <div className="col col--6-ml col--12">
             <p>
               When spatial coordinates are converted to tile coordinates, they
               are rounded to integers. Simplifying (rounding) the coordinates
@@ -159,7 +159,7 @@ class NotIncludedDiagram extends React.PureComponent {
               its winding order reversed.
             </p>
           </div>
-          <div className="col col--5">
+          <div className="col col--6-ml col--12 mt0-ml mt24">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="300"

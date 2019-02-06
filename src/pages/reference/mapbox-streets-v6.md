@@ -7,10 +7,10 @@ prependJs:
   - "import { LayerInfo } from '../../components/layer-info';"
   - "import { SourceLayerTypes } from '../../components/source-layer-types';"
   - "import Note from '@mapbox/dr-ui/note';"
-  - "import BookImage from '@mapbox/dr-ui/book-image';"
+  - "import WarningImage from '@mapbox/dr-ui/warning-image';"
 ---
 
-{{ <Note imageComponent={<BookImage height="60" width="60" />}> }}
+{{ <Note title="Update to Mapbox Streets v8" theme="warning" imageComponent={<WarningImage color="orange" size="60" />} > }}
 
 We recommend moving to [Mapbox Streets v8](/vector-tiles/reference/mapbox-streets-v8/) for additional features and improvements. Mapbox Streets v6 no longer receives data updates from OpenStreetMap.
 
@@ -243,7 +243,7 @@ This layer includes lines and polygons for barriers - things such as walls and f
 | `hedge` |  |
 | `land` | Includes breakwaters and piers |
 
-Cliff data from OSM is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom. See the [Line patterns with images](/tilemill/docs/guides/styling-lines/#line_patterns_with_images) section of the TileMill Styling Lines guide for how to design an appropriate image pattern for cliffs.
+Cliff data from OSM is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom. See the [Line patterns with images](https://tilemill-project.github.io/tilemill/docs/guides/styling-lines/) section of the TileMill Styling Lines guide for how to design an appropriate image pattern for cliffs.
 
 
 _CartoCSS example:_
@@ -416,7 +416,7 @@ This layer contains points used for labeling countries. The points are placed fo
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### ISO 3166-1 Code
 
@@ -454,7 +454,7 @@ Points and lines for labeling major marine features such as oceans, seas, large 
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Labelrank & placement
 
@@ -491,7 +491,7 @@ Points for labeling states and provinces. Currently only a small number of count
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Abbreviations
 
@@ -524,7 +524,7 @@ This layer contains points for labeling human settlements.
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Types
 
@@ -625,7 +625,7 @@ This layer contains points for labeling bodies of water such as lakes and ponds.
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Area
 
@@ -656,7 +656,7 @@ This layer is used to place icons and labels for various points of interest (POI
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Maki icons
 
@@ -807,7 +807,7 @@ The __`ref`__ field is a short reference code that can be used as an alternative
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Route numbers
 
@@ -874,7 +874,7 @@ This layer contains line geometries that match those in the [#waterway](#waterwa
 
 #### Label text
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Classes & types
 
@@ -917,7 +917,7 @@ A summary of the changes from v5:
 
 Mapbox Streets v6 contains 2 major changes that may require extensive reworking of your styles depending on how they've been constructed:
 
-1. The density of features across most layers has been increased to acommodate using the vector tiles in [Mapbox GL](/mapbox-gl) in addition to Mapbox Studio Classic. Some label layers include a `localrank` fields which you can use to reduce the density of those layers in your style. For other layers, you may wish to adjust your styles to tone down or hide certain features when moving projects from v5 to v6.
+1. The density of features across most layers has been increased to acommodate using the vector tiles in [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/overview/) in addition to Mapbox Studio Classic. Some label layers include a `localrank` fields which you can use to reduce the density of those layers in your style. For other layers, you may wish to adjust your styles to tone down or hide certain features when moving projects from v5 to v6.
 2. Most elements will appear 1 or 2 zoom levels lower compared to v5. For example, the `street` class of road was available from zoom level 12 and up in v5, and is now available from zoom level 11 and up. Depending on how your styles have been put together adjustments may be required when moving projects from v5 to v6.
 
 Additionally, v6 includes the following more specific/limited changes:

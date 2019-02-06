@@ -10,16 +10,15 @@ prependJs:
   - "import BookImage from '@mapbox/dr-ui/book-image';"
 ---
 
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling.
-
-{{ <Note imageComponent={<BookImage height="60" width="60" />}> }}
+{{ <Note imageComponent={<BookImage size="60" />}> }}
 
 We recommend moving to [Mapbox Streets v8](/vector-tiles/reference/mapbox-streets-v8/) for additional features and improvements. However, Mapbox Streets v7 will continue to receive data updates from OpenStreetMap.
 
 {{</Note>}}
 
-## Overview
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling.
 
+## Overview
 
 ### OpenStreetMap
 

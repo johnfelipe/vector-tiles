@@ -7,10 +7,10 @@ prependJs:
   - "import { LayerInfo } from '../../components/layer-info';"
   - "import { SourceLayerTypes } from '../../components/source-layer-types';"
   - "import Note from '@mapbox/dr-ui/note';"
-  - "import BookImage from '@mapbox/dr-ui/book-image';"
+  - "import WarningImage from '@mapbox/dr-ui/warning-image';"
 ---
 
-{{ <Note imageComponent={<BookImage height="60" width="60" />}> }}
+{{ <Note title="Update to Mapbox Streets v8" theme="warning" imageComponent={<WarningImage color="orange" size="60" />} > }}
 
 We recommend moving to [Mapbox Streets v8](/vector-tiles/reference/mapbox-streets-v8/) for additional features and improvements. Mapbox Streets v5 no longer receives data updates from OpenStreetMap.
 
@@ -241,7 +241,7 @@ This layer includes lines and polygons for barriers - things such as walls and f
 | `hedge` |  |
 | `land` | Includes breakwaters and piers |
 
-Cliff data from OSM is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom. See the [Line patterns with images](/tilemill/docs/guides/styling-lines/#line_patterns_with_images) section of the TileMill Styling Lines guide for how to design an appropriate image pattern for cliffs.
+Cliff data from OSM is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom. See the [Line patterns with images](https://tilemill-project.github.io/tilemill/docs/guides/styling-lines/) section of the TileMill Styling Lines guide for how to design an appropriate image pattern for cliffs.
 
 _CartoCSS example:_
 
@@ -424,7 +424,7 @@ This layer contains points used for labeling countries. The points are placed fo
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Scalerank
 
@@ -455,7 +455,7 @@ Points and lines for labeling major marine features such as oceans, seas, large 
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Labelrank & placement
 
@@ -492,7 +492,7 @@ Points for labeling states and provinces. Currently only a small number of count
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Area
 
@@ -521,7 +521,7 @@ This layer contains points for labeling human settlements.
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Types
 
@@ -622,7 +622,7 @@ This layer contains points for labeling bodies of water such as lakes and ponds.
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Area
 
@@ -653,7 +653,7 @@ This layer is used to place icons and labels for various points of interest (POI
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Maki icons
 
@@ -803,7 +803,7 @@ The __`ref`__ field is a short reference code that can be used as an alternative
 
 #### Names
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Route numbers
 
@@ -852,7 +852,7 @@ This layer contains line geometries that match those in the [#waterway](#waterwa
 
 #### Label text
 
-See _Name fields_ in the [overview](#Overview) for information about names and translations.
+See _Name fields_ in the [overview](#overview) for information about names and translations.
 
 #### Classes & types
 

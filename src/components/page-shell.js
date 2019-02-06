@@ -6,7 +6,6 @@ import ReactPageShell from '../../vendor/docs-page-shell/react-page-shell.js';
 import TopbarSticker from '@mapbox/dr-ui/topbar-sticker';
 import ProductMenu from '@mapbox/dr-ui/product-menu/product-menu';
 import TabList from '@mapbox/mr-ui/tab-list';
-import Copiable from '@mapbox/mr-ui/copiable';
 import PageLayout from '@mapbox/dr-ui/page-layout';
 import NavigationAccordion from '@mapbox/dr-ui/navigation-accordion';
 import orderedPages from '@mapbox/batfish/data/ordered-pages'; // eslint-disable-line
@@ -36,14 +35,16 @@ class PageShell extends React.Component {
   render() {
     const { props } = this;
 
-    const meta = Object.assign(
-      {
-        title: this.props.frontMatter.title,
-        description: this.props.frontMatter.description,
-        pathname: props.location.pathname
-      },
-      props.meta
-    );
+    const meta = this.props.meta || {};
+    if (!meta.title && props.frontMatter.title) {
+      meta.title = props.frontMatter.title;
+    }
+    if (!meta.description && props.frontMatter.description) {
+      meta.description = props.frontMatter.description;
+    }
+    if (!meta.pathname) {
+      meta.pathname = props.location.pathname;
+    }
 
     const normalizedPathname = /\/$/.test(props.location.pathname)
       ? props.location.pathname
@@ -114,15 +115,6 @@ class PageShell extends React.Component {
       pageNavigationNarrowStick = false;
     }
 
-    let pageTitle = '';
-    if (this.props.frontMatter.title !== 'Introduction') {
-      pageTitle = (
-        <h1 className="txt-h1 txt-fancy  pt0-mm pt24 pb24">
-          {this.props.frontMatter.title}
-        </h1>
-      );
-    }
-
     return (
       <ReactPageShell {...props} meta={meta} darkHeaderText={true}>
         <Helmet>
@@ -136,7 +128,7 @@ class PageShell extends React.Component {
           <div className="limiter">
             <div className="grid grid--gut36 mr-neg36 mr0-mm">
               <div className="col col--4-mm col--12">
-                <div className="ml24 pt12">
+                <div className="ml24-mm pt12">
                   <ProductMenu
                     productName="Vector tiles"
                     homePage="/vector-tiles/"
@@ -158,6 +150,7 @@ class PageShell extends React.Component {
                     }
                   ]}
                   activeItem={pathPrefixMatch[1]}
+                  truncateBy={1}
                 />
               </div>
             </div>
@@ -171,20 +164,15 @@ class PageShell extends React.Component {
             currentPath={props.location.pathname}
             sidebarStackedOnNarrowScreens={pageNavigationNarrowStick}
           >
-            <div className="mt60 mt0-mm">{pageTitle}</div>
-            {this.props.frontMatter.mapid ? (
-              <div>
-                <div className="prose mb18">
-                  <strong>Source id</strong>:
-                  <span className="inline-block ml6">
-                    <Copiable value={this.props.frontMatter.mapid} />
-                  </span>
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
-            {props.children}
+            <div
+              className={
+                pathPrefixMatch[1] === 'reference/'
+                  ? 'mt60 pt30 mt0-mm pt0-mm'
+                  : 'mt30 mt0-mm'
+              }
+            >
+              {props.children}
+            </div>
           </PageLayout>
         </div>
       </ReactPageShell>
@@ -203,10 +191,6 @@ PageShell.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }).isRequired
-};
-
-PageShell.defaultProps = {
-  meta: {}
 };
 
 export default withLocation(PageShell);

@@ -4,7 +4,7 @@ export const encodingGeometrySteps = [
   {
     name: 'Step 0',
     description: md`
-      The vector tile to the left is a 10x10 grid with 2 cell buffer. Let\'s encode some geometry to the grid starting with a <span class="bg-blue-faint color-blue inline-block px6 py3 txt-xs txt-bold round-full">blue polygon</span>. The following commands will be relative to the <span class="bg-black color-white inline-block px6 py3 txt-xs txt-bold round-full">pen</span> (black dot).
+      The vector tile to the right is a 10x10 grid with 2 cell buffer. Let\'s encode some geometry to the grid starting with a <span class="bg-blue-faint color-blue inline-block px6 py3 txt-xs txt-bold round-full">blue polygon</span>. The following commands will be relative to the <span class="bg-black color-white inline-block px6 py3 txt-xs txt-bold round-full">pen</span> (black dot).
     `,
     commandx: 'An empty vector tile',
     command: function(ctx, cmd, grid) {}, // eslint-disable-line no-unused-vars

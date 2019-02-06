@@ -10,7 +10,7 @@ prependJs:
 ---
 
 
-{{ <Note title="Access to Enterprise Boundaries" imageComponent={<BookImage height="60" width="60"/>}> }}
+{{ <Note title="Access to Enterprise Boundaries" imageComponent={<BookImage size="60" />}> }}
 Access to the Enterprise Boundaries tilesets are controlled by Mapbox account access token. If you do not have access on your account, [contact a Mapbox sales representative](https://www.mapbox.com/contact/) to request access to Enterprise Boundaries tilesets.
 {{</Note>}}
 
@@ -78,7 +78,7 @@ Each area tileset has a layer named `points_{type}_{level}`, where `{type}` is o
 
 The `points_*` layers contain approximate center points corresponding to the polygons in the `boundaries_*` layers. They can be used for labeling or for visualizations using symbols. Points are generally available one zoom level lower than the polygons they correspond to.
 
-The point layers have the same two [`id`](#area---id-text) and [`worldview`](#area---worldview-text) fields as the area layers with the same meaning.
+The point layers have the same two [`id`](#--area---id-text) and [`worldview`](#--area---worldview-text) fields as the area layers with the same meaning.
 
 ## Administrative Line Layer Reference
 
@@ -110,4 +110,4 @@ For boundaries with an `admin_level` of 1 through 5, the `parent_0` value contai
 
 #### <!--line--> `worldview` _text_
 
-Same as areas and points; see [documentation above](#area---worldview-text).
+Same as areas and points; see [documentation above](#--area---worldview-text).

@@ -59,15 +59,15 @@ class EncodingGeometryDiagram extends React.PureComponent {
               currentStep={this.state.stepIndex}
               command={
                 encodingGeometrySteps[
-                  this.state.stepIndex < encodingGeometrySteps.length - 1
-                    ? this.state.stepIndex + 1
+                  this.state.stepIndex < encodingGeometrySteps.length
+                    ? this.state.stepIndex
                     : 0
                 ].command
               }
               pen={
                 encodingGeometrySteps[
-                  this.state.stepIndex < encodingGeometrySteps.length - 1
-                    ? this.state.stepIndex + 1
+                  this.state.stepIndex < encodingGeometrySteps.length
+                    ? this.state.stepIndex
                     : 0
                 ].pen
               }

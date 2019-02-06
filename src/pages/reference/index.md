@@ -8,7 +8,7 @@ prependJs:
 ---
 
 {{
-  <div className="mb24 mt60 pt30 pt0-mm mt0-mm">
+  <div className="mb24">
     <OverviewHeader
       features={[
         "A broad collection of natural, built, and place data",
@@ -28,7 +28,7 @@ Vector tiles make huge maps fast while offering full design flexibility. They ar
 
 Traditionally, maps are created from image tiles. Like for instance this PNG image tile depicting the corner of lower Manhattan with roads, building footprints, and parks:
 
-{{ 
+{{
   <img className="block mx-auto my18" src="https://api.mapbox.com/v4/mapbox.streets/14/4823/6160.png?access_token={constants.ACCESS_TOKEN}" />
 }}
 

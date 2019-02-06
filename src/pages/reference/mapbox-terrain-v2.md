@@ -186,4 +186,3 @@ A summary of the changes from v1:
 - __`class`__ field in the [#hillshade](#hillshade) layer simplified to just 2 classes: `highlight`, `shadow`
 - `level` field added to the [#hillshade](#hillshade) layer for more granular styling
 - Coastlines have an `index` value of `-1` in the [#contour](#contour) layer
-- 

@@ -5,6 +5,10 @@
   padding: 0;
 }
 
+#style-json-snippet pre {
+  max-height: 400px;
+}
+
 .header {
   margin-bottom: 3em;
   margin: auto;

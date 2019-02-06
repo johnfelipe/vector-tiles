@@ -579,7 +579,7 @@ This layer contains points for labeling places including countries, states, citi
 
 See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
-See [`filterrank`](#filterrank) for information on using that field.
+See [`filterrank`](#filterrank-number) for information on using that field.
 
 
 #### <!--place_label--> `type`
@@ -1116,7 +1116,7 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
 - New ranking fields fields for label layers:
   - [`sizerank`](#sizerank)
   - [`filterrank`](#sizerank)
-  - [`symbolrank`](#place_label---symbolrank) (`place_label` layer)
+  - [`symbolrank`](#--place_label---symbolrank) (`place_label` layer)
   - `scalerank` and `localrank` have been removed from all layers
 - Name fields:
   - Translated name fields (`name_en`, `name_fr`, etc) will now contain _null_ values where no translation is available, rather than falling back to `name`. This will allow you to customize your fallback preferences using Mapbox GL expressions.
