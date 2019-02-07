@@ -20,7 +20,12 @@ The Enterprise Boundaries vector tiles do not directly contain detailed feature 
 
 ## Tilesets
 
-Enterprise Boundaries are composed of a number of separate tilesets each with their own tileset ID. There are two types of tilesets: lines & areas.
+Enterprise Boundaries are composed of a number of separate tilesets each with their own map ID. There are two types of tilesets: tilesets containing line features and tilesets containing polygon features. For area tilesets, the hierarchy is designed such that levels with lowest numbers generally contain the polygons with the largest areas and levels with the highest numbers contain the polygons with the smallest areas.
+
+Some other notes about tileset hierarchy:
+
+- Administrative levels are anchored to the a0 layer which contains the top-level polygon of each area which contains an ISO 3166-1 code.
+- Postal levels are anchored on the p4 level which is defined as "Full-detail" or "The minimum required number of digits to send mail".
 
 | Tileset ID | Description |
 |---|---|
