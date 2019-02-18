@@ -7,6 +7,7 @@
   padding: 0;
 }
 
+.prose pre:not([class]), /* add max-height on .prose pre that do not have classes */
 #style-json-snippet pre {
   max-height: 400px;
 }

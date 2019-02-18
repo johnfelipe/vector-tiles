@@ -56,6 +56,7 @@ module.exports = () => {
       },
       rehypePlugins: [
         require('rehype-slug'),
+        require('@mapbox/rehype-prism'),
         require('@mapbox/dr-ui/plugins/add-links-to-headings'),
         require('@mapbox/dr-ui/plugins/create-sections'),
         require('@mapbox/dr-ui/plugins/make-table-scroll')

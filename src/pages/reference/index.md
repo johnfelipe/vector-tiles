@@ -8,7 +8,6 @@ prependJs:
 ---
 
 {{
-  <div className="mb24">
     <OverviewHeader
       features={[
         "A broad collection of natural, built, and place data",
@@ -19,7 +18,6 @@ prependJs:
       title='Vector tiles'
       image={<AppropriateImage imageId="vectorTileHeaderImage" />}
     />
-  </div>
 }}
 
 Vector tiles make huge maps fast while offering full design flexibility. They are the vector data equivalent of image tiles for web mapping, applying the strengths of tiling &mdash; developed for caching, scaling and serving map imagery rapidly &mdash; to vector data.
