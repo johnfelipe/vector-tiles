@@ -2,6 +2,7 @@
 title: Encoding attributes
 prependJs:
   - "import { EncodingAttributesDiagram } from '../../components/illustrations/encoding-attributes-diagram';"
+description: Attributes are encoded in a series of tags.
 ---
 
 ## Encoding attributes

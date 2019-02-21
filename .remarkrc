@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    ["@mapbox/remark-lint-link-text", [2]],
+    ["remark-frontmatter", ["yaml"]],
+    ["@mapbox/remark-lint-mapbox/frontmatter", [2]],
+    ["@mapbox/remark-lint-mapbox/link-checker", {"constants": "src/constants.json", "pages": "src/pages/", "siteBasePath": "vector-tiles"}, [2]]
+  ]
+}

@@ -2,6 +2,7 @@
 title: Winding order
 prependJs:
   - "import { WindingOrderDiagram } from '../../components/illustrations/winding-order-diagram';"
+description: Winding order refers to the direction a ring is drawn in a vector tile, either clockwise or counter-clockwise.
 ---
 
 ## Winding order

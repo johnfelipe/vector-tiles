@@ -1,5 +1,6 @@
 ---
 title: Versioning
+description: The specification is versioned based on major.minor notation.
 ---
 
 ## Versioning

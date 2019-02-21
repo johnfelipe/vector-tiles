@@ -3,6 +3,7 @@ title: Encoding geometry
 prependJs:
     - "import * as constants from '../../constants';"
     - "import { EncodingGeometryDiagram } from '../../components/illustrations/encoding-geometry-diagram';"
+description: To encode geographic information into a vector tile a tool must convert geographic coordinates, such as latitude and longitude, into vector tile grid coordinates.
 ---
 
 ## Encoding geometry

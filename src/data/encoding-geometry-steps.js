@@ -7,7 +7,7 @@ export const encodingGeometrySteps = [
       The vector tile to the right is a 10x10 grid with 2 cell buffer. Let\'s encode some geometry to the grid starting with a <span class="bg-blue-faint color-blue inline-block px6 py3 txt-xs txt-bold round-full">blue polygon</span>. The following commands will be relative to the <span class="bg-black color-white inline-block px6 py3 txt-xs txt-bold round-full">pen</span> (black dot).
     `,
     commandx: 'An empty vector tile',
-    command: function(ctx, cmd, grid) {}, // eslint-disable-line no-unused-vars
+    command: function(ctx, cmd) {}, // eslint-disable-line no-unused-vars
     pen: function(cmd) {} // eslint-disable-line no-unused-vars
   },
   {
@@ -18,7 +18,7 @@ The first action when encoding a polygon is to point the command to a starting p
     `,
     commandx: 'MoveTo(1,2)',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {}, // eslint-disable-line no-unused-vars
+    command: function(ctx, cmd) {}, // eslint-disable-line no-unused-vars
     pen: function(cmd) {
       cmd.pen(1, 2);
     }
@@ -31,7 +31,7 @@ In order to move from a starting position, we use a <code>LineTo(x,y)</code> com
     `,
     commandx: 'LineTo(3,-1)',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {
+    command: function(ctx, cmd) {
       // eslint-disable-line no-unused-vars
       ctx.strokeStyle = '#4264fb';
       ctx.beginPath();
@@ -51,7 +51,7 @@ Drawing another path of the <span className='bg-blue-faint color-blue inline-blo
     `,
     commandx: 'LineTo(3,4)',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {
+    command: function(ctx, cmd) {
       // eslint-disable-line no-unused-vars
       ctx.strokeStyle = '#4264fb';
       ctx.beginPath();
@@ -71,7 +71,7 @@ Drawing another path of the <span className='bg-blue-faint color-blue inline-blo
     `,
     commandx: 'LineTo(-4,2)',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {
+    command: function(ctx, cmd) {
       // eslint-disable-line no-unused-vars
       ctx.strokeStyle = '#4264fb';
       ctx.beginPath();
@@ -91,7 +91,7 @@ Finally, we close a path. This uses the <code>ClosePath()</code> command that cl
     `,
     commandx: 'ClosePath()',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {
+    command: function(ctx, cmd) {
       // eslint-disable-line no-unused-vars
       ctx.strokeStyle = '#4264fb';
       ctx.beginPath();
@@ -124,7 +124,7 @@ Since the <span className='bg-pink-faint color-pink inline-block px6 py3 txt-xs 
     `,
     commandx: 'LineTo(-1,2)',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {
+    command: function(ctx, cmd) {
       // eslint-disable-line no-unused-vars
       ctx.strokeStyle = '#ee4e8b';
       ctx.beginPath();
@@ -144,7 +144,7 @@ Another addition to the <span className='bg-pink-faint color-pink inline-block p
     `,
     commandx: 'LineTo(2,1)',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {
+    command: function(ctx, cmd) {
       // eslint-disable-line no-unused-vars
       ctx.strokeStyle = '#ee4e8b';
       ctx.beginPath();
@@ -164,7 +164,7 @@ Finally, we close the <span className='bg-pink-faint color-pink inline-block px6
     `,
     commandx: 'ClosePath()',
     buttonText: 'Next step',
-    command: function(ctx, cmd, grid) {
+    command: function(ctx, cmd) {
       // eslint-disable-line no-unused-vars
       ctx.strokeStyle = '#ee4e8b';
       ctx.beginPath();

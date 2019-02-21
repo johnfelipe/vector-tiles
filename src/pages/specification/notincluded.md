@@ -3,6 +3,7 @@ title: What the spec doesn't cover
 prependJs:
     - "import * as constants from '../../constants';"
     - "import { NotIncludedDiagram } from '../../components/illustrations/not-included-diagram';"
+description: This specification is very explicit in the way a vector tile should pack data.
 ---
 
 ## What the spec doesn't cover

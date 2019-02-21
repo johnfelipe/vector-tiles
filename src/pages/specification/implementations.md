@@ -1,5 +1,6 @@
 ---
 title: Implementations
+description: Implementations of the Mapbox Vector Tile Specification are far and wide.
 ---
 
 ## Implementations

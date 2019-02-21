@@ -2,11 +2,12 @@
 title: Format
 prependJs:
     - "import * as constants from '../../constants';"
+description: Vector tiles are encoded as Google Protobufs.
 ---
 
 ## Format
 
-Vector tiles are encoded as [Google Protobufs](https://github.com/google/protobuf) (PBF), which allow for serializing structured data. For clarity, Mapbox Vector Tiles use the `.mvt` file suffix. The specification details are largely structured around the rules implemented in the base `.proto` file found [here]({{constants.VERSION_URL}}{{constants.CURRENT}}/vector_tile.proto).
+Vector tiles are encoded as [Google Protobufs](https://github.com/google/protobuf) (PBF), which allow for serializing structured data. For clarity, Mapbox Vector Tiles use the `.mvt` file suffix. The specification details are largely structured around the rules implemented in the base [`.proto` file]({{constants.VERSION_URL}}{{constants.CURRENT}}/vector_tile.proto).
 
 ### How are OSM PBF files related to Mapbox Vector Tiles?
 

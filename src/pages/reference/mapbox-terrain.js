@@ -1,7 +1,9 @@
 import { prefixUrl } from '@mapbox/batfish/modules/prefix-url';
 import { createRedirect } from '../../components/create-redirect';
-import { NEWEST_TERRAIN } from '../../constants.js';
+import constants from '../../constants.json';
 
 export default createRedirect(
-  prefixUrl(`/vector-tiles/reference/mapbox-terrain-v${NEWEST_TERRAIN}/`)
+  prefixUrl(
+    `/vector-tiles/reference/mapbox-terrain-v${constants.NEWEST_TERRAIN}/`
+  )
 );
