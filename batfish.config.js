@@ -23,6 +23,7 @@ module.exports = () => {
   const config = {
     siteOrigin: 'https://docs.mapbox.com',
     siteBasePath: '/vector-tiles',
+    productionDevtool: 'source-map',
     outputDirectory: path.join(__dirname, '_site/'),
     temporaryDirectory: path.join(__dirname, '_site_tmp/'),
     stylesheets: [
