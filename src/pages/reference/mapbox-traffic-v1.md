@@ -11,13 +11,13 @@ prependJs:
 
 This is a guide to the layers and data inside the Mapbox Traffic vector tile source to help with styling.
 
-{{ 
-<MapPreview 
+{{
+<MapPreview
     styleJson={trafficV1}
     lat={34.0422}
     lon={-118.2437}
     zoom={12}
-/> 
+/>
 }}
 
 ## Overview
@@ -87,7 +87,7 @@ The __`congestion`__ field is a measure of the relative slowdown a road segment 
 
 #### Road Closures
 
-The __`closed`__ field marks roads that are currently closed.
+The __`closed`__ field marks roads that are closed.
 
 | Value | Description |
 |---|---|

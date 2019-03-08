@@ -36,7 +36,7 @@ To get the underlying vector tile data that makes up this image, you can request
 http://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v7/14/4823/6160.mvt?access_token=<your access token>
 ```
 
-As the name suggests, vector tiles contain vector data instead of the rendered image. They contain geometries and metadata &mdash; like road names, place names, house numbers &mdash; in a compact, structured format. Vector tiles are rendered only when requested by a client, like a web browser or a mobile app. Rendering happens either in the client ([Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/), [Mapbox iOS SDK](https://docs.mapbox.com/ios/maps/overview/), [Mapbox Android SDK](https://docs.mapbox.com/android/maps/overview/)) or on the fly on the server ([map API](https://docs.mapbox.com/api/maps/)). The [specification overview page](/vector-tiles/specification/) is a great place to learn more about the Mapbox Vector Tile Specification.
+As the name suggests, vector tiles contain vector data instead of the rendered image. They contain geometries and metadata &mdash; like road names, place names, house numbers &mdash; in a compact, structured format. Vector tiles are rendered only when requested by a client, like a web browser or a mobile app. Rendering happens either in the client ([Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/), [Mapbox iOS SDK](https://docs.mapbox.com/ios/maps/overview/), [Mapbox Android SDK](https://docs.mapbox.com/android/maps/overview/)) or dynamically on the server ([map API](https://docs.mapbox.com/api/maps/)). Read the [Mapbox Vector Tile Specification](/vector-tiles/specification/) to learn more.
 
 ## Benefits of vector tiles
 
@@ -51,4 +51,4 @@ Mapbox Streets, our global basemap, is entirely made of vector tiles. Any map da
 
 Vector tiles are an open standard under a Creative Commons Attribution 3.0 US License. We support vector tiles across our products and there is a [large list of vector tile implementation by other vendors](https://github.com/mapbox/awesome-vector-tiles).
 
-[Read the Mapbox Vector Tile Spec on Github](https://github.com/mapbox/vector-tile-spec) and get in touch with us there with feedback and improvements.
+[Read the Mapbox Vector Tile Spec on GitHub](https://github.com/mapbox/vector-tile-spec) and get in touch with us there with feedback and improvements.

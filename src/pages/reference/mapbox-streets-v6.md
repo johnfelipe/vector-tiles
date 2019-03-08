@@ -2,7 +2,7 @@
 title: Mapbox Streets v6
 description: Reference documentation for the Mapbox Streets v6 tileset.
 mapid: mapbox.mapbox-streets-v6
-prependJs: 
+prependJs:
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
   - "import { SourceLayerTypes } from '../../components/source-layer-types';"
@@ -16,13 +16,13 @@ We recommend moving to [Mapbox Streets v8](/vector-tiles/reference/mapbox-street
 
 {{</Note>}}
 
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For a complete and documented example of using Mapbox Streets vector tiles to style a Mapbox Studio Classic project, check out the [OSM Bright project for Mapbox Studio Classic](https://github.com/mapbox/osm-bright.tm2).
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For a complete and documented example of using Mapbox Streets vector tiles to style a Mapbox Studio Classic project, see the [OpenStreetMap Bright project for Mapbox Studio Classic](https://github.com/mapbox/osm-bright.tm2).
 
 ## Overview
 
 ### OpenStreetMap
 
-Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OSM data structure and tagging system is not neccessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
+Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OpenStreetMap data structure and tagging system is not necessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
 
 When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
@@ -42,13 +42,13 @@ There are 7 different name fields for each of the label layers:
 
 &#42; The `name_zh` field contains Mandarin using simplified Chinese characters for our custom label layers: `#country_label`, `#state_label`, and `#marine_label`. All other label layers are sourced from OpenStreetMap and may contain one of several dialects and either simplified or traditional Chinese characters in the `name_zh` field.
 
-### OSM IDs
+### OpenStreetMap IDs
 
 Most layers in the Mapbox Streets vector tile source have an __`osm_id`__ field. The values for this field are integers based on the IDs assigned to objects in the main [OpenStreetMap](http://openstreetmap.org) database.
 
-With raw OSM IDs it's possible for two different objects of different types to share the same ID, but the Mapbox __`osm_id`__ is modified such that a layer containing a mix of object types will not contain any duplicate IDs. The following modification rules are in place, providing non-overlapping IDs to work with while keeping the original IDs simple to deduce at a glance.
+With raw OpenStreetMap IDs it's possible for two different objects of different types to share the same ID, but the Mapbox __`osm_id`__ is modified such that a layer containing a mix of object types will not contain any duplicate IDs. The following modification rules are in place, providing non-overlapping IDs to work with while keeping the original IDs simple to deduce at a glance.
 
-| Original OSM object | Vector tile geometry | ID transform | Example |
+| Original OpenStreetMap object | Vector tile geometry | ID transform | Example |
 |---|---|---|---|
 | node | point | original + 10<sup>15</sup> | 123 → 1000000000000123 |
 | way | line | none | 123 → 123 |
@@ -56,7 +56,7 @@ With raw OSM IDs it's possible for two different objects of different types to s
 | relation | line | original + 2×10<sup>12</sup> | 123 → 2000000000123 |
 | relation | polygon, point | original + 3×10<sup>12</sup> | 123 → 3000000000123 |
 
-Some objects in the vector tiles are the result of merging multple OSM objects. In these cases, the __`osm_id`__ will be based on just one of the original IDs (and there is no guarantee about which one). Some objects are not from OSM at all, or processed in such a way that the original OSM IDs are unknown (eg. ocean polygons). In these cases, the __`osm_id`__ will be `0`.
+Some objects in the vector tiles are the result of merging multiple OpenStreetMap objects. In these cases, the __`osm_id`__ will be based on one of the original IDs (and there is no guarantee about which one). Some objects are not from OpenStreetMap at all, or processed in such a way that the original OpenStreetMap IDs are unknown (for example ocean polygons). In these cases, the __`osm_id`__ will be `0`.
 
 ### Boolean fields
 
@@ -77,7 +77,7 @@ A geometry in the vector tile can be one of 3 types:
 
 {{ <SourceLayerTypes /> }}
 
-In CartoCSS you can select just one or two of the 3 types by filtering on the special `mapnik::geometry_type` property.
+In CartoCSS you can select one or two of the 3 types by filtering on the special `mapnik::geometry_type` property.
 
 _CartoCSS examples:_
 
@@ -110,7 +110,7 @@ The current supported version of the Mapbox Streets vector tiles receives regula
 
 This layer includes polygons representing both land-use and land-cover.
 
-It's common for many different types of landuse/landcover to be overlapping, so the polygons in this layer are ordered by the area of their geometries to ensure smaller objects will not be obscured by larger ones. Pay attention to use of transparency when styling - the overlapping shapes can cause muddied or unexpected colors.
+It's common for many different types of landuse/landcover to be overlapping, so the polygons in this layer are ordered by the area of their geometries to make sure smaller objects will not be obscured by larger ones. Pay attention to use of transparency when styling - the overlapping shapes can cause muddied or unexpected colors.
 
 #### Classes
 
@@ -123,7 +123,7 @@ The main field used for styling the landuse layer is __`class`__.
 | `glacier` | Glaciers or permanent ice/snow |
 | `grass` | Grasslands, meadows, fields, lawns, etc |
 | `hospital` | Hospital grounds |
-| `industrial` | Currently only includes airport areas |
+| `industrial` | Only includes airport areas |
 | `park` | City parks, village greens, playgrounds, national parks, nature reserves, etc |
 | `pitch` | Sports fields & courts of all types |
 | `rock` | Bare rock, scree, quarries |
@@ -141,7 +141,7 @@ The main field used for styling the landuse layer is __`class`__.
 
 The waterway layer contains rivers, streams, canals, etc represented as lines.
 
-Wateray classes can represent a wide variety of possible widths. It's best to have your line stying biased toward the smaller end of the scales since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer.
+Waterway classes can represent a wide variety of possible widths. Since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer, make your line styling biased toward the smaller end of the scales.
 
 #### Classes and types
 
@@ -174,7 +174,7 @@ _CartoCSS example:_
 
 {{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
-This is a simple polygon layer with no differentiating types or classes. Water bodies are filtered and simplified according to scale - only oceans and very large lakes are shown at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
+This is a simple polygon layer with no differentiating types or classes. The tileset filters and simplifies water bodies according to scale. It only shows oceans and large lakes at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
 
 Water polygons sometimes have overlapping pieces with each other, so avoiding CartoCSS styles such as `polygon-opacity` and most `polygon-comp-op` values is recommended. Instead, use the style-level properties `opacity` and `comp-op`.
 
@@ -237,13 +237,13 @@ This layer includes lines and polygons for barriers - things such as walls and f
 
 | Value | Description |
 |---|---|
-| `cliff` | The precipice of a vertical or very steep drop |
+| `cliff` | The precipice of a vertical or steep drop |
 | `fence` | Include various types of fence and wall barriers |
 | `gate` | Only gates that are lines or areas are included |
 | `hedge` |  |
 | `land` | Includes breakwaters and piers |
 
-Cliff data from OSM is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom. See the [Line patterns with images](https://tilemill-project.github.io/tilemill/docs/guides/styling-lines/) section of the TileMill Styling Lines guide for how to design an appropriate image pattern for cliffs.
+Cliff data from OpenStreetMap is designed such that the left-hand side of the line is the top of the cliff, and the right-hand side is the bottom. See the [Line patterns with images](https://tilemill-project.github.io/tilemill/docs/guides/styling-lines/) section of the TileMill Styling Lines guide for how to design an appropriate image pattern for cliffs.
 
 
 _CartoCSS example:_
@@ -278,7 +278,7 @@ _CartoCSS example:_
 
 {{ <LayerInfo type={["polygon"]} buffer={4} /> }}
 
-This layer is for landuse / landcover polygons that should be drawn above the [#water](#water) layer.
+This layer is for landuse / landcover polygons that your style should draw above the [#water](#water) layer.
 
 #### Classes
 
@@ -304,7 +304,7 @@ _CartoCSS example:_
 
 {{ <LayerInfo type={["point", "line", "polygon"]} buffer={4} /> }}
 
-The roads layers are some of the most complex ones in Mapbox Streets. Starting at zoom level 12, tunnels and bridges are broken out of the `#road` layer into either `#tunnel` or `#bridge`.
+The roads layers are some of the most complex ones in Mapbox Streets. Starting at zoom level 12, the tileset breaks tunnels and bridges out of the `#road` layer into either `#tunnel` or `#bridge`.
 
 #### Classes
 
@@ -318,7 +318,7 @@ The main field used for styling the tunnel, road, and bridge layers is __`class`
 | `street` | Standard unclassified or residential streets |
 | `street_limited` | Streets that may have limited or no access for motor vehicles. Pedestrian streets, roads under construction, private roads, etc. |
 | `service` | Access roads, alleys, agricultural tracks, and other services roads. |
-| `driveway` | For very local access. Includes parking lot aisles, public & private driveways |
+| `driveway` | For local access. Includes parking lot aisles, public & private driveways |
 | `path` | Foot paths, cycle paths, ski trails. |
 | `major_rail` | Railways, including mainline, commuter rail, and rapid transit. |
 | `minor_rail` | Yard and service railways. |
@@ -340,13 +340,13 @@ _CartoCSS example:_
 
 #### Types
 
-The __`type`__ field is the value of the road's "primary" OpenStreetMap tag. For most roads this is the `highway` tag, but for aerialways it will be the `aerialway` tag, and for golf holes it will be the `golf` tag. See [Taginfo](http://taginfo.openstreetmap.org/keys/highway#values) for a list of used tag values.
+The __`type`__ field is the value of the road's "primary" OpenStreetMap tag. For most roads this is the `highway` tag, but for aerialways it will be the `aerialway` tag, and for golf holes it will be the `golf` tag. See [TagInfo](http://taginfo.openstreetmap.org/keys/highway#values) for a list of used tag values.
 
 #### Layers
 
 The __`layer`__ field is used to determine drawing order of overlapping road segments in the tunnel and bridge layers. 95% of values are -1, 1, or 0, and 99.9999% of values are between -5 and 5.
 
-If you want to ensure proper ordering of overlapping bridges when dealing with styles that involve road casing, you'll need to manually add some extra code to your project.yml. The `layer` field is intended to be used by this feature, not in your CartoCSS styles directly.
+If you want to make sure proper ordering of overlapping bridges when dealing with styles that involve road casing, you'll need to manually add some extra code to your project.yml. The `layer` field is intended to be used by this feature, not in your CartoCSS styles directly.
 
 ```
 project.yml:
@@ -363,11 +363,11 @@ _properties:
 
 {{ <LayerInfo type={["line"]} buffer={4} /> }}
 
-Administrative boundary lines. These are constructed from the OSM data in such a way that there are no overlapping lines where multiple boundary areas meet.
+Administrative boundary lines. These are constructed from the OpenStreetMap data in such a way that there are no overlapping lines where multiple boundary areas meet.
 
 #### Administrative level
 
-The __`admin_level`__ field separates different levels of boundaries, using the same numbering scheme as OpenStreetMap. See [the admin_level wiki page](http://wiki.openstreetmap.org/wiki/Admin_level) for details about what the different values translate to in different countries.
+The __`admin_level`__ field separates different levels of boundaries, using the same numbering scheme as OpenStreetMap. See [admin_level](http://wiki.openstreetmap.org/wiki/Admin_level) for details about what the different values translate to in different countries.
 
 | Value | Description |
 |---|---|
@@ -391,7 +391,7 @@ _CartoCSS example:_
 
 #### Maritime boundaries
 
-The __`maritime`__ field can be used as a filter to downplay or hide maritime boundaries, which are often not shown on maps. Note that the practice of tagging maritime boundaries is not entirely consitent or complete within OSM, so some boundaries may not have this field set correctly (this mostly affects admin levels 3 & 4).
+The __`maritime`__ field can be used as a filter to downplay or hide maritime boundaries, which are often not shown on maps. Note that the practice of tagging maritime boundaries is not entirely consistent or complete within OpenStreetMap, so some boundaries may not have this field set correctly (this mostly affects admin levels 3 & 4).
 
 _CartoCSS example:_
 
@@ -487,7 +487,7 @@ _CartoCSS example:_
 
 {{ <LayerInfo type={["point"]} buffer={256} /> }}
 
-Points for labeling states and provinces. Currently only a small number of countries are included.
+Points for labeling states and provinces. Only a small number of countries are included.
 
 #### Names
 
@@ -561,7 +561,7 @@ _CartoCSS example:_
 
 #### Scalerank
 
-The __`scalerank`__ field can be used to adjust the prominence of label styles for larger and more prominent cities. The value number from 0 through 9, where 0 is the large end of the scale (eg New York City). All places other than large cities will have a scalerank of `null`.
+The __`scalerank`__ field can be used to adjust the prominence of label styles for larger and more prominent cities. The value number from 0 through 9, where 0 is the large end of the scale (for example New York City). All places other than large cities will have a scalerank of `null`.
 
 _CartoCSS example:_
 
@@ -579,7 +579,7 @@ _CartoCSS example:_
 
 #### Localrank
 
-The __`localrank`__ field can be used to adjust the label density by showing fewer labels. This method is preferred to CartoCSS's __`text-min-distance`__ because it leads to far fewer labels clipped across tile boundaries. It is a whole number greater than 0 calculated by grouping places into a 128 pixel grid at each zoom level, then assigning each place a ranking within that grid. The most important place in that 128 pixels will get a __`localrank`__ of 1, the second most important is 2, and so on. Therefore to reduce the label density to 4 labels per tile, you can add the filter `[localrank=1]`.
+The __`localrank`__ field can be used to adjust the label density by showing fewer labels. This method is preferred to CartoCSS's __`text-min-distance`__ because it leads to far fewer labels clipped across tile boundaries. It is a whole number greater than 0 calculated by grouping places into a 128 pixel grid at each zoom level, then assigning each place a ranking within that grid. The most important place in that 128 pixels will get a __`localrank`__ of 1, the second most important is 2, and so on. So to reduce the label density to 4 labels per tile, you can add the filter `[localrank=1]`.
 
 _CartoCSS example:_
 
@@ -660,7 +660,7 @@ See _Name fields_ in the [overview](#overview) for information about names and t
 
 #### Maki icons
 
-The __`maki`__ field is designed to make it easy to add icons to POIs using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme.
+The __`maki`__ field is designed to make it easier to add icons to POIs using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme.
 
 _CartoCSS example:_
 
@@ -668,7 +668,7 @@ _CartoCSS example:_
 #poi_label[maki!=null] { marker-file: url("icons/[maki].svg"); }
 ```
 
-Not all Maki icons are used, and different types of related POIs will sometimes have the same __`maki`__ value (eg universities and colleges, or art supply shops and art galleries). The possible values for the __`maki`__ field are listed below.
+Not all Maki icons are used, and different types of related POIs will sometimes have the same __`maki`__ value (for example universities and colleges, or art supply shops and art galleries). The possible values for the __`maki`__ field are listed below.
 
 ```
 null
@@ -734,7 +734,7 @@ null
 
 #### Type
 
-The __`type`__ field contains a more specific classification intended for display - eg 'Cafe', 'Hotel', 'Laundry'. These values come from the original OpenStreetMap tags and are not a limited set.
+The __`type`__ field contains a more specific classification intended for display - for example 'Cafe', 'Hotel', 'Laundry'. These values come from the original OpenStreetMap tags and are not a limited set.
 
 #### Scalerank
 
@@ -742,9 +742,9 @@ The __`scalerank`__ field is intended to help assign different label styles base
 
 | Value | Description |
 |---|---|
-| `1` | The POI has a very large area |
+| `1` | The POI has a large area |
 | `2` | The POI has a medium-large area |
-| `3` | The POI has a small area, or is of a type that is commonly large and important (eg hospital, university) |
+| `3` | The POI has a small area, or is of a type that is commonly large and important (for example hospital, university) |
 | `4` | The POI has no known area |
 
 #### Controlling label density
@@ -763,7 +763,7 @@ _CartoCSS example:_
 
 #### Rail station networks
 
-The __`network`__ field is aimed at helping assign icons for rail stations - the value will be `null` for all other types of POIs. They don't necessarily correspond to a specific network - eg `u-bahn` applies to any U-Bahn network in Germany. Some stations serve multiple networks; in these cases, multiple network names are joined with a dot (in alphabetical order).
+The __`network`__ field is aimed at helping assign icons for rail stations - the value will be `null` for all other types of POIs. They don't necessarily correspond to a specific network - for example `u-bahn` applies to any U-Bahn network in Germany. Some stations serve multiple networks; in these cases, multiple network names are joined with a dot (in alphabetical order).
 
 | Value | Description |
 |---|---|
@@ -797,7 +797,7 @@ The __`network`__ field is aimed at helping assign icons for rail stations - the
 
 #### Additional information
 
-The __`ref`__ field is a short reference code that can be used as an alternative name. It is currently only used for airports.
+The __`ref`__ field is a short reference code that can be used as an alternative name. It is only used for airports.
 
 <!-- ROAD_LABEL ----------------------------------------------------------->
 
@@ -811,7 +811,7 @@ See _Name fields_ in the [overview](#overview) for information about names and t
 
 #### Route numbers
 
-In addition to the standard name fields, there is also a __`ref`__ field that holds any reference codes or route numbers a road may have. From zoom levels 6 through 10, all geometries are points and the only labels are highways shields. From zoom level 11 and up the geometries are all lines.
+Besides the standard name fields, there is also a __`ref`__ field that holds any reference codes or route numbers a road may have. From zoom levels 6 through 10, all geometries are points and the only labels are highways shields. From zoom level 11 and up the geometries are all lines.
 
 The __`shield`__ field indicates the style of shield needed for the route. Current possibilities are:
 
@@ -898,7 +898,7 @@ The __`class`__ and __`type`__ fields match those in the [#waterway](#waterway) 
 
 This layer contains points used to label the street number parts of specific addresses.
 
-The __`house_num`__ field countains house and building numbers. These are commonly integers but may include letters or be only letters, eg "1600", "31B", "D". If an address has no number tag but has a house name or building name, the __`house_num`__ field will be the name instead.
+The __`house_num`__ field contains house and building numbers. These are commonly integers but may include letters or be only letters, for example "1600", "31B", "D". If an address has no number tag but has a house name or building name, the __`house_num`__ field will be the name instead.
 
 
 _CartoCSS example:_
@@ -917,8 +917,8 @@ A summary of the changes from v5:
 
 Mapbox Streets v6 contains 2 major changes that may require extensive reworking of your styles depending on how they've been constructed:
 
-1. The density of features across most layers has been increased to acommodate using the vector tiles in [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/overview/) in addition to Mapbox Studio Classic. Some label layers include a `localrank` fields which you can use to reduce the density of those layers in your style. For other layers, you may wish to adjust your styles to tone down or hide certain features when moving projects from v5 to v6.
-2. Most elements will appear 1 or 2 zoom levels lower compared to v5. For example, the `street` class of road was available from zoom level 12 and up in v5, and is now available from zoom level 11 and up. Depending on how your styles have been put together adjustments may be required when moving projects from v5 to v6.
+1. The density of features across most layers has been increased to accommodate using the vector tiles in [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/overview/) and Mapbox Studio Classic. Some label layers include a `localrank` fields which you can use to reduce the density of those layers in your style. For other layers, you may wish to adjust your styles to tone down or hide certain features when moving projects from v5 to v6.
+2. Most elements will appear 1 or 2 zoom levels lower compared to v5. For example, the `street` class of road was available from zoom level 12 and up in v5, and is now available from zoom level 11 and up. Depending on how you put your styles together adjustments may be required when moving projects from v5 to v6.
 
 Additionally, v6 includes the following more specific/limited changes:
 
@@ -935,8 +935,8 @@ Additionally, v6 includes the following more specific/limited changes:
 - New __`abbr`__ field in the [#state_label](#state_label) layer.
     - Style adjustments optional when updating project from v5 - if you wish to continue showing state abbreviations at low zoom levels you will need to handle this manually.
 - New __`maki`__ value in the [#poi_label](#poi_label) layer: `rocket`.
-    - Style adjustments necessary when updating projects from v5 if they use `[maki]` in a URL expression (eg for `marker-file`). You will need to make sure to add image files to match the new value.
-- New __`shield`__ field [#road_label](#road_label) for assigning more specific highway shield designs. Additionally, highway shields in this layer are now points instead of lines for lower zoom levels in order to improve placement & density.
+    - Style adjustments necessary when updating projects from v5 if they use `[maki]` in a URL expression (for example `marker-file`). You will need to make sure to add image files to match the new value.
+- New __`shield`__ field [#road_label](#road_label) for assigning more specific highway shield designs. Additionally, highway shields in this layer are now points instead of lines for lower zoom levels to improve placement & density.
     - Style adjustments recommended when updating projects from v5 - see the [#road_label](#road_label) section for shield styling tips.
 - The [#state_label](#state_label) layer now covers China, India, & Mexico
     - No style adjustments necessary when updating projects from v5.

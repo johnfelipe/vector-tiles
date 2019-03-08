@@ -15,7 +15,8 @@
     "build-production": "DEPLOY_ENV=production batfish build",
     "serve-static": "batfish serve-static",
     "pretest": "npm run lint",
-    "test": "npm run lint-md"
+    "test": "npm run lint-md && npm run test-content",
+    "test-content": "copyeditor src/pages/"
   },
   "repository": {
     "type": "git",
@@ -47,9 +48,10 @@
   },
   "devDependencies": {
     "@mapbox/batfish": "^1.9.8",
+    "@mapbox/copyeditor": "^0.6.0",
     "@mapbox/eslint-config-mapbox": "^1.2.1",
-    "@mapbox/remark-lint-link-text": "^0.2.0",
-    "@mapbox/remark-lint-mapbox": "^0.0.3",
+    "@mapbox/remark-lint-link-text": "^0.4.2",
+    "@mapbox/remark-lint-mapbox": "^0.2.0",
     "@mapbox/svg-react-transformer-loader": "^1.0.3",
     "eslint": "^5.12.0",
     "eslint-config-prettier": "^2.10.0",

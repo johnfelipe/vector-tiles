@@ -1,7 +1,7 @@
 ---
 title: Enterprise Boundaries v2
 description: Reference documentation for the Enterprise Boundaries v2 tileset.
-prependJs: 
+prependJs:
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
   - "import { SourceLayerTypes } from '../../components/source-layer-types';"
@@ -20,12 +20,12 @@ The Enterprise Boundaries vector tiles do not directly contain detailed feature 
 
 ## Tilesets
 
-Enterprise Boundaries are composed of a number of separate tilesets each with their own map ID. There are two types of tilesets: tilesets containing line features and tilesets containing polygon features. For area tilesets, the hierarchy is designed such that levels with lowest numbers generally contain the polygons with the largest areas and levels with the highest numbers contain the polygons with the smallest areas.
+Enterprise Boundaries are composed of 15 separate tilesets each with their own map ID. There are two types of tilesets: tilesets containing line features and tilesets containing polygon features. For area tilesets, the hierarchy is designed such that levels with lowest numbers generally contain the polygons with the largest areas and levels with the highest numbers contain the polygons with the smallest areas.
 
 Some other notes about tileset hierarchy:
 
-- Administrative levels are anchored to the a0 layer which contains the top-level polygon of each area which contains an ISO 3166-1 code.
-- Postal levels are anchored on the p4 level which is defined as "Full-detail" or "The minimum required number of digits to send mail".
+- Administrative levels are anchored to the `a0` layer which contains the top-level polygon of each area which contains an ISO 3166-1 code.
+- Postal levels are anchored on the `p4` level which is defined as "Full-detail" or "The minimum required number of digits to send mail".
 
 | Tileset ID | Description |
 |---|---|
@@ -66,7 +66,7 @@ The `id` field provides an identifier string for each feature. These IDs are glo
 
 #### <!--area--> `worldview` _text_
 
-The vector tiles contain multiple versions of some boundaries, each with a `worldview` value indicating the intended audience. It is important to apply a worldview filter to all of your `admin` style layers, otherwise your map will show conflicting and overlapping boundary lines. The filter should always include both `all` and one of the region-specific values.
+The vector tiles contain multiple versions of some boundaries, each with a `worldview` value indicating the intended audience. It is important to apply a worldview filter to all your `admin` style layers, otherwise your map will show conflicting and overlapping boundary lines. The filter should always include both `all` and one of the region-specific values.
 
 | Value | Description |
 |---|---|
@@ -91,7 +91,7 @@ The point layers have the same two [`id`](#--area---id-text) and [`worldview`](#
 
 {{ <LayerInfo type={["line"]} /> }}
 
-The administrative lines tileset contains a single layer containing boundary lines for all administrative levels (a0 through a5).
+The administrative lines tileset contains a single layer containing boundary lines for all administrative levels (`a0` through `a5`).
 
 #### <!--line--> `id` _text_
 
@@ -107,7 +107,7 @@ Boundary lines with a `disputed` value of `true` should have a dashed or otherwi
 
 #### <!--line--> `coastal` _text_
 
-The `coastal` field contains the text `true` or `false` indicating whether the boundary is along a coast or not. Most coastal boundaries are currently ommitted from the line layer, so the values are nearly always `false`.
+The `coastal` field contains the text `true` or `false` indicating whether the boundary is along a coast or not. Most coastal boundaries are omitted from the line layer, so the values are nearly always `false`.
 
 #### <!--line--> `parent_0` _text_
 

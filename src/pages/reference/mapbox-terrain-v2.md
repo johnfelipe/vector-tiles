@@ -2,7 +2,7 @@
 title: Mapbox Terrain v2
 description: Reference documentation for the Mapbox Terrain v2 tileset.
 mapid: mapbox.mapbox-terrain-v2
-prependJs: 
+prependJs:
   - "import { LayerInfo } from '../../components/layer-info';"
   - "import { SourceLayerTypes } from '../../components/source-layer-types';"
   - "import { MapPreview } from '../../components/map';"
@@ -11,20 +11,20 @@ prependJs:
 
 This is a guide to the layers and data inside the Mapbox Terrain vector tile source to help with styling.
 
-{{ 
-<MapPreview 
+{{
+<MapPreview
     styleJson={terrainV2}
     lat={40}
     lon={-1}
     zoom={12}
-/> 
+/>
 }}
 
 ## Overview
 
 Mapbox Terrain provides hillshades, elevation contours, and landcover data all in vector form.
 
-Mapbox Terrain is based on data from a variety of sources - see [the about page](https://www.mapbox.com/about/maps/) for details. When using the Mapbox Terrain layer publicly in a design or application you must provide [proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
+Mapbox Terrain is based on data from a [variety of sources](https://www.mapbox.com/about/maps/). When using the Mapbox Terrain layer publicly in a design or application you must provide [proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
 A geometry in the vector tile can be one of 3 types:
 
@@ -38,9 +38,11 @@ A geometry in the vector tile can be one of 3 types:
 
 {{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
-The landcover layer provides a generalized backdrop of vegetation, agriculture, and permanent ice & snow. It is intended for stylistic use and not appropriate for science or other analysis. Empty space in the landcover layer represents either water or bare earth, rock, sand, and built-up areas.
+The landcover layer provides a generalized backdrop of vegetation, agriculture, and permanent ice & snow. It is intended for stylistic use and not appropriate for science or other analysis. Empty space in the landcover layer is either water or bare earth, rock, sand, and built-up areas.
 
 #### Classes
+
+<!-- copyeditor disable best-->
 
 The __`class`__ field is used for styling different types of landcover. The classes are designed to look best when there is a smooth color gradient across from wood → scrub → grass → crop → map background → snow. Thin strips of "grass" or "crop" along the edge of a wooded area might not necessarily represent actual grass or cropland, but are there to smooth the transition from wood to bare land.
 
@@ -78,7 +80,7 @@ At zoom levels above 14 you may want to blur, fade, or completely hide the hills
 
 #### Classes
 
-The __`class`__ field is for simple styling of the different levels of light and shadow. With low `polygon-opacity` or certain `polygon-comp-op` settings, you can style all 6 brightness levels with just 2 filters.
+The __`class`__ field is for simple styling of the different levels of light and shadow. With low `polygon-opacity` or certain `polygon-comp-op` settings, you can style all 6 brightness levels with 2 filters.
 
 | Value | Description |
 |---|---|
@@ -132,7 +134,7 @@ _ CartoCSS example:_
 
 {{<LayerInfo type={["polygon"]} buffer={4} />}}
 
-Contour lines indicate vertical dimension on a region by joining points of equal elevation. Full contour line coverage begins at zoom 12, while index lines are available at zoom 9 + in values specified below.
+Contour lines show vertical dimension on a region by joining points of equal elevation. Full contour line coverage begins at zoom 12, while index lines are available at zoom 9 + in values specified below.
 
 #### Elevation
 
@@ -158,7 +160,7 @@ _CartoCSS example:_
 
 #### Index lines
 
-The __`index`__ field can be used to accentuate index contours, but it can also be used to reduce the contour density if you wish. The highest value that applies to a contour will be the __`index`__ value, so if you want to highlight every fifth line, you need to select both `index=5` and `index=10`. If you want to highlight every other line, you need to select both `index=2` and `index=10` (or both `index=1` and `index=5`).
+The __`index`__ field can be used to emphasize index contours, but it can also be used to reduce the contour density if you wish. The highest value that applies to a contour will be the __`index`__ value, so if you want to highlight every fifth line, you need to select both `index=5` and `index=10`. If you want to highlight every other line, you need to select both `index=2` and `index=10` (or both `index=1` and `index=5`).
 
 | Value | Description |
 |---|---|
@@ -183,6 +185,6 @@ _CartoCSS example:_
 A summary of the changes from v1:
 
 - Various elevation data improvements and updates (notably over most of Europe and Africa)
-- __`class`__ field in the [#hillshade](#hillshade) layer simplified to just 2 classes: `highlight`, `shadow`
+- __`class`__ field in the [#hillshade](#hillshade) layer simplified to 2 classes: `highlight`, `shadow`
 - `level` field added to the [#hillshade](#hillshade) layer for more granular styling
 - Coastlines have an `index` value of `-1` in the [#contour](#contour) layer

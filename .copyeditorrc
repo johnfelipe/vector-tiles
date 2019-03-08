@@ -1,0 +1,8 @@
+{
+  "allow": ["simple", "fast", "basic"],
+  "equality": true,
+  "spell": true,
+  "simplify": true,
+  "passive": true,
+  "dictionary": "vt.dic"
+}

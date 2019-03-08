@@ -2,7 +2,7 @@
 title: Mapbox Streets v8
 description: Reference documentation for the Mapbox Streets v8 tileset.
 mapid: mapbox.mapbox-streets-v8
-prependJs: 
+prependJs:
   - "import Icon from '@mapbox/mr-ui/icon';"
   - "import { LayerInfo } from '../../components/layer-info';"
   - "import { SourceLayerTypes } from '../../components/source-layer-types';"
@@ -10,22 +10,22 @@ prependJs:
   - "import { streetsV8 } from '../../data/styles';"
 ---
 
-This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, check out the default styles in [Mapbox Studio](https://studio.mapbox.com/).
+This is an in-depth guide to the data inside the Mapbox Streets vector tile source to help with styling. For full examples of using Mapbox Streets vector tiles to create a map style, see the default styles in [Mapbox Studio](https://studio.mapbox.com/).
 
-{{ 
-<MapPreview 
+{{
+<MapPreview
     styleJson={streetsV8}
     lat={48.8566}
     lon={2.3522}
     zoom={14}
-/> 
+/>
 }}
 
 ## Overview
 
 ### Data sources & updates
 
-Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OSM data structure and tagging system is not necessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
+Mapbox Streets vector tiles are largely based on data from [OpenStreetMap](http://openstreetmap.org), a free & global source of geographic data built by volunteers. An understanding of the OpenStreetMap data structure and tagging system is not necessary to make use of Mapbox Streets vector tiles, though it's helpful to understand some of the details.
 
 When you publicly use styles or software that use Mapbox Streets vector tiles, you must [display proper attribution](https://docs.mapbox.com/help/how-mapbox-works/attribution/).
 
@@ -35,8 +35,8 @@ The current supported version of the Mapbox Streets vector tiles receives regula
 |------------------------|--------------------------------------|
 | most layers            | OpenStreetMap replication feed       |
 | `admin`                | custom Mapbox data                   |
-| `water` (ocean parts)  | [OpenStreetMapData.com](http://openstreetmapdata.com/) | 
-| `place_label`, types `country` & `state` | custom Mapbox data | 
+| `water` (ocean parts)  | [OpenStreetMapData.com](http://openstreetmapdata.com/) |
+| `place_label`, types `country` & `state` | custom Mapbox data |
 | `natural_label`, types `ocean` & `sea`   | custom Mapbox data |
 
 
@@ -48,22 +48,22 @@ A geometry in the vector tile can be one of 3 types:
 
 {{ <SourceLayerTypes /> }}
 
-In Mapbox Studio, you can select just one or two or all of the 3 types with the Geometry Type toggles in each layer's data selection tab.
+In Mapbox Studio, you can select one or two or all the 3 types with the Geometry Type toggles in each layer's data selection tab.
 
 
-### OSM IDs
+### OpenStreetMap IDs
 
-OSM IDs are not stored as object properties but as object IDs within the vector tile. This means they are not available for styling via Mapbox Studio, but can still be interacted with via Mapbox GL JS and other vector tile libraries.
+OpenStreetMap IDs are not stored as object properties but as object IDs within the vector tile. This means they are not available for styling via Mapbox Studio, but can still be interacted with via Mapbox GL JS and other vector tile libraries.
 
-OpenStreetMap ID spaces are not unique across node, way, and relation object types. In order to make them unique for vector tiles, the IDs are transformed based on their OpenStreetMap object type.
+OpenStreetMap ID spaces are not unique across node, way, and relation object types. To make them unique for vector tiles, the IDs are transformed based on their OpenStreetMap object type.
 
-| OSM type        | OSM ID transform                          |
+| OpenStreetMap type        | OpenStreetMap ID transform                          |
 |-----------------|-------------------------------------------|
-| node            | `id × 10` <br /> _eg. 123 → 1230_         | 
+| node            | `id × 10` <br /> _eg. 123 → 1230_         |
 | way             | `(id × 10) + 1` <br /> _eg. 123 → 1231_   |
 | relation        | `(id × 10) + 4` <br /> _eg. 123 → 1234_   |
 
-In many cases, mulitple objects from OpenStreetMap will be combined into a single object in our vector tiles. For example, water polygons are unioned to avoid seams and road lines are joined to save space and simplify better. In these cases the `osm_id` will either be `0`, or one of the input IDs chosen at random.
+Often, multiple objects from OpenStreetMap will be combined into a single object in our vector tiles. For example, water polygons are unioned to avoid seams and road lines are joined to save space and simplify better. In these cases the `osm_id` will either be `0`, or one of the input IDs chosen at random.
 
 
 ## Data stability
@@ -90,9 +90,9 @@ You should design your styles to account for the possibility of new field values
 
 ### `name` _text_ & `name_<lang-code>` _text_
 
-Label names are available in a number of languages. The `name_*` value will be `null` if no translation data is available for a given feature; when styling label layers, you are responsible for determining an appropriate fallback approach.
+Label names are available in many languages. The `name_*` value will be `null` if no translation data is available for a given feature; when styling label layers, you are responsible for determining an appropriate fallback approach.
 
-If the `name` field is null for a particular feature, then all of the language-specific `name_*` fields will also be null. This means that `name` should always be the final fallback value if you want to include it in your set of label languages.
+If the `name` field is null for a particular feature, then all the language-specific `name_*` fields will also be null. This means that `name` should always be the final fallback value if you want to include it in your set of label languages.
 
 | Field | Description |
 |---|---|
@@ -109,7 +109,7 @@ If the `name` field is null for a particular feature, then all of the language-s
 | `name_ja` | Japanese |
 | `name_ko` | Korean |
 
-For languages that may have regional variations, no particular preference is given where place name spellings differ. 
+For languages that may have regional variations, the tileset gives no particular preference where place name spellings differ.
 
 <a id='name_script'></a>
 
@@ -162,7 +162,7 @@ The value will be _null_ if `name` is also null.
 
 ### `sizerank` _number_
 
-The `sizerank` field is included in label layers where points or lines have been derived from polygons, such as `poi_label`, `natural_label`, `airport_label`. It lets you style & filter based on the size of a feature relative to the current zoom level. The largest objects are given `sizerank=0`, and points are given `sizerank=16`. 
+The `sizerank` field is included in label layers where points or lines have been derived from polygons, such as `poi_label`, `natural_label`, `airport_label`. It lets you style & filter based on the size of a feature relative to the current zoom level. The tileset gives the largest objects `sizerank=0`, and gives points `sizerank=16`.
 
 A single feature will have a changing sizerank as you zoom in and the relative size of the feature increases. For example, a park might have a `sizerank` of 9 at z11, 6 at z12, and 2 at z13.
 
@@ -182,13 +182,13 @@ The value will never be _null_ and will always be in the range of 0-5.
 
 ### `maki` _text_
 
-Some layers have a `maki` field designed to make it easy to assign icons using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can ensure your style has all the icons needed across different layers.
+Some layers have a `maki` field designed to make it easier to assign icons using the [Maki icon project](https://labs.mapbox.com/maki-icons/), or with other icons that follow the same naming scheme. Each layer uses a different subset of the names, but the full list of values used in Mapbox Streets is compiled here so you can make sure your style has all the icons needed across different layers.
 
-Not all icons from the Maki project are used in Mapbox Streets, and different types of related features will sometimes have the same `maki` value (eg universities and colleges, or art supply shops and art galleries). Nameless POIs will have never have a maki value of marker (the generic default).
+Not all icons from the Maki project are used in Mapbox Streets, and different types of related features will sometimes have the same `maki` value (for example universities and colleges, or art supply shops and art galleries). Nameless POIs will have never have a Maki value of marker (the generic default).
 
 The possible values for the `maki` field for all layers are listed below. Icon names that were not part of any layer in v7 are marked with 🆕. No further values will be added in Mapbox Streets v8.
 
-`airport_label:` 
+`airport_label:`
 
 ```
 airport
@@ -197,7 +197,7 @@ heliport
 rocket
 ```
 
-`natural_label:` 
+`natural_label:`
 
 ```
 marker
@@ -206,7 +206,7 @@ volcano
 waterfall 🆕
 ```
 
-`poi_label:` 
+`poi_label:`
 
 ```
 alcohol-shop
@@ -312,7 +312,7 @@ windmill 🆕
 zoo
 ```
 
-`transit_stop_label:` 
+`transit_stop_label:`
 
 ```
 bicycle-share
@@ -347,7 +347,7 @@ The `admin_level` field separates different levels of boundaries.
 
 #### <!--admin--> `worldview` _text_
 
-Mapbox Streets v8 introduces the notion of worldviews to the administrative boundary layer. The vector tiles contain multiple versions of some boundaries, each with a `worldview` value indicating the intended audience. It is important to apply a worldview filter to all of your `admin` style layers, otherwise your map will show conflicting & overlapping boundary lines. The filter should always include both `all` and one of the region-specific values.
+Mapbox Streets v8 introduces the notion of worldviews to the administrative boundary layer. The vector tiles contain multiple versions of some boundaries, each with a `worldview` value indicating the intended audience. It is important to apply a worldview filter to all your `admin` style layers, otherwise your map will show conflicting & overlapping boundary lines. The filter should always include both `all` and one of the region-specific values.
 
 | Value   | Description                                      |
 |---------|--------------------------------------------------|
@@ -411,7 +411,7 @@ The `ref` field contains short identifier codes for many airports. These are pul
 
 #### <!--airport_label--> `maki` _text_
 
-The `maki` field lets you assign different icons to different types of airports. See the [`maki](#maki) part of the Common Fields section for more details.
+The `maki` field lets you assign different icons to different types of airports. See the [`maki`](#maki) part of the Common Fields section for more details.
 
 | Value      | Description                           |
 |------------|---------------------------------------|
@@ -439,7 +439,7 @@ The `type` field lets you differentiate building parts from building outlines. B
 
 #### <!--building--> `height` _number_
 
-The `height` field contains the height of a building or building part in meters (rounded to the nearest integer). In many cases this value is derived from the `building:levels` tag on OpenStreetMap - we estimate 3 meters per level if no exact height is specified. This value may be _null_ where `extrude` is `false`.
+The `height` field contains the height of a building or building part in meters (rounded to the nearest integer). Often this value is derived from the `building:levels` tag on OpenStreetMap - we estimate 3 meters per level if no exact height is specified. This value may be _null_ where `extrude` is `false`.
 
 #### <!--building--> `min_height` _number_
 
@@ -447,7 +447,7 @@ The `min_height` field contains the height in meters from the ground to the _bot
 
 #### <!--building--> `extrude` _text_
 
-The `extrude` field indicates whether the object should be included in 3D-extrusion renderings. For example a complex building might have various `building:part` objects mapped with different heights, in addition to a building object representing the footprint of the entire building. Only the `building:part` objects are needed for 3D rendering, so the full footprint outline will have an `extrude` value of `false`. The `extrude` value will always be either `true` or `false` (never _null_).
+The `extrude` field indicates whether the object should be included in 3D-extrusion renderings. For example a complex building might have various `building:part` objects mapped with different heights and a building object representing the footprint of the entire building. Only the `building:part` objects are needed for 3D rendering, so the full footprint outline will have an `extrude` value of `false`. The `extrude` value will always be either `true` or `false` (never _null_).
 
 
 <!-- HOUSENUM_LABEL ---------------------------------------------------->
@@ -460,7 +460,7 @@ This layer contains points used to label the street number parts of specific add
 
 #### <!--housenum_label--> `house_num` _text_
 
-The `house_num` field countains house and building numbers. These are commonly integers but may include letters or be only letters, eg "1600", "31B", "D". If an address has no number tag but has a house name or building name, the `house_num` field will be the name instead.
+The `house_num` field contains house and building numbers. These are commonly integers but may include letters or be only letters, for example "1600", "31B", "D". If an address has no number tag but has a house name or building name, the `house_num` field will be the name instead.
 
 
 <!-- LANDUSE_OVERLAY ---------------------------------------------------->
@@ -469,7 +469,7 @@ The `house_num` field countains house and building numbers. These are commonly i
 
 {{ <LayerInfo type={["polygon"]} buffer={8} /> }}
 
-This layer is for landuse / landcover polygons that should be drawn above the [#water](#water) layer.
+This layer is for landuse / landcover polygons that your style should draw above the [#water](#water) layer.
 
 #### <!--landuse_overlay--> `class` _text_
 
@@ -490,7 +490,7 @@ The main field used for styling the landuse_overlay layer is `class`.
 
 This layer includes polygons representing both land-use and land-cover.
 
-It's common for many different types of landuse/landcover to be overlapping, so the polygons in this layer are ordered by the area of their geometries to ensure smaller objects will not be obscured by larger ones. Pay attention to use of transparency when styling - the overlapping shapes can cause muddied or unexpected colors.
+It's common for many different types of landuse/landcover to be overlapping, so the polygons in this layer are ordered by the area of their geometries to make sure smaller objects will not be obscured by larger ones. Pay attention to use of transparency when styling - the overlapping shapes can cause muddied or unexpected colors.
 
 #### <!--landuse--> `class` _text_
 
@@ -525,7 +525,7 @@ This layer contains point geometries for labeling motorway junctions (aka highwa
 
 #### <!--motorway_junction--> `ref` _text_, `reflen` _number_, & `name` _text_
 
-The motorway junction layer has a `ref` field and a `name` field for styling labels. The `reflen` field tells you how long the `ref` value is in case you want to style this layer with shields. All of these fields may be _null_.
+The motorway junction layer has a `ref` field and a `name` field for styling labels. The `reflen` field tells you how long the `ref` value is in case you want to style this layer with shields. All these fields may be _null_.
 
 #### <!--motorway_junction--> `class` _text_ & `type` _text_
 
@@ -546,7 +546,7 @@ See [`sizerank`](#sizerank) for information about that field.
 
 #### <!--natural_label--> `class` _text_ & `maki` _text_
 
-The `natural_label` layer is organized into a number of different classes for styling & filtering. Within each class, serveral `maki` values are available for assigning icons to features - see the [`maki`](#maki) part of the Common Fields section for more details about that field.
+The `natural_label` layer is organized into many different classes for styling & filtering. Within each class, several `maki` values are available for assigning icons to features - see the [`maki`](#maki) part of the Common Fields section for more details about that field.
 
 | class           | maki values | feature types                           |
 |-----------------|-------------|-----------------------------------------|
@@ -558,7 +558,7 @@ The `natural_label` layer is organized into a number of different classes for st
 | `ocean`         | `marker`    | oceans                                  |
 | `reservoir`     | `marker`    | human water containment areas           |
 | `river`         | `marker`    |                                         |
-| `sea`           | `marker`    | seas and other very large water features including some gulfs, straits, bays, etc. |
+| `sea`           | `marker`    | seas and other large water features including some gulfs, straits, bays, etc. |
 | `stream`        | `marker`    |                                         |
 | `water_feature` | `waterfall` , `marker` | waterfalls                   |
 | `water`         | `marker`    | lakes, ponds, etc.                      |
@@ -575,7 +575,7 @@ The `elevation_m` and `elevation_ft` fields hold the feature elevation in meters
 
 {{ <LayerInfo type={["point"]} buffer={128} /> }}
 
-This layer contains points for labeling places including countries, states, cities, towns, and neighbourhoods.
+This layer contains points for labeling places including countries, states, cities, towns, and neighborhoods.
 
 See [`names`](#names) and [`name_script`](#name_script) in for information about names and translations available for label text.
 
@@ -592,9 +592,9 @@ The main field for styling labels for different kinds of places is `type`.
 | `sar`                | Special Administrative Region |
 | `territory`          | Semi-autonomous or other subnational entities with ISO 3166-1 codes |
 | `disputed_territory` | Disputed territories with ISO 3166-1 codes. |
-| `state`              | First-level administrative divisions or similar. Only a small subset of these are included in order to reduce clutter and put focus on cities, towns, etc. |
+| `state`              | First-level administrative divisions or similar. Only a small subset of these are included to reduce clutter and put focus on cities, towns, etc. |
 | `city`               | Settlement of about 100,000 or more people. |
-| `town`               | Urban or rural settlement of about 10,000-100,000 people | 
+| `town`               | Urban or rural settlement of about 10,000-100,000 people |
 | `village`            | Usually rural settlement of less than about 10,000 |
 | `hamlet`             | Rural settlement with a population of about 200 or fewer |
 | `suburb`             | A distinct section of an urban settlement such as an annexed town, historical district, or large & important neighborhood. |
@@ -603,7 +603,7 @@ The main field for styling labels for different kinds of places is `type`.
 
 #### <!--place_label--> `symbolrank`
 
-The `symbolrank` value is intended to simplify styling of the label size and symbol prominence of place features. It ranges from 1 to 19 and is consistently assigned across zoom levels - ie a place with a `symbolrank` of 6 at z4 will have the same value as you zoom in to any other level.
+The `symbolrank` value is intended to simplify styling of the label size and symbol prominence of place features. It ranges from 1 to 19 and is consistently assigned across zoom levels - for example a place with a `symbolrank` of 6 at z4 will have the same value as you zoom in to any other level.
 
 The value will never be _null_ and will always be in the range of 1-19.
 
@@ -619,7 +619,7 @@ The value will be _null_ for any place that is not a capital.
 
 #### <!--place_label--> `text_anchor` _text_
 
-The `text_anchor` field can be used as a hint for label placement. Possible values match the [Mapbox GL Style Spec for text anchor](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layout-symbol-text-anchor). The value may be _null_. <!-- FIXME - more detail? -->
+The `text_anchor` field can be used as a hint for label placement. Possible values match the [Mapbox Style Spec for text anchor](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layout-symbol-text-anchor). The value may be _null_. <!-- FIXME - more detail? -->
 
 | Value          | Meaning                                                 |
 |----------------|---------------------------------------------------------|
@@ -678,7 +678,7 @@ visitor_amenities
 
 #### <!--poi_label--> `type` _text_
 
-The `type` field contains a more specific classification intended for display - eg 'Cafe', 'Hotel', 'Laundry'. These values come from the original OpenStreetMap tags and are not a limited set.
+The `type` field contains a more specific classification intended for display - for example 'Cafe', 'Hotel', 'Laundry'. These values come from the original OpenStreetMap tags and are not a limited set.
 
 #### <!--poi_label--> `category_en` _text_ & `category_zh-Hans` _text_
 
@@ -746,11 +746,11 @@ The [ISO 3166-2 code](https://en.wikipedia.org/wiki/ISO_3166-2) of the state/pro
 
 #### <!--road--> `ref` _text_ & `reflen` _number_
 
-In addition to the standard name fields, there is also a `ref` field that holds any reference codes or route numbers a road may have.
+Besides the standard name fields, there is also a `ref` field that holds any reference codes or route numbers a road may have.
 
-The `reflen` value indicates how many characters are in the corresponding `ref` to help choose an appropriate size of shield graphic. The overall valid range is 2-6 but more detailed ranges for specific shield designs are noted below. Note that `ref` values with a single character are assigned a `reflen` value of 2 to reduce the number of required shield graphics.
+The `reflen` value indicates how many characters are in the corresponding `ref` to help choose an appropriate size of shield graphic. The valid range is 2-6 but more detailed ranges for specific shield designs are noted below. Note that `ref` values with a single character are assigned a `reflen` value of 2 to reduce the number of required shield graphics.
 
-From zoom levels 6 through 10, `ref` values are attached to separate points rather than lines in order to optimize symbol placement.
+From zoom levels 6 through 10, `ref` values are attached to separate points rather than lines to optimize symbol placement.
 
 Both `ref` & `reflen` may be _null_.
 
@@ -834,7 +834,7 @@ The `shield` value will be _null_ where `ref` is also _null_. No further `shield
 
 #### <!--road--> `type` _text_
 
-The `type` field is the value of the road's "primary" OpenStreetMap tag. For most roads this is the `highway` tag, but for aerialways it will be the `aerialway` tag, and for golf holes it will be the `golf` tag. See [Taginfo](http://taginfo.openstreetmap.org/keys/highway#values) for a list of used tag values. Several classes pull in additional detail when it is available from OpenStreetMap.
+The `type` field is the value of the road's "primary" OpenStreetMap tag. For most roads this is the `highway` tag, but for aerialways it will be the `aerialway` tag, and for golf holes it will be the `golf` tag. See [TagInfo](http://taginfo.openstreetmap.org/keys/highway#values) for a list of used tag values. Several classes pull in additional detail when it is available from OpenStreetMap.
 
 Possible `construction` class `type` values:
 
@@ -880,7 +880,7 @@ service:parking_aisle
 service
 ```
 
-For the `path` class, some custom type assignments have been made based on insight from various categorical, physical, and access tags from OpenStreetMap.
+For the `path` class, the tileset made custom type assignments based on insight from various categorical, physical, and access tags from OpenStreetMap.
 
 | Value          | Description                                                |
 |-----------------|-----------------------------------------------------------|
@@ -909,7 +909,7 @@ Possible `aerialway` class `type` values:
 
 | Value                     | Description                                     |
 |---------------------------|-------------------------------------------------|
-| `aerialway:cablecar`      | Just one or two large cars. The cable forms a loop, but the cars do not loop around, they just move up and down on their own side. |
+| `aerialway:cablecar`      | One or two large cars. The cable forms a loop, but the cars do not loop around, they move up and down on their own side. |
 | `aerialway:gondola`       | Many cars on a looped cable.                    |
 | `aerialway:mixed_lift`    | Mix of chair lifts and gondolas on the same line; may change seasonally. |
 | `aerialway:chair_lift`    | Looped cable with a series of single chairs and exposed to the open air. |
@@ -940,7 +940,7 @@ Cliff data is designed such that the left-hand side of the line is the top of th
 
 | Value      | Description                                              |
 |------------|----------------------------------------------------------|
-| `cliff`    | The precipice of a vertical or very steep drop, gullies are included |
+| `cliff`    | The precipice of a vertical or steep drop, gullies are included |
 | `fence`    | Include various types of fence and wall barriers         |
 | `gate`     | Only gates that are lines or areas are included          |
 | `hedge`    | A line of closely spaced shrubs and tree species, which form a barrier or mark the boundary of an area |
@@ -948,7 +948,7 @@ Cliff data is designed such that the left-hand side of the line is the top of th
 
 #### <!--structure--> `type` _text_
 
-The `type` field contains the original value of the feature's primary tag from OSM.
+The `type` field contains the original value of the feature's primary tag from OpenStreetMap.
 
 
 <!-- TRANSIT_STOP_LABEL -------------------------------------------------->
@@ -995,11 +995,11 @@ The `maki` field lets you assign icons to the rail station based on a few basic 
 | `rail`            | Default rail station                        |
 | `rail-metro`      | Station for a subway, metro, or other rapid-transit system |
 | `rail-light`      | Light rail station                          |
-| `entrance`        | Specific station entrance points (eg stairs, escalators, elevators) |
+| `entrance`        | Specific station entrance points (for example stairs, escalators, elevators) |
 
 #### <!--transit_stop_label--> `network` _text_
 
-The `network` field lets you assign more specific icons for rail stations that are part of specific local or regional transit systems. They don't necessarily correspond to a specific network - eg `de-u-bahn` applies to any U-Bahn network in Germany since these can all use the same icon in a map style. Some stations serve multiple networks; in these cases, multiple network names are joined with a dot (in alphabetical order).
+The `network` field lets you assign more specific icons for rail stations that are part of specific local or regional transit systems. They don't necessarily correspond to a specific network - for example `de-u-bahn` applies to any U-Bahn network in Germany since these can all use the same icon in a map style. Some stations serve multiple networks; in these cases, multiple network names are joined with a dot (in alphabetical order).
 
 If none of the specific networks below apply to a station, the `network` value will be the same as the `maki` value (see previous section).
 
@@ -1071,7 +1071,7 @@ This layer includes all types of water bodies: oceans, rivers, lakes, ponds, res
 
 It is a simple polygon layer with no differentiating types or classes, and consists of a single merged shape per tile. This allows for seamless stroke and transparency styling, but means there is no way to filter out or highlight specific water bodies or a partial subset of them.
 
-Each zoom level includes a set of water bodies that has been filtered and simplified according to scale. Only oceans, seas, and very large lakes are shown at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
+Each zoom level includes a set of water bodies that has been filtered and simplified according to scale. The tileset shows only oceans, seas, and large lakes at the lowest zoom levels, while smaller and smaller lakes and ponds appear as you zoom in.
 
 
 <!-- WATERWAY ---------------------------------------------------------->
@@ -1080,7 +1080,7 @@ Each zoom level includes a set of water bodies that has been filtered and simpli
 
 {{ <LayerInfo type={["line"]} buffer={4} /> }}
 
-The waterway layer contains classes for rivers, streams, canals, etc represented as lines. These classes can represent a wide variety of possible widths. It's best to have your line stying biased toward the smaller end of the scales since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer. Also works best under `#water` layer.
+The waterway layer contains classes for rivers, streams, canals, etc represented as lines. These classes can represent a wide variety of possible widths. Since larger rivers and canals are usually also represented by polygons in the [#water](#water) layer, make your line styling biased toward the smaller end of the scales. It should also be under the `#water` layer.
 
 #### <!--waterway--> `class` _text_ & `type` _text_
 
@@ -1113,7 +1113,7 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
   - `state_label` - data moved to [`place_label`](#place_label)
   - `water_label` - data moved to new layer [`natural_label`](#natural_label)
   - `waterway_label` - data moved to new layer [`natural_label`](#natural_label)
-- New ranking fields fields for label layers:
+- New ranking fields for label layers:
   - [`sizerank`](#sizerank)
   - [`filterrank`](#sizerank)
   - [`symbolrank`](#--place_label---symbolrank) (`place_label` layer)
@@ -1134,27 +1134,27 @@ The layers and properties in Mapbox Streets v8 have undergone a major reorganiza
     - `iso_3166_1`: indicates the 2-letter country/territory code of the place or the country that the place is within.
     - `symbolrank` and `filterrank`: see description in table
     - `text_anchor` - replaces `ldir`
-  - Added support for OSM `place=quarter`
+  - Added support for OpenStreetMap `place=quarter`
   - Several feature types have moved to either `poi_label` or `natural_label`
 - [`poi_label`](#poi_label) layer:
   - New fields:
-    - `category_en` / `category_zh-Hans`: contains POI category description for text display in English / simplified Chinese 
+    - `category_en` / `category_zh-Hans`: contains POI category description for text display in English / simplified Chinese
     - `class`: contains broad categories useful for filtering & symbol styling
     - `filterrank`: see description in table
-  - Many new `maki` values 
+  - Many new `maki` values
   - Many new feature types added
 - [`road`](#road) layer:
-  - New fields: 
+  - New fields:
     - Fields from former `road_label` layer: names, `ref`, `reflen`, `len`, `shield`, `iso_3166_2`
     - `toll`: `true` for toll roads and not present / null for all other roads.
-    - `surface`: indicates either `paved` or `unpaved` where this data is available from OSM.
+    - `surface`: indicates either `paved` or `unpaved` where this data is available from OpenStreetMap.
     - `bike_lane`: indicates presence and location of a bike lane that is part of the road itself (as opposed to a separated bike lane).
-  - New class values: 
-    - `service_rail` - includes service tracks such as sidings or yard rails. These were previously included in the `minor_rail` class.
+  - New class values:
+    - `service_rail` - includes service tracks such as sidings or yard rails. These were included in the `minor_rail` class.
     - `link` has been removed and broken out into `trunk_link`, `primary_link`, `secondary_link`, `tertiary_link`
   - Previous `road_label` layer is now merged into `road` layer, with all label fields included: `len`, `ref`, `reflen`, and `shield`.
 - [`transit_stop_label`](#transit_stop_label) layer:
-  - Replaces the `railway_station_label` layer from v7 and includes some new features such as bus stops (new), ferry terminals, and bikeshare stations (previously in the `poi_label` layer).
+  - Replaces the `railway_station_label` layer from v7 and includes some new features such as bus stops (new), ferry terminals, and bikeshare stations (originally in the `poi_label` layer).
   - New fields:
     - `mode`: provides more detail about the particular mode of transport served by a stop/station
     - `stop_type`: value is one of: `stop`, `station`, `entrance`
